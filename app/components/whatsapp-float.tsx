@@ -1,0 +1,47 @@
+"use client";
+
+import { useState } from "react";
+import { IoClose } from "react-icons/io5";
+
+const WHATSAPP_URL = "https://api.whatsapp.com/send?text=Hola%20Appending";
+
+export default function WhatsAppFloat() {
+  const [showLabel, setShowLabel] = useState(true);
+
+  return (
+    <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+      {showLabel ? (
+        <div className="flex justify-center items-center max-w-[16rem] gap-1 rounded-[1.25rem] border border-[#8052DD]/18 bg-[#0b011d] p-2 text-right shadow-[0_16px_40px_rgba(0,0,0,0.36)] backdrop-blur-xl animate-bounce">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#c6acfb] pl-2 pt-0.5">
+          Contáctanos.
+          </p>
+          <button
+            type="button"
+            aria-label="Cerrar letrero de WhatsApp"
+            onClick={() => setShowLabel(false)}
+            className="mt-0.5 shrink-0 text-[0.65rem] uppercase tracking-[0.24em] text-white/42 transition hover:text-white/72 rounded-full p-0.5 border border-red-300 cursor-pointer"
+          >
+            <IoClose className="text-red-300" size={12} />
+          </button>
+        </div>
+      ) : null}
+
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Contactar por WhatsApp"
+        className="flex h-12 w-12 items-center justify-center rounded-full border border-[#0bdc12]/20 bg-black/80 text-[#0bdc12] shadow-green-700 backdrop-blur-xl transition hover:border-green-700/40 hover:bg-[#0b0b12] sm:h-14 sm:w-14"
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          className="h-5 w-5 sm:h-6 sm:w-6"
+          fill="currentColor"
+        >
+          <path d="M19.11 4.89A9.93 9.93 0 0 0 12.03 2C6.5 2 2 6.5 2 12.03c0 1.77.46 3.49 1.33 5.01L2 22l5.09-1.31a10 10 0 0 0 4.94 1.27h.01c5.53 0 10.03-4.5 10.03-10.03a9.96 9.96 0 0 0-2.96-7.04Zm-7.08 15.38h-.01a8.3 8.3 0 0 1-4.23-1.16l-.3-.18-3.02.78.81-2.94-.2-.31A8.28 8.28 0 0 1 3.73 12c0-4.57 3.72-8.29 8.3-8.29 2.21 0 4.29.86 5.85 2.43A8.22 8.22 0 0 1 20.3 12c0 4.57-3.71 8.28-8.27 8.28Zm4.54-6.18c-.25-.12-1.49-.73-1.72-.81-.23-.09-.4-.12-.57.12-.17.25-.65.81-.79.98-.15.17-.3.19-.55.06-.25-.12-1.07-.39-2.03-1.25-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.15.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.57-1.36-.78-1.86-.21-.5-.42-.43-.57-.44h-.49c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.09s.9 2.43 1.02 2.6c.13.17 1.78 2.72 4.31 3.81.6.26 1.08.41 1.45.52.61.19 1.16.16 1.59.1.49-.07 1.49-.61 1.7-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.16-.48-.28Z" />
+        </svg>
+      </a>
+    </div>
+  );
+}
