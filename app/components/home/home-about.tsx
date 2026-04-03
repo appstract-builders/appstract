@@ -4,19 +4,19 @@ import { motion } from "framer-motion";
 
 const aboutPoints = [
   {
-    title: "Diseno con identidad",
+    title: "Contrata tu paquete",
     description:
-      "Construimos una presencia digital que se siente propia, cuidando estructura, tono y ritmo visual.",
+      "Construyamos un sitio web a tu medida, el diseño de tu marca es el punto de partida, no el limite. Elige el paquete que se adapte a tus necesidades y presupuesto. ¡Mejora tu sitio en cualquier momento!",
   },
   {
-    title: "Desarrollo ad hoc",
+    title: "Asesoramiento personalizado",
     description:
-      "Cada sitio se adapta al flujo real de tu negocio, sin plantillas rigidas ni secciones de relleno.",
+      "Nos aseguraremos de que tu sitio web refleje la esencia de tu marca y cumpla con tus objetivos. Nuestro equipo de expertos te guiará en cada paso del proceso, desde el diseño hasta la implementación.",
   },
   {
     title: "Escala con IMIN",
     description:
-      "Despues del lanzamiento puedes seguir editando textos, imagenes y contenido sin friccion.",
+      "Despues del lanzamiento puedes seguir editando textos, imagenes y contenido sin friccion, escalar tu sitio web nunca fue tan facil.",
   },
 ];
 
@@ -36,41 +36,39 @@ export default function HomeAbout() {
       <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,11,25,0.92),rgba(5,8,19,0.94))] shadow-[0_24px_90px_rgba(2,8,23,0.28)]">
         <div className="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div>
-            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
-              About
+            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]">
+              Appending
             </p>
             <h2 className="mt-4 max-w-[12ch] text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-              Appending desarrolla sitios que si parecen tuyos.
+              Somos tu Destino Digital.
             </h2>
             <p className="mt-6 max-w-2xl text-sm leading-7 tracking-[0.04em] text-white/72 sm:text-base">
-              El objetivo no es solo lanzar una pagina. Diseñamos un sistema
-              visual claro, con narrativa, estructura comercial y una base que
-              luego puedas operar con IMIN para mantener tu contenido vivo.
+              Enfoque en el pequeño detalle, impacto en el resultado. Sitios web a tu medida, sin complicaciones ni plantillas predefinidas. Diseñamos y construimos tu presencia digital con identidad propia, cuidando cada aspecto para que refleje la esencia de tu marca.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               <div className="rounded-[1.6rem] border border-[#8052DD]/16 bg-[#8052DD]/[0.06] px-4 py-4">
                 <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#bda7ff]">
-                  Focus
+                  Enfoque
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
-                  Branding
+                  Crecer tu marca y acompañarte en el vuelo.
                 </p>
               </div>
               <div className="rounded-[1.6rem] border border-cyan-300/14 bg-cyan-300/[0.05] px-4 py-4">
                 <p className="text-[0.62rem] uppercase tracking-[0.38em] text-cyan-100/70">
-                  Build
+                  Creación
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
-                  Product
+                  Productos digitales que tienen intención.
                 </p>
               </div>
               <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.035] px-4 py-4">
                 <p className="text-[0.62rem] uppercase tracking-[0.38em] text-white/45">
-                  Outcome
+                  Presencia
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
-                  Presence
+                  Obten crecimiento y resultados reales.
                 </p>
               </div>
             </div>
@@ -90,8 +88,8 @@ export default function HomeAbout() {
                 }}
                 className="rounded-[1.75rem] border border-white/10 bg-white/[0.035] px-5 py-5 backdrop-blur-sm"
               >
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#8052DD]/68">
-                  0{index + 1}
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#cfbef2]">
+                  {index + 1}
                 </p>
                 <h3 className="mt-3 text-xl font-light tracking-[0.08em] text-white">
                   {point.title}

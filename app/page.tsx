@@ -3,6 +3,7 @@
 import {
   AnimatePresence,
   motion,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -22,42 +23,18 @@ const LOADER_DURATION_MS = 4400;
 
 const bottomCards = [
   {
-    label: "Loader",
-    value: "Only on home",
+    label: "Crea Tu Entorno",
+    value: "Muestra tus ideas en tu sito web, sin necesidad de instalaciones extra.",
   },
   {
-    label: "Wrapper",
-    value: "Magnetic filings field",
+    label: "Escala tu proyecto",
+    value: "Puedes escalar tu proyecto y actualizarlo cuando quieras con nosotros.",
   },
   {
-    label: "Navbar",
-    value: "Appears on scroll",
+    label: "Modifica tu proyecto",
+    value: "con IMIN puedes modificar y actualizar tu proyecto, en cualquier momento.",
   },
 ];
-
-const cardVariants = {
-  hidden: (index: number) => ({
-    opacity: 0,
-    y: 90,
-    x: index === 0 ? -70 : index === 2 ? 70 : 0,
-    rotate: index === 0 ? -8 : index === 2 ? 8 : -2,
-    scale: 0.88,
-    filter: "blur(14px)",
-  }),
-  visible: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    x: 0,
-    rotate: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.75,
-      delay: index * 0.12,
-      ease: [0.18, 1, 0.3, 1] as const,
-    },
-  }),
-};
 
 function HomeHeroSection() {
   const { scrollY } = useScroll();
@@ -74,7 +51,7 @@ function HomeHeroSection() {
 
   return (
     <motion.section
-      className="relative isolate flex min-h-screen w-full items-center justify-center overflow-hidden"
+      className="app-min-h-screen relative isolate flex w-full items-center justify-center overflow-hidden"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -94,7 +71,7 @@ function HomeHeroSection() {
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex min-h-screen items-center justify-center px-6"
+        className="app-min-h-screen pointer-events-none absolute inset-x-0 top-0 z-0 flex items-center justify-center px-6"
       >
         <motion.div
           style={{
@@ -105,20 +82,21 @@ function HomeHeroSection() {
         >
           <Brand
             size="lg"
-            className="scale-[1.08] opacity-[0.32] sm:scale-[1.16] lg:scale-[1.35]"
-            planeClassName="drop-shadow-[0_0_34px_rgba(128,82,221,0.22)]"
-            textClassName="text-[#A487FF]"
+            className="scale-[0.9] sm:scale-[0.98] lg:scale-[1.12]"
+            planeClassName="drop-shadow-[0_0_38px_rgba(128,82,221,0.3)]"
+            textClassName="text-[#B29BFF]"
           />
         </motion.div>
       </motion.div>
 
-      <div className="flex min-h-screen w-full items-center justify-center" />
+      <div className="app-min-h-screen flex w-full items-center justify-center" />
     </motion.section>
   );
 }
 
 export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
@@ -133,7 +111,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#020611] text-white">
+    <div className="app-min-h-screen relative overflow-hidden bg-[#020611] text-white">
       <AnimatePresence>{showLoader ? <Loader key="loader" /> : null}</AnimatePresence>
 
       {!showLoader ? (
@@ -150,11 +128,24 @@ export default function Home() {
               {bottomCards.map((card, index) => (
                 <motion.div
                   key={card.label}
-                  custom={index}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ amount: 0.5 }}
+                  initial={{
+                    opacity: 0,
+                    y: shouldReduceMotion ? 0 : 20,
+                    scale: shouldReduceMotion ? 1 : 0.985,
+                    filter: shouldReduceMotion ? "blur(0px)" : "blur(8px)",
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: "blur(0px)",
+                  }}
+                  viewport={{ amount: 0.35, once: true }}
+                  transition={{
+                    duration: shouldReduceMotion ? 0.2 : 0.5,
+                    delay: shouldReduceMotion ? 0 : index * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="rounded-[1.75rem] border border-white/10 bg-white/4.5 px-5 py-5 text-left backdrop-blur-sm"
                 >
                   <div className="text-[0.62rem] uppercase tracking-[0.42em] text-cyan-100/60">

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020611;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -12,16 +12,23 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+.app-min-h-screen {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.app-min-h-screen-nav-offset {
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100svh - 5rem);
 }
 
 @keyframes home-text-marquee-forward {

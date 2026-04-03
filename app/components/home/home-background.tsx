@@ -187,7 +187,7 @@ function catmullRomPath(points: Point[], tension = 0.78) {
 function createWaveModel(wave: WaveConfig, isMobile: boolean): WaveModel {
   const random = createSeededRandom(wave.seed);
   const xPoints = isMobile
-    ? [-120, 420, 960, 1500, 1680]
+    ? [-120, 600, 1260, 1680]
     : [-120, 180, 480, 780, 1080, 1380, 1680];
   const nodes = xPoints.map((x, index) => ({
     x,
@@ -198,7 +198,7 @@ function createWaveModel(wave: WaveConfig, isMobile: boolean): WaveModel {
     speed: 0.92 + random() * 0.52,
     secondarySpeed: 0.8 + random() * 0.32,
     frequency: isMobile
-      ? 0.2 + index * 0.018 + random() * 0.02
+      ? 0.12 + index * 0.012 + random() * 0.014
       : 0.34 + index * 0.03 + random() * 0.035,
   }));
 
@@ -320,7 +320,7 @@ export default function HomeBackground() {
               strokeWidth={wave.width + 1.5}
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
-              opacity={0.52}
+              opacity={0.32}
             />
 
             <path
@@ -333,7 +333,7 @@ export default function HomeBackground() {
               strokeWidth={wave.width * 4.2}
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
-              opacity={shouldReduceMotion ? wave.opacity * 0.14 : wave.opacity * 0.24}
+              opacity={shouldReduceMotion ? wave.opacity * 0.09 : wave.opacity * 0.15}
               style={{ filter: "url(#wave-soft-glow)" }}
             />
 
@@ -347,7 +347,7 @@ export default function HomeBackground() {
               strokeWidth={wave.width}
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
-              opacity={wave.opacity}
+              opacity={wave.opacity * 0.7}
             />
           </g>
         ))}

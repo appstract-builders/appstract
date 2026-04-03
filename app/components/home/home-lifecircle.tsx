@@ -5,25 +5,25 @@ import { motion } from "framer-motion";
 const processSteps = [
   {
     step: "1",
-    title: "Obtener requerimientos e historias de usuario",
+    title: "Definicion de necesidades",
     description:
       "Aterrizamos necesidades, objetivos y comportamiento esperado del sitio antes de diseñar cualquier pantalla.",
   },
   {
     step: "2",
-    title: "Obtener multimedia, colores, imagenes y textos",
+    title: "Identidad digital y diseño",
     description:
-      "Reunimos la materia visual y narrativa para que la presencia digital tenga identidad y consistencia real.",
+      "Reunimos toda la materia visual y narrativa para que la presencia digital tenga identidad y consistencia como tu marca.",
   },
   {
     step: "3",
-    title: "Desarrollo especializado a las necesidades del cliente",
+    title: "Soluciones satisfactorias",
     description:
-      "Construimos una solucion ad hoc, cuidando jerarquia visual, interaccion y estructura comercial.",
+      "Cuidamos la experiencia comercial de tu sitio, asegurando que cubra tus necesidades y las de tus clientes, sin complicaciones ni fricciones innecesarias.",
   },
   {
     step: "4",
-    title: "Mantenimiento y sesiones de consulta para dudas",
+    title: "Mantenimiento y soporte",
     description:
       "Despues del lanzamiento acompañamos el sitio con soporte, sesiones de seguimiento y claridad operativa.",
   },
@@ -43,14 +43,13 @@ export default function HomeLifecircle() {
     >
       <div className="max-w-3xl">
         <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
-          Lifecycle
+          Ciclo de vida.
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-          Los 4 pasos que seguimos para crear sitios web.
+          Crecemos contigo.
         </h2>
         <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
-          Este es el flujo base con el que organizamos cada proyecto, desde
-          descubrimiento hasta mantenimiento posterior al lanzamiento.
+          Nuestro flujo de trabajo te acompaña en cada etapa, desde el diseño inicial hasta el mantenimiento continuo. Nos aseguramos de que tu sitio web evolucione contigo, adaptándose a tus necesidades y objetivos a medida que creces.
         </p>
       </div>
 
@@ -92,10 +91,10 @@ export default function HomeLifecircle() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#8052DD]/22 bg-[#0b1120] text-[0.62rem] uppercase tracking-[0.16em] text-[#d7caff] shadow-[0_10px_30px_rgba(128,82,221,0.18)] sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#8052DD]/22 bg-[#010b22] text-[0.62rem] uppercase tracking-[0.16em] text-[#d7caff] shadow-[0_10px_30px_rgba(128,82,221,0.18)] sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10 pt-1">
                       {step.step}
                     </div>
-                    <h6 className="mt-3 text-2xl font-light tracking-[0.08em] text-white">
+                    <h6 className="text-2xl font-light tracking-[0.08em] text-white">
                       {step.title}
                     </h6>
                   </div>

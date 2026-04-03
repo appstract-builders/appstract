@@ -5,11 +5,11 @@ import { useState } from "react";
 import Brand from "../brand";
 
 const sharedIncludes = [
-  "Introduccion de la persona | empresa (Home)",
-  "Informacion relevante. (About | About me)",
-  "Formulario de contacto. (Contact)",
-  "Productos que se manejan. (Products)",
-  "Redes sociales (Footer)",
+  "Introduccion - Home",
+  "Informacion relevante - About",
+  "Formulario de contacto - Contact",
+  "Productos relevantes - Products",
+  "Redes sociales - Footer",
 ];
 
 const tiers = [
@@ -27,7 +27,7 @@ const tiers = [
     price: "$28,000 MXN",
     accent:
       "border-[#8052DD]/18 bg-[linear-gradient(180deg,rgba(15,16,32,0.92),rgba(8,10,22,0.86))]",
-    extras: ["1 Extra"],
+    extras: ["1 Extra *"],
   },
   {
     id: "premium",
@@ -36,7 +36,7 @@ const tiers = [
     accent:
       "border-[#8052DD]/18 bg-[linear-gradient(180deg,rgba(15,16,32,0.92),rgba(8,10,22,0.86))]",
     extras: [
-      "3 Extras",
+      "3 Extras *",
       "3 meses de IMIN gratuitos",
       "3 consultas personalizadas gratuitas",
     ],
@@ -88,7 +88,7 @@ export default function HomeDevelop() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-xs uppercase tracking-[0.42em] text-[#8052DD]/65">
-                      Tier
+                      Paquete
                     </p>
                     <h3 className="mt-3 text-2xl font-light tracking-[0.08em] text-white">
                       {tier.name}
@@ -99,15 +99,17 @@ export default function HomeDevelop() {
                   </div>
 
                   {isSelected ? (
-                    <div className="rounded-full border border-[#8052DD]/30 bg-[#8052DD]/12 px-3 py-1 text-[0.62rem] uppercase tracking-[0.3em] text-[#c3afff]">
-                      Featured
+                    <div className="flex justify-center items-center">
+                      <span className="rounded-full border border-[#8052DD]/30 bg-[#1b024b] p-1 text-[0.62rem] uppercase tracking-[0.3em] text-[#c3afff]">
+                        Seleccionado
+                      </span>
                     </div>
                   ) : null}
                 </div>
 
                 <div className="mt-6 rounded-3xl border border-[#8052DD]/12 bg-black/10 p-4">
                   <p className="text-[0.65rem] uppercase tracking-[0.36em] text-white/45">
-                    Price
+                    Precio
                   </p>
                   <p className="mt-3 text-3xl font-light tracking-[0.08em] text-[#8052DD]">
                     {tier.price}
@@ -122,7 +124,7 @@ export default function HomeDevelop() {
                     {sharedIncludes.map((item) => (
                       <div
                         key={item}
-                        className="rounded-2xl border border-white/6 bg-white/[0.03] px-4 py-3 text-sm leading-6 text-white/82"
+                        className="rounded-2xl border border-white/6 bg-white/3 px-4 py-3 text-sm leading-6 text-white/82"
                       >
                         {item}
                       </div>
@@ -131,9 +133,9 @@ export default function HomeDevelop() {
                 </div>
 
                 {tier.extras ? (
-                  <div className="mt-5 rounded-3xl border border-dashed border-[#8052DD]/20 bg-[#8052DD]/[0.05] px-4 py-4">
+                  <div className="mt-5 rounded-3xl border border-dashed border-[#8052DD]/20 bg-[#8052DD]/5 px-4 py-4">
                     <p className="text-[0.65rem] uppercase tracking-[0.36em] text-white/45">
-                      Extras
+                      Además el paquete incluye:
                     </p>
                     <div className="mt-3 grid gap-2">
                       {tier.extras.map((extra) => (

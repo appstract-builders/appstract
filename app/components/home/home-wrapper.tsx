@@ -8,8 +8,8 @@ type HomeWrapperProps = {
 
 export default function HomeWrapper({ children }: HomeWrapperProps) {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-      <main className="relative z-10 flex min-h-screen w-full flex-col items-center">
+    <div className="app-min-h-screen relative w-full overflow-hidden">
+      <main className="app-min-h-screen relative z-10 flex w-full flex-col items-center">
         {children}
       </main>
     </div>

@@ -41,7 +41,7 @@ export default function RootLayout({
       lang="es"
       className={`${comfortaa.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className={`${comfortaa.className} min-h-full flex flex-col font-sans`}>
+      <body className={`${comfortaa.className} min-h-full flex flex-col bg-[#020611] text-[#ededed] font-sans`}>
         <Navbar />
         <WhatsAppFloat />
         <PageTransition>{children}</PageTransition>

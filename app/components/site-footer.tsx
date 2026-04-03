@@ -5,6 +5,8 @@ const footerLinks = [
   { label: "IMIN", href: "/imin" },
   { label: "ABOUT", href: "/about" },
   { label: "TESTIMONIAL", href: "/products#testimonial" },
+  { label: "CUENTA", href: "/account" },
+  { label: "AVISO DE PRIVACIDAD", href: "/privacy-policy" },
 ];
 
 export default function SiteFooter() {
@@ -15,9 +17,7 @@ export default function SiteFooter() {
           <div className="space-y-4">
             <Brand size="sm" />
             <p className="max-w-md text-sm leading-7 tracking-[0.04em] text-white/58">
-              Desarrollo web con identidad, estructura clara y una presencia
-              digital sobria para marcas que quieren verse serias desde el
-              primer scroll.
+              TECH BUILDERS.
             </p>
           </div>
 
@@ -26,7 +26,7 @@ export default function SiteFooter() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#8052DD] transition-opacity hover:opacity-75"
+                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#c9b1f9] transition-opacity hover:opacity-75"
               >
                 {link.label}
               </a>
@@ -35,8 +35,8 @@ export default function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-white/6 pt-5 text-[0.68rem] uppercase tracking-[0.28em] text-white/34 sm:flex-row sm:items-center sm:justify-between">
-          <p>Appending</p>
-          <p>Built for products, brands and digital presence.</p>
+          <p>Precencia Digital.</p>
+          <p>Consulta nuestro aviso de privacidad para obtener más información sobre cómo recopilamos y utilizamos tu información personal.</p>
         </div>
       </div>
     </footer>
