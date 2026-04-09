@@ -42,7 +42,7 @@ export default function HomeLifecircle() {
       className="w-full max-w-6xl px-4 pb-20 pt-10 sm:px-0"
     >
       <div className="max-w-3xl">
-        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
+        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]/72">
           Ciclo de vida.
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
@@ -54,7 +54,7 @@ export default function HomeLifecircle() {
       </div>
 
       <div className="relative mt-10">
-        <div className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-[#8052DD]/70 via-cyan-300/28 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
+        <div className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-[#FF8904]/70 via-cyan-300/28 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
 
         <div className="grid gap-6">
           {processSteps.map((step, index) => {
@@ -91,7 +91,7 @@ export default function HomeLifecircle() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#8052DD]/22 bg-[#010b22] text-[0.62rem] uppercase tracking-[0.16em] text-[#d7caff] shadow-[0_10px_30px_rgba(128,82,221,0.18)] sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10 pt-1">
+                    <div className="flex h-8 w-8 min-h-8 min-w-8 shrink-0 aspect-square items-center justify-center rounded-full border border-[#FF8904]/22 bg-[#1f1d19]/10 text-[0.62rem] uppercase tracking-[0.16em] text-[#ffe9ca] shadow-slate-300 sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10 sm:min-h-10 sm:min-w-10 pt-1">
                       {step.step}
                     </div>
                     <h6 className="text-2xl font-light tracking-[0.08em] text-white">

@@ -4,12 +4,8 @@ import {
   AnimatePresence,
   motion,
   useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
 } from "framer-motion";
 import { startTransition, useEffect, useState } from "react";
-import Brand from "./components/brand";
 import HomeAbout from "./components/home/home-about";
 import HomeBackground from "./components/home/home-background";
 import HomeDevelop from "./components/home/home-develop";
@@ -37,18 +33,6 @@ const bottomCards = [
 ];
 
 function HomeHeroSection() {
-  const { scrollY } = useScroll();
-  const brandOpacity = useSpring(useTransform(scrollY, [0, 36, 120], [1, 1, 0]), {
-    stiffness: 150,
-    damping: 30,
-    mass: 0.7,
-  });
-  const brandY = useSpring(useTransform(scrollY, [0, 120], [0, -24]), {
-    stiffness: 150,
-    damping: 30,
-    mass: 0.7,
-  });
-
   return (
     <motion.section
       className="app-min-h-screen relative isolate flex w-full items-center justify-center overflow-hidden"
@@ -63,31 +47,6 @@ function HomeHeroSection() {
       <div className="pointer-events-none absolute inset-0">
         <HomeBackground />
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 28, scale: 0.94, filter: "blur(16px)" }}
-        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="app-min-h-screen pointer-events-none absolute inset-x-0 top-0 z-0 flex items-center justify-center px-6"
-      >
-        <motion.div
-          style={{
-            opacity: brandOpacity,
-            y: brandY,
-            willChange: "transform, opacity",
-          }}
-        >
-          <Brand
-            size="lg"
-            className="scale-[0.9] sm:scale-[0.98] lg:scale-[1.12]"
-            planeClassName="drop-shadow-[0_0_38px_rgba(128,82,221,0.3)]"
-            textClassName="text-[#B29BFF]"
-          />
-        </motion.div>
-      </motion.div>
 
       <div className="app-min-h-screen flex w-full items-center justify-center" />
     </motion.section>
@@ -115,7 +74,7 @@ export default function Home() {
       <AnimatePresence>{showLoader ? <Loader key="loader" /> : null}</AnimatePresence>
 
       {!showLoader ? (
-        <div className="relative z-10 flex w-full flex-col items-center">
+        <div className="relative z-10 flex w-full flex-col items-center sm:px-5">
           <HomeWrapper>
             <HomeHeroSection />
           </HomeWrapper>

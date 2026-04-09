@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 const WHATSAPP_PHONE = "5512879683";
-const WHATSAPP_MESSAGE = "Buenas tardes, Appending, quisiera conocer mas sobre sus productos.";
+const WHATSAPP_MESSAGE = "Buenas tardes, appstract, quisiera conocer mas sobre sus productos.";
 const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const HOME_LOADER_DURATION_MS = 4400;
 
@@ -38,8 +38,8 @@ export default function WhatsAppFloat() {
   return (
     <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {showLabel ? (
-        <div className="flex justify-center items-center max-w-[16rem] gap-1 rounded-[1.25rem] border border-[#8052DD]/18 bg-[#0b011d] p-2 text-right shadow-[0_16px_40px_rgba(0,0,0,0.36)] backdrop-blur-xl animate-bounce">
-          <p className="text-xs uppercase tracking-[0.18em] text-[#c6acfb] pl-2 pt-0.5">
+        <div className="flex justify-center items-center max-w-[16rem] gap-1 rounded-[1.25rem] border border-[#FF8904]/18 bg-[#27251d] p-2 text-right shadow-[0_16px_40px_rgba(0,0,0,0.36)] backdrop-blur-xl animate-bounce">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#e8daa5] pl-2 pt-0.5">
           Contáctanos.
           </p>
           <button

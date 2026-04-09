@@ -9,7 +9,7 @@ const tutorialSteps = [
     title: "Actualiza titulares y mensajes clave.",
     description:
       "IMIN permite modificar el copy principal para adaptar la oferta o la temporada sin rehacer la página.",
-    accent: "bg-[#8052DD]/14 text-[#d4c6ff]",
+    accent: "bg-[#FF8904]/14 text-[#d4c6ff]",
   },
   {
     step: "02",
@@ -31,7 +31,7 @@ const tutorialSteps = [
 
 export default function IminTutorial() {
   return (
-    <section className="w-full max-w-6xl px-4 pb-16 pt-6 sm:px-0 sm:pb-20">
+    <section className="w-full max-w-6xl px-4 pb-16 sm:px-0 sm:pb-20 pt-20">
       <div className="mb-8 max-w-3xl">
         <p className="text-[0.68rem] uppercase tracking-[0.42em] text-[#bca8ff]">
           IMIN Tutorial
@@ -90,7 +90,7 @@ export default function IminTutorial() {
                     className="rounded-[1rem] bg-white/[0.06] p-3"
                   >
                     <div className="h-2.5 w-14 rounded-full bg-white/16" />
-                    <div className="mt-3 h-8 rounded-[0.8rem] bg-[#8052DD]/20" />
+                    <div className="mt-3 h-8 rounded-[0.8rem] bg-[#FF8904]/20" />
                   </motion.div>
                   <motion.div
                     animate={{ scale: [1, 1.05, 1] }}

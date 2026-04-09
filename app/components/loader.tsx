@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Brand from "./brand";
 
-const tailLetters = Array.from("ppending");
+const tailLetters = Array.from("appstract");
 
 const containerVariants: Variants = {
   hidden: {},
@@ -93,9 +93,9 @@ export default function Loader() {
           </motion.div>
         </div>
 
-        <div className="h-px w-44 overflow-hidden rounded-full bg-white/10 sm:w-56">
+        <div className="h-px max-w-72 overflow-hidden rounded-full bg-white/10 sm:w-62">
           <motion.div
-            className="h-full w-1/2 bg-linear-to-r from-transparent via-cyan-300 to-fuchsia-300"
+            className="h-full w-1/2 bg-linear-to-r from-transparent via-slate-300 to-orange-300"
             initial={{ x: "-100%" }}
             animate={{ x: "200%" }}
             transition={{

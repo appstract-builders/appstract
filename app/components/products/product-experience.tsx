@@ -2,27 +2,47 @@
 
 import { motion } from "framer-motion";
 
+const LAKE_SPORT_LOGO =
+  "https://lakesport-media.s3.amazonaws.com/media/logo_sf.png";
+const LAKE_SPORT_URL = "https://www.lakesportclub.com.mx/";
+const REFAUTOMEX_LOGO =
+  "https://refautomex.s3.amazonaws.com/refautomex.svg";
+const REFAUTOMEX_URL = "https://www.refautomex.com/";
+const PULSETY_LOGO =
+  "https://pulsety.s3.us-east-1.amazonaws.com/pulsety.png";
+const PULSETY_URL = "https://www.pulsety.com/";
+
+
 const prototypeSites = [
   {
-    name: "Studio Landing",
-    type: "Brand Website",
+    name: "Lake Sport Club",
+    type: "Club Deportivo Integral",
     description:
-      "Una landing editorial para servicios creativos, con narrativa clara, CTA comercial y una identidad sobria.",
-    accent: "from-[#8052DD]/24 via-transparent to-cyan-300/12",
+      "Con clases de salón, gimnasio y alberca que brinda a sus clientes la mejor experiencia.",
+    accent: "from-[#FF8904]/24 via-transparent to-cyan-300/12",
+    logoSrc: LAKE_SPORT_LOGO,
+    logoAlt: "Lake Sport Club logo",
+    href: LAKE_SPORT_URL,
   },
   {
-    name: "Wellness Profile",
-    type: "Personal Site",
+    name: "Refautomex",
+    type: "Refaccionaria de Autopartes",
     description:
-      "Un sitio de presentacion para marca personal con servicios, about, contacto y una capa visual flexible.",
-    accent: "from-cyan-300/18 via-transparent to-[#8052DD]/16",
+      "E-commerce con un catalogo de productos automotrices, dando una excelencia en autopartes al consumidor.",
+    accent: "from-cyan-300/18 via-transparent to-[#FF8904]/16",
+    logoSrc: REFAUTOMEX_LOGO,
+    logoAlt: "Lake Sport Club logo",
+    href: REFAUTOMEX_URL,
   },
   {
-    name: "Product Showcase",
-    type: "Catalog Website",
+    name: "Pulsety",
+    type: "Equipo Médico Profesional",
     description:
-      "Un prototipo orientado a negocio que organiza productos, mensajes clave y puntos de contacto sin ruido.",
-    accent: "from-fuchsia-300/16 via-transparent to-[#8052DD]/18",
+      "E-commerce dedicado a la venta de equipo médico profesional, ofrecen innovación, calidad y servicio.",
+    accent: "from-fuchsia-300/16 via-transparent to-[#FF8904]/18",
+    logoSrc: PULSETY_LOGO,
+    logoAlt: "Lake Sport Club logo",
+    href: PULSETY_URL,
   },
 ];
 
@@ -30,16 +50,14 @@ export default function ProductExperience() {
   return (
     <section className="w-full max-w-6xl px-4 pb-20 pt-6 sm:px-0 sm:pb-24">
       <div className="mb-8 max-w-3xl">
-        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
-          Product Experience
+        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#ffc404]">
+          Conoce appstract en acción
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-          Sitios web prototipo que respaldan la experiencia.
+          Sitios web que nos respaldan
         </h2>
         <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
-          Estos prototipos representan la forma en la que estructuramos una
-          presencia digital: claridad comercial, ritmo visual y una base lista
-          para crecer con el producto o con IMIN.
+          Mira los diseños de sitios que nuestros clientes han lanzado con appstract, cada uno con su propia identidad y propósito:
         </p>
       </div>
 
@@ -55,10 +73,10 @@ export default function ProductExperience() {
               delay: index * 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(8,12,24,0.96),rgba(4,7,16,0.98))] shadow-[0_20px_80px_rgba(2,8,23,0.24)]"
+            className="overflow-hidden rounded-4xl border border-white/10 bg-[linear-gradient(180deg,rgba(8,12,24,0.96),rgba(4,7,16,0.98))] shadow-[0_20px_80px_rgba(2,8,23,0.24)]"
           >
-            <div className={`h-52 bg-gradient-to-br ${site.accent} p-4`}>
-              <div className="h-full rounded-[1.5rem] border border-white/8 bg-[linear-gradient(180deg,rgba(10,14,28,0.98),rgba(5,8,18,1))] p-4">
+            <div className={`h-52 bg-linear-to-br ${site.accent} p-4`}>
+              <div className="h-full rounded-3xl border border-white/8 bg-[linear-gradient(180deg,rgba(10,14,28,0.98),rgba(5,8,18,1))] p-4">
                 <div className="mb-3 flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff7f96]/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ffd76a]/80" />
@@ -66,12 +84,45 @@ export default function ProductExperience() {
                 </div>
                 <div className="space-y-3">
                   <div className="h-3 w-24 rounded-full bg-white/14" />
-                  <div className="h-8 rounded-[0.8rem] bg-white/[0.06]" />
+                  <div className="h-8 rounded-[0.8rem] bg-white/6" />
                   <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
-                    <div className="h-24 rounded-[1rem] bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.24),transparent_34%),linear-gradient(180deg,rgba(11,17,34,0.96),rgba(7,11,24,0.98))]" />
+                    <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.24),transparent_34%),linear-gradient(180deg,rgba(11,17,34,0.96),rgba(7,11,24,0.98))]">
+                      <div className="absolute inset-0 bg-white/90" />
+                      <div className="absolute inset-x-3 top-3 h-4 rounded-full bg-white/8" />
+                      <div className="absolute left-3 top-10 h-8 w-[58%] rounded-[0.9rem] border border-white/8 bg-white/5" />
+                      <div className="absolute bottom-3 left-3 h-7 w-12 rounded-[0.9rem] bg-white/6" />
+                      <div className="absolute bottom-3 right-3 h-7 w-16 rounded-[0.9rem] bg-white/5" />
+                      <a
+                        href={site.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="absolute inset-0 flex items-center justify-center"
+                        aria-label={`Abrir ${site.name}`}
+                      >
+                        <motion.img
+                          src={site.logoSrc}
+                          alt={site.logoAlt}
+                          className="h-16 w-auto max-w-[72%] object-contain drop-shadow-[0_18px_40px_rgba(255,255,255,0.1)] sm:h-[4.5rem]"
+                          loading="eager"
+                          decoding="async"
+                          draggable={false}
+                          animate={{
+                            y: [0, -4, 0, 3, 0],
+                            scale: [1, 1.025, 1, 1.012, 1],
+                            opacity: [0.92, 1, 0.96, 1, 0.94],
+                          }}
+                          transition={{
+                            duration: 4.2,
+                            delay: index * 0.2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </a>
+                    </div>
                     <div className="grid gap-3">
-                      <div className="h-10 rounded-[0.9rem] bg-white/[0.05]" />
-                      <div className="h-10 rounded-[0.9rem] bg-white/[0.05]" />
+                      <div className="h-10 rounded-[0.9rem] bg-white/5" />
+                      <div className="h-10 rounded-[0.9rem] bg-white/5" />
                     </div>
                   </div>
                 </div>
@@ -79,7 +130,7 @@ export default function ProductExperience() {
             </div>
 
             <div className="p-5">
-              <p className="text-[0.62rem] uppercase tracking-[0.36em] text-[#bca8ff]">
+              <p className="text-[0.62rem] uppercase tracking-[0.36em] text-[#eaa24a]">
                 {site.type}
               </p>
               <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-white">

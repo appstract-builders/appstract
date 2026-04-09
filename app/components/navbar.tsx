@@ -95,7 +95,7 @@ function NavbarContent({ pathname }: NavbarContentProps) {
               <Link
                 href="/account"
                 aria-label="Crear cuenta o iniciar sesion"
-                className="flex h-9 items-center gap-2 rounded-full border border-[#8052DD]/20 bg-[#8052DD]/10 px-3 text-[#cbb8ff] transition hover:border-[#8052DD]/38 hover:bg-[#8052DD]/16 sm:h-11 sm:px-4"
+                className="flex h-9 items-center gap-2 rounded-full border border-[#FF8904]/20 bg-[#FF8904]/10 px-3 text-[#ffebb8] transition hover:border-[#FF8904]/38 hover:bg-[#FF8904]/16 sm:h-11 sm:px-4"
               >
                 <FaUserCircle className="h-4 w-4 shrink-0 sm:h-[1.05rem] sm:w-[1.05rem]" />
                 <span className="hidden text-[0.68rem] uppercase tracking-[0.24em] sm:inline-block">
@@ -135,7 +135,7 @@ function NavbarContent({ pathname }: NavbarContentProps) {
                   <Link
                     href="/account"
                     onClick={() => setIsOpen(false)}
-                    className="flex min-h-11 items-center justify-between rounded-2xl border border-[#8052DD]/18 bg-[#8052DD]/10 px-4 py-3 text-left text-sm uppercase tracking-[0.24em] text-[#d3c4ff] transition-colors hover:bg-[#8052DD]/16"
+                    className="flex min-h-11 items-center justify-between rounded-2xl border border-[#FF8904]/18 bg-[#FF8904]/10 px-4 py-3 text-left text-sm uppercase tracking-[0.24em] text-[#ffebb8] transition-colors hover:bg-[#FF8904]/16"
                   >
                     <span className="flex items-center gap-3">
                       <FaUserCircle className="h-[1.05rem] w-[1.05rem] shrink-0" />

@@ -11,16 +11,14 @@ export default function ProductsPage() {
 
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-10">
           <div className="max-w-4xl">
-            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
-              Products
+            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#cfc8af]">
+              Experiencia Digital
             </p>
             <h1 className="mt-4 text-4xl font-light tracking-[0.08em] text-white sm:text-6xl">
-              Paquetes pensados para distintas etapas del producto.
+              Lo que entregamos a nuestros clientes
             </h1>
             <p className="mt-6 max-w-3xl text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
-              Esta ruta concentra los tiers de Appending y algunos prototipos de
-              referencia para visualizar el tipo de experiencia digital que
-              entregamos.
+              Cada proyecto es una oportunidad para crear algo único y memorable. Nos enorgullece entregar experiencias digitales que no solo cumplen con las expectativas de nuestros clientes, sino que también superan las de sus usuarios finales. Nuestro compromiso es transformar ideas en realidades digitales que inspiren y conecten.
             </p>
           </div>
         </div>

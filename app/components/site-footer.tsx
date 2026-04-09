@@ -5,7 +5,6 @@ const footerLinks = [
   { label: "IMIN", href: "/imin" },
   { label: "ABOUT", href: "/about" },
   { label: "TESTIMONIAL", href: "/products#testimonial" },
-  { label: "CUENTA", href: "/account" },
   { label: "AVISO DE PRIVACIDAD", href: "/privacy-policy" },
 ];
 
@@ -17,7 +16,7 @@ export default function SiteFooter() {
           <div className="space-y-4">
             <Brand size="sm" />
             <p className="max-w-md text-sm leading-7 tracking-[0.04em] text-white/58">
-              TECH BUILDERS.
+              - Build your digital presence anywhere.
             </p>
           </div>
 
@@ -26,7 +25,7 @@ export default function SiteFooter() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#c9b1f9] transition-opacity hover:opacity-75"
+                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#f9eab1] transition-opacity hover:opacity-75"
               >
                 {link.label}
               </a>

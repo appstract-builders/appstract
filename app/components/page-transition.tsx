@@ -16,9 +16,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       <motion.div
         key={pathname}
         className="min-h-full bg-[#020611]"
-        initial={{ opacity: 0.92, y: 18, filter: "blur(12px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        exit={{ opacity: 0.96, y: -12, filter: "blur(10px)" }}
+        initial={{ opacity: 0.96, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0.98, y: -6 }}
         transition={{
           duration: 0.4,
           ease: [0.22, 1, 0.36, 1],

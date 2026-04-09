@@ -36,8 +36,8 @@ export default function HomeAbout() {
       <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,11,25,0.92),rgba(5,8,19,0.94))] shadow-[0_24px_90px_rgba(2,8,23,0.28)]">
         <div className="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div>
-            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]">
-              Appending
+            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]">
+              appstract
             </p>
             <h2 className="mt-4 max-w-[12ch] text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
               Somos tu Destino Digital.
@@ -47,24 +47,24 @@ export default function HomeAbout() {
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-[1.6rem] border border-[#8052DD]/16 bg-[#8052DD]/[0.06] px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#bda7ff]">
+              <div className="rounded-[1.6rem] border border-[#FF8904]/16 bg-[#FF8904]/6 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#e69e0d]">
                   Enfoque
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
                   Crecer tu marca y acompañarte en el vuelo.
                 </p>
               </div>
-              <div className="rounded-[1.6rem] border border-cyan-300/14 bg-cyan-300/[0.05] px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-cyan-100/70">
+              <div className="rounded-[1.6rem] border border-amber-300/14 bg-amber-300/5 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-amber-100/70">
                   Creación
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
                   Productos digitales que tienen intención.
                 </p>
               </div>
-              <div className="rounded-[1.6rem] border border-white/10 bg-white/[0.035] px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-white/45">
+              <div className="rounded-[1.6rem] border border-slate-700 bg-slate-800/30 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-slate-600">
                   Presencia
                 </p>
                 <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">

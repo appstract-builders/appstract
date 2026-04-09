@@ -1,357 +1,160 @@
 "use client";
 
-import { useAnimationFrame, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import Brand from "../brand";
 
-const TAU = Math.PI * 2;
-const MOBILE_WAVE_MEDIA_QUERY = "(max-width: 640px)";
-
-type WaveConfig = {
-  baseY: number;
-  amplitude: number;
-  stroke: string;
-  glow: string;
-  width: number;
-  duration: number;
-  opacity: number;
-  seed: number;
-};
-
-type WaveNode = {
-  x: number;
-  amplitudeBase: number;
-  amplitudeRange: number;
-  phase: number;
-  phaseSecondary: number;
-  speed: number;
-  secondarySpeed: number;
-  frequency: number;
-};
-
-type WaveModel = {
-  baseY: number;
-  opacity: number;
-  glow: string;
-  stroke: string;
-  width: number;
-  duration: number;
-  defaultPath: string;
-  nodes: WaveNode[];
-};
-
-type Point = {
-  x: number;
-  y: number;
-};
-
-const waves: WaveConfig[] = [
-  {
-    baseY: 156,
-    amplitude: 56,
-    stroke: "rgba(160,244,255,0.54)",
-    glow: "rgba(160,244,255,0.18)",
-    width: 1.25,
-    duration: 16.5,
-    opacity: 0.42,
-    seed: 11,
-  },
-  {
-    baseY: 252,
-    amplitude: 60,
-    stroke: "rgba(193,169,255,0.5)",
-    glow: "rgba(193,169,255,0.16)",
-    width: 1.2,
-    duration: 18.4,
-    opacity: 0.38,
-    seed: 27,
-  },
-  {
-    baseY: 350,
-    amplitude: 62,
-    stroke: "rgba(180,228,255,0.46)",
-    glow: "rgba(180,228,255,0.15)",
-    width: 1.05,
-    duration: 20.2,
-    opacity: 0.31,
-    seed: 43,
-  },
-  {
-    baseY: 456,
-    amplitude: 64,
-    stroke: "rgba(211,184,255,0.44)",
-    glow: "rgba(211,184,255,0.14)",
-    width: 1,
-    duration: 22.1,
-    opacity: 0.28,
-    seed: 59,
-  },
-  {
-    baseY: 574,
-    amplitude: 58,
-    stroke: "rgba(168,246,255,0.4)",
-    glow: "rgba(168,246,255,0.12)",
-    width: 0.95,
-    duration: 23.8,
-    opacity: 0.24,
-    seed: 71,
-  },
-  {
-    baseY: 694,
-    amplitude: 52,
-    stroke: "rgba(186,167,255,0.36)",
-    glow: "rgba(186,167,255,0.1)",
-    width: 0.9,
-    duration: 25.2,
-    opacity: 0.2,
-    seed: 83,
-  },
-  {
-    baseY: 812,
-    amplitude: 46,
-    stroke: "rgba(178,232,255,0.32)",
-    glow: "rgba(178,232,255,0.08)",
-    width: 0.85,
-    duration: 27.4,
-    opacity: 0.17,
-    seed: 97,
-  },
+const sphereSizeClass = "h-[min(82vw,38rem)] w-[min(82vw,38rem)]";
+const liquidBorderRadius = [
+  "50% 50% 50% 50% / 50% 50% 50% 50%",
+  "48% 52% 47% 53% / 56% 44% 53% 47%",
+  "53% 47% 52% 48% / 45% 55% 44% 56%",
+  "47% 53% 46% 54% / 53% 47% 56% 44%",
+  "50% 50% 50% 50% / 50% 50% 50% 50%",
 ];
-
-const planeWaveGradients = [
-  [
-    { offset: "0%", color: "rgba(112,245,255,0.92)" },
-    { offset: "24%", color: "rgba(100,214,255,0.96)" },
-    { offset: "52%", color: "rgba(101,137,255,0.94)" },
-    { offset: "78%", color: "rgba(177,126,255,0.96)" },
-    { offset: "100%", color: "rgba(236,150,255,0.92)" },
-  ],
-  [
-    { offset: "0%", color: "rgba(132,248,255,0.84)" },
-    { offset: "26%", color: "rgba(97,221,255,0.88)" },
-    { offset: "54%", color: "rgba(87,152,255,0.9)" },
-    { offset: "80%", color: "rgba(163,130,255,0.9)" },
-    { offset: "100%", color: "rgba(216,164,255,0.84)" },
-  ],
-  [
-    { offset: "0%", color: "rgba(126,239,255,0.8)" },
-    { offset: "22%", color: "rgba(114,198,255,0.84)" },
-    { offset: "50%", color: "rgba(104,129,255,0.88)" },
-    { offset: "76%", color: "rgba(194,138,255,0.88)" },
-    { offset: "100%", color: "rgba(234,162,255,0.82)" },
-  ],
-];
-
-function createSeededRandom(seed: number) {
-  let value = seed >>> 0;
-
-  return () => {
-    value = (value * 1664525 + 1013904223) >>> 0;
-    return value / 4294967296;
-  };
-}
-
-function round(value: number) {
-  return Math.round(value * 100) / 100;
-}
-
-function catmullRomPath(points: Point[], tension = 0.78) {
-  if (points.length === 0) {
-    return "";
-  }
-
-  if (points.length === 1) {
-    return `M${round(points[0].x)} ${round(points[0].y)}`;
-  }
-
-  const path = [`M${round(points[0].x)} ${round(points[0].y)}`];
-
-  for (let index = 0; index < points.length - 1; index += 1) {
-    const p0 = points[index - 1] ?? points[index];
-    const p1 = points[index];
-    const p2 = points[index + 1];
-    const p3 = points[index + 2] ?? p2;
-
-    const cp1x = p1.x + ((p2.x - p0.x) / 6) * tension;
-    const cp1y = p1.y + ((p2.y - p0.y) / 6) * tension;
-    const cp2x = p2.x - ((p3.x - p1.x) / 6) * tension;
-    const cp2y = p2.y - ((p3.y - p1.y) / 6) * tension;
-
-    path.push(
-      `C${round(cp1x)} ${round(cp1y)} ${round(cp2x)} ${round(cp2y)} ${round(p2.x)} ${round(p2.y)}`,
-    );
-  }
-
-  return path.join("");
-}
-
-function createWaveModel(wave: WaveConfig, isMobile: boolean): WaveModel {
-  const random = createSeededRandom(wave.seed);
-  const xPoints = isMobile
-    ? [-120, 600, 1260, 1680]
-    : [-120, 180, 480, 780, 1080, 1380, 1680];
-  const nodes = xPoints.map((x, index) => ({
-    x,
-    amplitudeBase: wave.amplitude * (0.52 + random() * 0.28),
-    amplitudeRange: wave.amplitude * (0.3 + random() * 0.18),
-    phase: random() * TAU,
-    phaseSecondary: random() * TAU,
-    speed: 0.92 + random() * 0.52,
-    secondarySpeed: 0.8 + random() * 0.32,
-    frequency: isMobile
-      ? 0.12 + index * 0.012 + random() * 0.014
-      : 0.34 + index * 0.03 + random() * 0.035,
-  }));
-
-  return {
-    baseY: wave.baseY,
-    opacity: wave.opacity,
-    glow: wave.glow,
-    stroke: wave.stroke,
-    width: wave.width,
-    duration: wave.duration,
-    defaultPath: buildWavePath(0, nodes, wave.baseY),
-    nodes,
-  };
-}
-
-function buildWavePath(time: number, nodes: WaveNode[], baseY: number) {
-  const points = nodes.map((node) => {
-    const amplitude =
-      node.amplitudeBase +
-      Math.sin(time * node.secondarySpeed + node.phaseSecondary) * node.amplitudeRange;
-    const y = baseY + Math.sin(time * node.speed + node.phase + node.x * 0.0026 * node.frequency) * amplitude;
-
-    return { x: node.x, y };
-  });
-
-  return catmullRomPath(points);
-}
 
 export default function HomeBackground() {
-  const shouldReduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
-  const glowRefs = useRef<Array<SVGPathElement | null>>([]);
-  const strokeRefs = useRef<Array<SVGPathElement | null>>([]);
-  const waveModels = waves.map((wave) => createWaveModel(wave, isMobile));
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(MOBILE_WAVE_MEDIA_QUERY);
-    const updateViewportState = () => {
-      setIsMobile(mediaQuery.matches);
-    };
-
-    updateViewportState();
-    mediaQuery.addEventListener("change", updateViewportState);
-
-    return () => {
-      mediaQuery.removeEventListener("change", updateViewportState);
-    };
-  }, []);
-
-  useAnimationFrame((time) => {
-    if (shouldReduceMotion) {
-      return;
-    }
-
-    const seconds = time / 1000;
-
-    waveModels.forEach((wave, index) => {
-      const cycleTime = (seconds / wave.duration) * TAU;
-      const path = buildWavePath(cycleTime, wave.nodes, wave.baseY);
-      const glowPath = glowRefs.current[index];
-      const strokePath = strokeRefs.current[index];
-
-      if (glowPath) {
-        glowPath.setAttribute("d", path);
-      }
-
-      if (strokePath) {
-        strokePath.setAttribute("d", path);
-      }
-    });
-  });
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   return (
     <>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(2,6,17,0.98)_0%,_rgba(4,9,22,0.95)_42%,_rgba(2,6,17,1)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,_rgba(112,245,255,0.1),_transparent_24%),radial-gradient(circle_at_82%_14%,_rgba(236,150,255,0.12),_transparent_26%),radial-gradient(circle_at_52%_24%,_rgba(101,137,255,0.09),_transparent_22%),radial-gradient(circle_at_50%_82%,_rgba(112,245,255,0.05),_transparent_34%)]" />
-      <div className="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:120px_120px] [mask-image:radial-gradient(circle_at_center,black,transparent_78%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(2,6,17,0.99)_0%,_rgba(5,10,24,0.97)_46%,_rgba(2,6,17,1)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,rgba(158,228,255,0.12),transparent_18%),radial-gradient(circle_at_50%_52%,rgba(214,166,255,0.08),transparent_24%),radial-gradient(circle_at_50%_54%,rgba(255,137,4,0.08),transparent_26%)]" />
+      <div className="absolute inset-y-0 left-0 w-[34vw] bg-[radial-gradient(circle_at_100%_50%,rgba(119,214,255,0.12),transparent_58%)] blur-3xl" />
+      <div className="absolute inset-y-0 right-0 w-[34vw] bg-[radial-gradient(circle_at_0%_50%,rgba(236,150,255,0.12),transparent_58%)] blur-3xl" />
 
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 1440 980"
-        preserveAspectRatio="none"
-        aria-hidden="true"
+      <motion.div
+        className={`absolute left-1/2 top-1/2 ${sphereSizeClass} -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,rgba(149,224,255,0.24),rgba(149,224,255,0.09)_32%,rgba(255,137,4,0.05)_48%,transparent_72%)] blur-3xl`}
+        animate={
+          shouldReduceMotion
+            ? { opacity: 0.74, scale: 1 }
+            : {
+                opacity: [0.56, 0.82, 0.68, 0.78, 0.74],
+                scaleX: [1, 0.964, 1.036, 0.986, 1],
+                scaleY: [1, 1.078, 0.976, 1.042, 1],
+                y: [4, -16, -7, -12, 0],
+                borderRadius: liquidBorderRadius,
+              }
+        }
+        transition={{
+          duration: 10.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className={`absolute left-1/2 top-1/2 ${sphereSizeClass} -translate-x-1/2 -translate-y-1/2`}
+        animate={
+          shouldReduceMotion
+            ? { scale: 1, borderRadius: liquidBorderRadius[0] }
+            : {
+                scaleX: [1, 0.974, 1.024, 0.99, 1],
+                scaleY: [1, 1.06, 0.984, 1.034, 1],
+                y: [0, -16, -6, -11, 0],
+                rotate: [0, -1.6, 0.9, -0.5, 0],
+                borderRadius: liquidBorderRadius,
+              }
+        }
+        transition={{
+          duration: 10.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       >
-        <defs>
-          <filter id="wave-soft-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="7" />
-          </filter>
-          {waves.map((_, index) => {
-            const gradient = planeWaveGradients[index % planeWaveGradients.length];
+        <div className="absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_50%_44%,rgba(255,255,255,0.13),rgba(255,255,255,0.045)_48%,rgba(255,137,4,0.04)_66%,transparent_82%)] backdrop-blur-[20px]" />
 
-            return (
-              <linearGradient
-                key={`plane-wave-gradient-${index}`}
-                id={`plane-wave-gradient-${index}`}
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="0%"
-              >
-                {gradient.map((stop) => (
-                  <stop
-                    key={`plane-wave-gradient-${index}-${stop.offset}`}
-                    offset={stop.offset}
-                    stopColor={stop.color}
-                  />
-                ))}
-              </linearGradient>
-            );
-          })}
-        </defs>
+        <motion.div
+          className="absolute inset-[5%] rounded-[inherit] opacity-58 [mask-image:radial-gradient(circle_at_center,black_0%,black_54%,rgba(0,0,0,0.62)_68%,transparent_84%)] blur-[3px]"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 40% 38%, rgba(255,255,255,0.14), transparent 13%),
+              radial-gradient(circle at 62% 36%, rgba(128,220,255,0.1), transparent 17%),
+              radial-gradient(circle at 55% 60%, rgba(255,137,4,0.06), transparent 15%),
+              radial-gradient(circle at 47% 54%, rgba(113,172,255,0.06), transparent 20%),
+              conic-gradient(
+                from 40deg at 50% 50%,
+                rgba(117,221,255,0.015) 0deg,
+                rgba(117,221,255,0.05) 92deg,
+                rgba(255,137,4,0.028) 180deg,
+                rgba(214,173,255,0.06) 286deg,
+                rgba(117,221,255,0.015) 360deg
+              )
+            `,
+          }}
+          animate={
+            shouldReduceMotion
+              ? { rotate: 0, opacity: 0.5 }
+              : {
+                  rotate: [0, 180, 360],
+                  opacity: [0.42, 0.64, 0.5, 0.6, 0.42],
+                  scaleX: [1, 1.026, 0.992, 1.014, 1],
+                  scaleY: [1, 0.982, 1.02, 0.99, 1],
+                  x: [0, 8, -6, 4, 0],
+                  y: [0, -6, 5, -3, 0],
+                }
+          }
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-        {waveModels.map((wave, index) => (
-          <g key={`${wave.baseY}-${index}`}>
-            <path
-              d={wave.defaultPath}
-              fill="none"
-              stroke="rgba(11,18,66,0.44)"
-              strokeWidth={wave.width + 1.5}
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              opacity={0.32}
-            />
+        <motion.div
+          className="absolute left-[42%] top-[24%] h-[18%] w-[34%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_42%_42%,rgba(255,255,255,0.38),rgba(255,224,199,0.12)_32%,rgba(255,255,255,0.04)_58%,transparent_78%)] blur-2xl"
+          animate={
+            shouldReduceMotion
+              ? { opacity: 0.34 }
+              : {
+                  opacity: [0.16, 0.42, 0.24],
+                  x: [-6, 14, -3],
+                  y: [0, -6, 3],
+                  scaleX: [1, 0.92, 1.08, 1],
+                  scaleY: [1, 1.08, 0.97, 1],
+                }
+          }
+          transition={{
+            duration: 7.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-            <path
-              ref={(node) => {
-                glowRefs.current[index] = node;
-              }}
-              d={wave.defaultPath}
-              fill="none"
-              stroke={`url(#plane-wave-gradient-${index})`}
-              strokeWidth={wave.width * 4.2}
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              opacity={shouldReduceMotion ? wave.opacity * 0.09 : wave.opacity * 0.15}
-              style={{ filter: "url(#wave-soft-glow)" }}
-            />
+        <motion.div
+          className="absolute left-[23%] top-[29%] h-[11%] w-[11%] rounded-full bg-[radial-gradient(circle_at_35%_35%,rgba(255,255,255,0.54),rgba(162,232,255,0.18)_44%,rgba(255,137,4,0.08)_62%,transparent_76%)] blur-lg"
+          animate={
+            shouldReduceMotion
+              ? { opacity: 0.34 }
+              : {
+                  opacity: [0.14, 0.38, 0.2],
+                  scale: [0.9, 1.16, 0.97],
+                  x: [-4, 8, -2],
+                  y: [0, 6, -3],
+                }
+          }
+          transition={{
+            duration: 6.9,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-            <path
-              ref={(node) => {
-                strokeRefs.current[index] = node;
-              }}
-              d={wave.defaultPath}
-              fill="none"
-              stroke={`url(#plane-wave-gradient-${index})`}
-              strokeWidth={wave.width}
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              opacity={wave.opacity * 0.7}
-            />
-          </g>
-        ))}
-      </svg>
+        <div className="absolute inset-[-3%] rounded-[inherit] bg-[radial-gradient(circle_at_50%_50%,transparent_60%,rgba(141,225,255,0.055)_74%,rgba(255,137,4,0.025)_84%,transparent_94%)] blur-3xl" />
+        <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_10px_22px_rgba(255,255,255,0.06),inset_0_-20px_42px_rgba(2,6,17,0.14),inset_0_-10px_16px_rgba(255,137,4,0.025)]" />
+      </motion.div>
+
+      <div
+        className={`pointer-events-none absolute left-1/2 top-1/2 z-20 ${sphereSizeClass} -translate-x-1/2 -translate-y-1/2`}
+      >
+        <div className="absolute inset-[26%] flex items-center justify-center">
+          <Brand
+            size="lg"
+            className="relative z-10 scale-[0.64] sm:scale-[0.68] lg:scale-[0.76]"
+            planeClassName="drop-shadow-[0_0_32px_rgba(120,225,255,0.2)]"
+            textClassName="text-[#FF8904] drop-shadow-[0_0_24px_rgba(255,137,4,0.26)]"
+          />
+        </div>
+      </div>
     </>
   );
 }

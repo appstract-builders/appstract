@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import IminMark from "../imin/imin-mark";
 
 const textRows = [
   "PERSONALIZA  TEXTO  IMAGEN  IDENTIDAD",
-  "TIPOGRAFIA  CONTENIDO  TEXTO  APPENDING",
+  "TIPOGRAFIA  CONTENIDO  TEXTO  appstract",
   "EDITOR  COLORES  TEXTO  PERSONALIZA",
   "TEXTO  MENSAJES  IDENTIDAD  TEXTO  UI",
-  "APPENDING  IDENTIDAD  COLORES  TEXTO",
+  "appstract  IDENTIDAD  COLORES  TEXTO",
   "MENSAJES  CONTENIDO  DISENO  WEB IDENTIDAD",
   "PRODUCTO  PERSONALIZA  TEXTO  UI IMIN",
   "EDITOR  MENSAJES  TEXTO  MARCA IDENTIDAD",
@@ -82,42 +82,42 @@ export default function HomeText({
         <TextStrip
           text={textRows[0]}
           duration={30}
-          opacityClass="text-cyan-100/10"
+          opacityClass="text-slate-400/10"
         />
         <TextStrip
           text={textRows[1]}
           duration={36}
           reverse
-          opacityClass="text-violet-200/10"
+          opacityClass="text-orange-300/10"
         />
         <TextStrip
           text={textRows[2]}
           duration={32}
-          opacityClass="text-fuchsia-100/10"
+          opacityClass="text-slate-100/10"
         />
         <TextStrip
           text={textRows[3]}
           duration={38}
           reverse
-          opacityClass="text-cyan-50/8"
+          opacityClass="text-orange-400/8"
         />
         <TextStrip
           text={textRows[4]}
           duration={34}
-          opacityClass="text-violet-100/9 sm:hidden"
+          opacityClass="text-orange-300/9 sm:hidden"
           className="sm:hidden"
         />
         <TextStrip
           text={textRows[5]}
           duration={40}
           reverse
-          opacityClass="text-cyan-100/8 sm:hidden"
+          opacityClass="text-slate-300/8 sm:hidden"
           className="sm:hidden"
         />
         <TextStrip
           text={textRows[6]}
           duration={35}
-          opacityClass="text-fuchsia-100/8 sm:hidden"
+          opacityClass="text-orange-200/8 sm:hidden"
           className="sm:hidden"
         />
         <TextStrip
@@ -138,18 +138,10 @@ export default function HomeText({
             duration: 0.6,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="relative z-10 mx-4 w-[calc(100%-2rem)] max-w-4xl rounded-[1.75rem] border border-white/12 bg-[#081121]/78 px-4 py-5 shadow-[0_18px_80px_rgba(2,8,23,0.42)] backdrop-blur-xl sm:mx-0 sm:w-full sm:px-6 sm:py-6"
+          className="relative z-10 mx-4 w-[calc(100%-2rem)] max-w-4xl rounded-[1.75rem] border border-white/12 bg-[#081121]/78 px-4 py-5 shadow-[0_18px_80px_rgba(2,8,23,0.42)] backdrop-blur-xl sm:mx-0 sm:w-full sm:px-6 sm:py-6 cursor-pointer"
         >
           <div className="grid gap-4 text-center sm:grid-cols-[auto_1fr] sm:items-center sm:gap-5 sm:text-left">
-            <div className="relative mx-auto h-14 w-14 shrink-0 sm:mx-0 sm:h-20 sm:w-20">
-              <Image
-                src="/IMIN.png"
-                alt="IMIN logo"
-                fill
-                className="object-contain"
-                sizes="(max-width: 640px) 56px, 80px"
-              />
-            </div>
+            <IminMark className="mx-auto h-14 w-14 shrink-0 sm:mx-0 sm:h-20 sm:w-20" />
             <p className="mx-auto max-w-[34ch] text-sm leading-6 tracking-[0.03em] text-white/88 sm:mx-0 sm:max-w-2xl sm:text-base sm:leading-7 sm:tracking-[0.04em]">
               Administra tu contenido, personaliza tu identidad y da vida a tus
               mensajes con IMIN, la herramienta para diseñar tu página web sin

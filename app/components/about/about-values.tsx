@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 const valueCards = [
   {
     label: "Mision",
-    title: "Construir sitios que si se sientan propios.",
+    title: "Brindarte una presencia digital que refleje tu marca.",
     description:
       "Desarrollamos experiencias digitales con identidad, orden visual y una narrativa que ayuda a explicar mejor lo que una marca hace.",
   },
   {
     label: "Vision",
-    title: "Hacer que cada presencia digital sea una pieza util.",
+    title: "Crear experiencias digitales que marquen la diferencia.",
     description:
       "No buscamos sitios decorativos. Queremos productos digitales claros, vivos y listos para crecer junto con el negocio.",
   },
@@ -27,11 +27,11 @@ export default function AboutValues() {
   return (
     <section className="w-full max-w-6xl px-4 py-10 sm:px-0 sm:py-16">
       <div className="mb-8 max-w-3xl">
-        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#8052DD]/72">
-          Values
+        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#efc99e]">
+          Nos define
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-          Mision, vision y valores con una base clara.
+          Mision, Vision y Valores
         </h2>
       </div>
 
@@ -49,7 +49,7 @@ export default function AboutValues() {
             }}
             className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,12,24,0.96),rgba(5,8,17,0.98))] px-5 py-6 shadow-[0_20px_80px_rgba(2,8,23,0.22)]"
           >
-            <p className="text-[0.68rem] uppercase tracking-[0.38em] text-[#8052DD]/72">
+            <p className="text-[0.68rem] uppercase tracking-[0.38em] text-[#FF8904]/72">
               {card.label}
             </p>
             <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-white">

@@ -10,7 +10,7 @@ export default function AccountPage() {
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <Brand size="md" />
-              <p className="mt-8 text-[0.7rem] uppercase tracking-[0.42em] text-[#8052DD]/72">
+              <p className="mt-8 text-[0.7rem] uppercase tracking-[0.42em] text-[#FF8904]/72">
                 Account
               </p>
               <h1 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
@@ -18,7 +18,7 @@ export default function AccountPage() {
               </h1>
               <p className="mt-6 max-w-xl text-sm leading-7 tracking-[0.04em] text-white/68 sm:text-base">
                 Este apartado ya quedo listo como entrada de autenticacion para
-                Appending. El siguiente paso natural es conectar aqui el flujo
+                appstract. El siguiente paso natural es conectar aqui el flujo
                 real de acceso y registro.
               </p>
             </div>
@@ -26,7 +26,7 @@ export default function AccountPage() {
             <div className="grid gap-3 sm:min-w-[19rem]">
               <button
                 type="button"
-                className="rounded-full border border-[#8052DD]/24 bg-[#8052DD]/12 px-5 py-3 text-sm uppercase tracking-[0.26em] text-[#d3c4ff]"
+                className="rounded-full border border-[#FF8904]/24 bg-[#FF8904]/12 px-5 py-3 text-sm uppercase tracking-[0.26em] text-[#d3c4ff]"
               >
                 Crear cuenta
               </button>
