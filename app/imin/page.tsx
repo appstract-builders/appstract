@@ -39,8 +39,9 @@ export default function IminPage() {
 
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center">
         <IminParallax />
-        <IminTutorial />
       </div>
+
+      <IminTutorial />
 
       <SiteFooter />
     </main>

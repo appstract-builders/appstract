@@ -31,7 +31,7 @@ export default function HomeAbout() {
         duration: 0.75,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="w-full max-w-6xl px-4 py-16 sm:px-0"
+      className="w-full max-w-6xl px-4 py-16 sm:px-6"
     >
       <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,11,25,0.92),rgba(5,8,19,0.94))] shadow-[0_24px_90px_rgba(2,8,23,0.28)]">
         <div className="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">

@@ -20,7 +20,7 @@ const imageCards = [
     title: "Una web que evoluciona contigo.",
     descriptionPrefix: "Cambia textos, ",
     descriptionAnimated: "colores e iconos",
-    descriptionSuffix: " para adaptar el sitio segun la temporada.",
+    descriptionSuffix: " para adaptar el sitio web.",
     imageSrc: "/IMIN.png",
     imageAlt: "Vista editable de IMIN para personalizar un sitio",
     accent: "from-cyan-300/22 via-transparent to-[#FF8904]/18",
@@ -119,7 +119,7 @@ function TypingDescription({
   }, [animated.length, isDeleting, visibleCount]);
 
   return (
-    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78">
+    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78 h-[5.5em]">
       {prefix}
       <span className="text-[#fbc557]">{animated.slice(0, visibleCount)}</span>
       <motion.span
@@ -213,7 +213,7 @@ function ParallaxCard({ card, y, rotate, className = "" }: ParallaxCardProps) {
                       suffix={card.descriptionSuffix}
                     />
                   ) : (
-                    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78">
+                    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78 h-18">
                       {card.description}
                     </p>
                   )}
@@ -256,7 +256,7 @@ export default function IminParallax() {
   const secondCardRotate = useTransform(scrollYProgress, [0, 1], [3, -4]);
 
   return (
-    <section ref={sectionRef} className="w-full max-w-6xl px-4 py-16 sm:px-0">
+    <section ref={sectionRef} className="relative w-full max-w-6xl px-4 py-16 sm:px-6 mb-12">
       <div className="max-w-3xl">
         <p className="text-[0.68rem] uppercase tracking-[0.42em] text-[#dfd0a3]">
           UN CAMBIO REAL Y VISUAL

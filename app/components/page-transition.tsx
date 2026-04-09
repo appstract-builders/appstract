@@ -16,11 +16,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
       <motion.div
         key={pathname}
         className="min-h-full bg-[#020611]"
-        initial={{ opacity: 0.96, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0.98, y: -6 }}
+        initial={{ opacity: 0.985 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0.985 }}
         transition={{
-          duration: 0.4,
+          duration: 0.18,
           ease: [0.22, 1, 0.36, 1],
         }}
       >

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Comfortaa, Geist_Mono } from "next/font/google";
 import Navbar from "./components/navbar";
 import PageTransition from "./components/page-transition";
+import RouteScrollReset from "./components/route-scroll-reset";
 import WhatsAppFloat from "./components/whatsapp-float";
 import "./globals.css";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
       className={`${comfortaa.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className={`${comfortaa.className} min-h-full flex flex-col bg-[#020611] text-[#ededed] font-sans`}>
+        <RouteScrollReset />
         <Navbar />
         <WhatsAppFloat />
         <PageTransition>{children}</PageTransition>

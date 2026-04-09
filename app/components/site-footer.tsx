@@ -11,7 +11,7 @@ const footerLinks = [
 export default function SiteFooter() {
   return (
     <footer className="w-full border-t border-white/8 bg-black">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-0">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-4">
             <Brand size="sm" />

@@ -39,14 +39,14 @@ export default function HomeLifecircle() {
         duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="w-full max-w-6xl px-4 pb-20 pt-10 sm:px-0"
+      className="w-full max-w-6xl px-4 pb-20 pt-10 sm:px-6"
     >
       <div className="max-w-3xl">
         <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]/72">
-          Ciclo de vida.
+          Ciclo de vida
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-          Crecemos contigo.
+          Crecemos contigo
         </h2>
         <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
           Nuestro flujo de trabajo te acompaña en cada etapa, desde el diseño inicial hasta el mantenimiento continuo. Nos aseguramos de que tu sitio web evolucione contigo, adaptándose a tus necesidades y objetivos a medida que creces.

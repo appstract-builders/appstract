@@ -3,7 +3,17 @@
 import { motion, type Variants } from "framer-motion";
 import Brand from "./brand";
 
-const tailLetters = Array.from("appstract");
+const tailLetters = [
+  { letter: "a", className: "text-[#FF8904]" },
+  { letter: "p", className: "text-[#FF8904]" },
+  { letter: "p", className: "text-[#FF8904]" },
+  { letter: "s", className: "text-[#9f9e9c]" },
+  { letter: "t", className: "text-[#9f9e9c]" },
+  { letter: "r", className: "text-[#9f9e9c]" },
+  { letter: "a", className: "text-[#9f9e9c]" },
+  { letter: "c", className: "text-[#9f9e9c]" },
+  { letter: "t", className: "text-[#9f9e9c]" },
+];
 
 const containerVariants: Variants = {
   hidden: {},
@@ -78,11 +88,11 @@ export default function Loader() {
                   initial="hidden"
                   animate="visible"
                 >
-                  {tailLetters.map((letter, index) => (
+                  {tailLetters.map(({ letter, className }, index) => (
                     <motion.span
                       key={`${letter}-${index}`}
                       variants={letterVariants}
-                      className="inline-block"
+                      className={`inline-block ${className}`}
                     >
                       {letter}
                     </motion.span>

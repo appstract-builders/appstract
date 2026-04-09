@@ -54,19 +54,19 @@ export default function Brand({
       </div>
 
       <div
-        className={`flex overflow-hidden font-semibold text-[#FF8904] ${styles.text} ${textClassName}`.trim()}
+        className={`flex overflow-hidden font-semibold  ${styles.text} ${textClassName}`.trim()}
       >
         {textContent ?? (
           <>
-            <span className="inline-block">a</span>
-            <span className="inline-block">p</span>
-            <span className="inline-block">p</span>
-            <span className="inline-block">s</span>
-            <span className="inline-block">t</span>
-            <span className="inline-block">r</span>
-            <span className="inline-block">a</span>
-            <span className="inline-block">c</span>
-            <span className="inline-block">t</span>
+            <span className="inline-block text-[#FF8904]">a</span>
+            <span className="inline-block text-[#FF8904]">p</span>
+            <span className="inline-block text-[#FF8904]">p</span>
+            <span className="inline-block text-[#9f9e9c]">s</span>
+            <span className="inline-block text-[#9f9e9c]">t</span>
+            <span className="inline-block text-[#9f9e9c]">r</span>
+            <span className="inline-block text-[#9f9e9c]">a</span>
+            <span className="inline-block text-[#9f9e9c]">c</span>
+            <span className="inline-block text-[#9f9e9c]">t</span>
           </>
         )}
       </div>

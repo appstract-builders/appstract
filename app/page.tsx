@@ -74,16 +74,16 @@ export default function Home() {
       <AnimatePresence>{showLoader ? <Loader key="loader" /> : null}</AnimatePresence>
 
       {!showLoader ? (
-        <div className="relative z-10 flex w-full flex-col items-center sm:px-5">
+        <div className="relative z-10 flex w-full flex-col items-center ">
           <HomeWrapper>
             <HomeHeroSection />
           </HomeWrapper>
 
           <section
             id="products"
-            className="scroll-mt-28 w-full max-w-5xl px-4 py-16 sm:scroll-mt-32 sm:px-0"
+            className="scroll-mt-28 w-full max-w-5xl px-4 py-16 sm:scroll-mt-32 sm:px-5"
           >
-            <div className="grid w-full gap-4 sm:grid-cols-3">
+            <div className="grid w-full gap-4 md:grid-cols-3">
               {bottomCards.map((card, index) => (
                 <motion.div
                   key={card.label}

@@ -91,7 +91,7 @@ export default function HomeDevelop() {
   const selectedTier = tiers.find((tier) => tier.id === selectedTierId) ?? tiers[0];
 
   return (
-    <section className="w-full px-4 py-12 sm:px-0">
+    <section className="w-full px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 text-center">
           <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]/70">

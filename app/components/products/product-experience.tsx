@@ -48,7 +48,7 @@ const prototypeSites = [
 
 export default function ProductExperience() {
   return (
-    <section className="w-full max-w-6xl px-4 pb-20 pt-6 sm:px-0 sm:pb-24">
+    <section className="w-full max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pb-24">
       <div className="mb-8 max-w-3xl">
         <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#ffc404]">
           Conoce appstract en acción
@@ -61,7 +61,7 @@ export default function ProductExperience() {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {prototypeSites.map((site, index) => (
           <motion.article
             key={site.name}
