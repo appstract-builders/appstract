@@ -4,8 +4,10 @@ import {
   AnimatePresence,
   motion,
   useReducedMotion,
+  useScroll,
+  useSpring,
 } from "framer-motion";
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useEffect, useRef, useState } from "react";
 import HomeAbout from "./components/home/home-about";
 import HomeBackground from "./components/home/home-background";
 import HomeDevelop from "./components/home/home-develop";
@@ -33,8 +35,21 @@ const bottomCards = [
 ];
 
 function HomeHeroSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const smoothScrollProgress = useSpring(scrollYProgress, {
+    stiffness: 72,
+    damping: 24,
+    mass: 0.7,
+  });
+
   return (
     <motion.section
+      ref={sectionRef}
+      data-home-hero
       className="app-min-h-screen relative isolate flex w-full items-center justify-center overflow-hidden"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
@@ -44,8 +59,8 @@ function HomeHeroSection() {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <HomeBackground />
+      <div className="absolute inset-0">
+        <HomeBackground scrollProgress={smoothScrollProgress} />
       </div>
 
       <div className="app-min-h-screen flex w-full items-center justify-center" />

@@ -45,7 +45,16 @@ function NavbarContent({ pathname }: NavbarContentProps) {
     getServerScrollSnapshot,
   );
   const isHome = pathname === "/";
-  const showNavbar = !isHome || scrollY > 48;
+  const homeHero =
+    typeof document === "undefined"
+      ? null
+      : (document.querySelector("[data-home-hero]") as HTMLElement | null);
+  const homeRevealThreshold = homeHero
+    ? Math.max(homeHero.offsetHeight * 0.58, window.innerHeight * 0.54, 260)
+    : typeof window === "undefined"
+      ? 260
+      : Math.max(window.innerHeight * 0.54, 260);
+  const showNavbar = !isHome || scrollY > homeRevealThreshold;
   const isOpen = openPathname === pathname;
 
   return (
