@@ -15,21 +15,41 @@ export default function WhatsAppFloat() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname !== "/") {
-      setIsVisible(true);
+    if (pathname.startsWith("/admin")) {
       return;
     }
 
-    setIsVisible(false);
+    if (pathname !== "/") {
+      const timeoutId = window.setTimeout(() => {
+        setIsVisible(true);
+      }, 0);
+      return () => {
+        window.clearTimeout(timeoutId);
+      };
+    }
 
-    const timeoutId = window.setTimeout(() => {
-      setIsVisible(true);
+    let cancelled = false;
+    const resetId = window.setTimeout(() => {
+      if (!cancelled) {
+        setIsVisible(false);
+      }
+    }, 0);
+    const showId = window.setTimeout(() => {
+      if (!cancelled) {
+        setIsVisible(true);
+      }
     }, HOME_LOADER_DURATION_MS);
 
     return () => {
-      window.clearTimeout(timeoutId);
+      cancelled = true;
+      window.clearTimeout(resetId);
+      window.clearTimeout(showId);
     };
   }, [pathname]);
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   if (!isVisible) {
     return null;

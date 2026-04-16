@@ -11,34 +11,40 @@ export default function AccountPage() {
             <div className="max-w-2xl">
               <Brand size="md" />
               <p className="mt-8 text-[0.7rem] uppercase tracking-[0.42em] text-[#FF8904]/72">
-                Account
+                Cuenta y panel interno
               </p>
               <h1 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-                Crear cuenta o iniciar sesion.
+                Accede al back office en el mismo estilo visual de appstract.
               </h1>
               <p className="mt-6 max-w-xl text-sm leading-7 tracking-[0.04em] text-white/68 sm:text-base">
-                Este apartado ya quedo listo como entrada de autenticacion para
-                appstract. El siguiente paso natural es conectar aqui el flujo
-                real de acceso y registro.
+                Aqui entra el flujo de autenticacion local con Better Auth, Drizzle y SQLite. Cuando
+                quieras conectar un backend en la nube, solo cambias la base de datos y las variables
+                de entorno.
               </p>
             </div>
 
             <div className="grid gap-3 sm:min-w-[19rem]">
-              <button
-                type="button"
-                className="rounded-full border border-[#FF8904]/24 bg-[#FF8904]/12 px-5 py-3 text-sm uppercase tracking-[0.26em] text-[#d3c4ff]"
+              <Link
+                href="/account/register"
+                className="rounded-full border border-[#FF8904]/24 bg-[#FF8904]/12 px-5 py-3 text-center text-sm uppercase tracking-[0.26em] text-[#d3c4ff] transition hover:bg-[#FF8904]/18"
               >
                 Crear cuenta
-              </button>
-              <button
-                type="button"
-                className="rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm uppercase tracking-[0.26em] text-white/82"
+              </Link>
+              <Link
+                href="/account/login"
+                className="rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-center text-sm uppercase tracking-[0.26em] text-white/82 transition hover:bg-white/[0.06]"
               >
                 Iniciar sesion
-              </button>
+              </Link>
+              <Link
+                href="/account/forgot-password"
+                className="rounded-full border border-white/10 bg-transparent px-5 py-3 text-center text-sm uppercase tracking-[0.26em] text-white/55 transition hover:text-white/78"
+              >
+                Olvide mi contrasena
+              </Link>
               <Link
                 href="/"
-                className="pt-3 text-[0.72rem] uppercase tracking-[0.3em] text-white/45 transition hover:text-white/72"
+                className="pt-3 text-center text-[0.72rem] uppercase tracking-[0.3em] text-white/45 transition hover:text-white/72"
               >
                 Volver al home
               </Link>

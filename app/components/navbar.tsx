@@ -172,5 +172,9 @@ function NavbarContent({ pathname }: NavbarContentProps) {
 export default function Navbar() {
   const pathname = usePathname();
 
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return <NavbarContent pathname={pathname} />;
 }
