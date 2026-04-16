@@ -6,7 +6,7 @@ import Brand from "../brand";
 import HomeGalaxyBubble from "./home-galaxy-bubble";
 
 const bubbleFrameClass =
-  "h-[min(68vw,29rem)] w-[min(68vw,29rem)] sm:h-[min(64vh,38rem)] sm:w-[min(64vh,38rem)]";
+  "h-[clamp(15rem,54vw,16.4rem)] w-[clamp(15rem,54vw,16.4rem)] min-[390px]:h-[clamp(16rem,56vw,18rem)] min-[390px]:w-[clamp(16rem,56vw,18rem)] min-[480px]:h-[clamp(18rem,58vw,21rem)] min-[480px]:w-[clamp(18rem,58vw,21rem)] sm:h-[clamp(21rem,58vw,29rem)] sm:w-[clamp(21rem,58vw,29rem)] md:h-[clamp(28rem,62vw,38rem)] md:w-[clamp(28rem,62vw,38rem)] lg:h-[min(69vh,42rem)] lg:w-[min(69vh,42rem)]";
 const galaxyStars = [
   { className: "left-[16%] top-[24%] rotate-45", size: "h-1.5 w-1.5", delay: 0, color: "bg-[#cad4dd]" },
   { className: "left-[76%] top-[20%] rotate-45", size: "h-2 w-2", delay: 1.2, color: "bg-[#b7c0c8]" },
@@ -52,7 +52,7 @@ export default function HomeBackground({ scrollProgress }: HomeBackgroundProps) 
       <div
         className={`absolute left-1/2 top-1/2 z-10 ${bubbleFrameClass} -translate-x-1/2 -translate-y-1/2`}
       >
-        <div className="absolute inset-[-4%] rounded-full bg-[radial-gradient(circle_at_center,transparent_60%,rgba(73,116,140,0.038)_76%,rgba(255,137,4,0.018)_86%,transparent_94%)] blur-2xl" />
+        <div className="absolute inset-[-2.5%] rounded-full bg-[radial-gradient(circle_at_center,transparent_62%,rgba(73,116,140,0.024)_77%,rgba(255,137,4,0.01)_87%,transparent_94%)] blur-xl" />
       </div>
 
       {galaxyStars.map((star) => (
@@ -81,7 +81,7 @@ export default function HomeBackground({ scrollProgress }: HomeBackgroundProps) 
         className={`pointer-events-none absolute left-1/2 top-1/2 z-20 ${bubbleFrameClass} -translate-x-1/2 -translate-y-1/2`}
       >
         <motion.div
-          className="absolute inset-[28%] rounded-full bg-[radial-gradient(circle_at_48%_48%,rgba(255,137,4,0.24),rgba(75,120,145,0.08)_38%,transparent_72%)] blur-3xl"
+          className="absolute inset-[30%] min-[390px]:inset-[29%] min-[480px]:inset-[28.5%] sm:inset-[28%] md:inset-[27%] rounded-full bg-[radial-gradient(circle_at_48%_48%,rgba(255,137,4,0.18),rgba(75,120,145,0.055)_38%,transparent_72%)] blur-2xl"
           animate={
             shouldReduceMotion
               ? { opacity: 0.75, scale: 1 }
@@ -97,12 +97,12 @@ export default function HomeBackground({ scrollProgress }: HomeBackgroundProps) 
           }}
         />
 
-        <div className="absolute inset-[26%] flex items-center justify-center">
+        <div className="absolute inset-[20%] min-[390px]:inset-[19%] min-[480px]:inset-[18.5%] sm:inset-[18%] md:inset-[16.8%] lg:inset-[14.8%] xl:inset-[14.2%] flex items-center justify-center">
           <Brand
             size="lg"
-            className="relative z-10 scale-[0.64] sm:scale-[0.68] lg:scale-[0.76]"
+            className="relative z-10 origin-center gap-1 sm:gap-2 lg:gap-1.5 scale-[0.42] min-[390px]:scale-[0.47] min-[480px]:scale-[0.54] sm:scale-[0.64] md:scale-[0.76] lg:scale-[0.8] xl:scale-[0.86]"
             planeClassName="[filter:drop-shadow(0_0_18px_rgba(255,137,4,0.46))_drop-shadow(0_0_34px_rgba(150,215,241,0.22))]"
-            textClassName="text-[#FF8904] drop-shadow-[0_0_24px_rgba(255,137,4,0.26)]"
+            textClassName="tracking-[0.08em] sm:tracking-[0.1em] lg:tracking-[0.08em] text-[#FF8904] drop-shadow-[0_0_24px_rgba(255,137,4,0.26)]"
           />
         </div>
       </div>
