@@ -7,22 +7,6 @@ const titles: Record<string, { title: string; subtitle: string }> = {
     title: "Usuarios",
     subtitle: "Listado y roles. Esta pantalla es un esqueleto listo para tu backlog.",
   },
-  "datos/usuario": {
-    title: "Datos: usuario",
-    subtitle: "Modelo local en SQLite via Drizzle. Sigue iterando el esquema cuando lo necesites.",
-  },
-  "datos/clase": {
-    title: "Datos: clase",
-    subtitle: "Placeholder de entidad clase para el panel.",
-  },
-  "datos/reserva": {
-    title: "Datos: reserva",
-    subtitle: "Placeholder de entidad reserva para el panel.",
-  },
-  "datos/pago": {
-    title: "Datos: pago",
-    subtitle: "Placeholder de entidad pago para el panel.",
-  },
   analiticas: {
     title: "Analiticas",
     subtitle: "Graficos y embudos. Pendiente de integracion.",

@@ -23,12 +23,12 @@ const navSections: { title: string; items: { href: string; label: string }[] }[]
     ],
   },
   {
-    title: "Datos",
+    title: "Proyectos",
     items: [
-      { href: "/admin/datos/usuario", label: "Usuario" },
-      { href: "/admin/datos/clase", label: "Clase" },
-      { href: "/admin/datos/reserva", label: "Reserva" },
-      { href: "/admin/datos/pago", label: "Pago" },
+      { href: "/admin/proyectos/lake-sport-club", label: "Lake Sport Club" },
+      { href: "/admin/proyectos/pilates-reformer", label: "Pilates Reformer" },
+      { href: "/admin/proyectos/pulsety", label: "Pulsety" },
+      { href: "/admin/proyectos/refautomex", label: "Refautomex" },
     ],
   },
   {

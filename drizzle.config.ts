@@ -2,7 +2,7 @@ import path from "node:path";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
-  schema: "./db/auth-schema.ts",
+  schema: ["./db/auth-schema.ts", "./db/project-schema.ts"],
   out: "./db/migrations",
   dialect: "sqlite",
   dbCredentials: {
