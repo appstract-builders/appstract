@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { AdminChrome } from "@/app/admin/admin-chrome";
-import { auth } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/require-admin-session";
 
 export default async function AdminLayout({
   children,
@@ -10,9 +10,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }>) {
   const headerList = await headers();
-  const session = await auth.api.getSession({
-    headers: headerList,
-  });
+  const session = await requireAdminSession();
 
   if (!session) {
     const pathname = headerList.get("x-pathname") ?? "/admin";
