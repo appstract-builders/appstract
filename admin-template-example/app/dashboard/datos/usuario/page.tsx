@@ -4,41 +4,13 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Plus, RefreshCw, MoreHorizontal } from "lucide-react"
 import { DataTableHeader } from "@/components/data-table-header"
-
-const usuarios = [
-  {
-    nombre: "Maria Garcia Lopez",
-    correo: "maria.garcia@email...",
-    estado_plan: "Activo",
-    tipo_plan: "3 dias/semana",
-    fecha_renovacion: "2026-04-15",
-    telefono: "...",
-  },
-  {
-    nombre: "Ana Sofia Martinez",
-    correo: "ana.martinez@email...",
-    estado_plan: "Activo",
-    tipo_plan: "5 dias/semana",
-    fecha_renovacion: "2026-04-01",
-    telefono: "...",
-  },
-  {
-    nombre: "Carlos Rodriguez",
-    correo: "carlos.rdz@email.com",
-    estado_plan: "Expirado",
-    tipo_plan: "3 dias/semana",
-    fecha_renovacion: "2026-03-10",
-    telefono: "...",
-  },
-]
+import { Empty, EmptyDescription, EmptyTitle } from "@/components/ui/empty"
 
 export default function DatosUsuarioPage() {
   return (
@@ -72,19 +44,15 @@ export default function DatosUsuarioPage() {
               <TableHead>telefon</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {usuarios.map((usuario, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">{usuario.nombre}</TableCell>
-                <TableCell className="text-muted-foreground">{usuario.correo}</TableCell>
-                <TableCell className="text-muted-foreground">{usuario.estado_plan}</TableCell>
-                <TableCell className="text-muted-foreground">{usuario.tipo_plan}</TableCell>
-                <TableCell className="text-muted-foreground">{usuario.fecha_renovacion}</TableCell>
-                <TableCell className="text-muted-foreground">{usuario.telefono}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
         </Table>
+        <div className="border-t p-10">
+          <Empty>
+            <EmptyTitle>No hay usuarios</EmptyTitle>
+            <EmptyDescription>
+              Aun no existen usuarios registrados para mostrar en esta tabla.
+            </EmptyDescription>
+          </Empty>
+        </div>
       </div>
     </div>
   )
