@@ -4,41 +4,13 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Plus, RefreshCw, MoreHorizontal } from "lucide-react"
 import { DataTableHeader } from "@/components/data-table-header"
-
-const pagos = [
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Maria Garcia Lopez",
-    monto: 1200,
-    estatus_pago: "Exitoso",
-    fecha_pago: "2026-03-15",
-    concep: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Ana Sofia Martinez",
-    monto: 1800,
-    estatus_pago: "Exitoso",
-    fecha_pago: "2026-03-01",
-    concep: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Carlos Rodriguez",
-    monto: 1200,
-    estatus_pago: "Pendiente",
-    fecha_pago: "2026-03-20",
-    concep: "...",
-  },
-]
+import { Empty, EmptyDescription, EmptyTitle } from "@/components/ui/empty"
 
 export default function DatosPagoPage() {
   return (
@@ -72,19 +44,15 @@ export default function DatosPagoPage() {
               <TableHead>concep</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {pagos.map((pago, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-mono text-muted-foreground">{pago.alumno_id}</TableCell>
-                <TableCell className="font-medium">{pago.alumno_nombre}</TableCell>
-                <TableCell className="text-muted-foreground">{pago.monto}</TableCell>
-                <TableCell className="text-muted-foreground">{pago.estatus_pago}</TableCell>
-                <TableCell className="text-muted-foreground">{pago.fecha_pago}</TableCell>
-                <TableCell className="text-muted-foreground">{pago.concep}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
         </Table>
+        <div className="border-t p-10">
+          <Empty>
+            <EmptyTitle>No hay pagos</EmptyTitle>
+            <EmptyDescription>
+              Aun no existen pagos registrados para mostrar en esta tabla.
+            </EmptyDescription>
+          </Empty>
+        </div>
       </div>
     </div>
   )
