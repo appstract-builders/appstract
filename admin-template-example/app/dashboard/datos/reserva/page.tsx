@@ -4,57 +4,13 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Plus, RefreshCw, MoreHorizontal } from "lucide-react"
 import { DataTableHeader } from "@/components/data-table-header"
-
-const reservas = [
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Maria Garcia Lopez",
-    clase_id: "69c1d53066e03d26...",
-    clase_nombre: "Pilates Reformer - Lu...",
-    fecha_clase: "2026-03-23",
-    sem: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Maria Garcia Lopez",
-    clase_id: "69c1d53066e03d26...",
-    clase_nombre: "Pilates Mat - Miercol...",
-    fecha_clase: "2026-03-25",
-    sem: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Ana Sofia Martinez",
-    clase_id: "69c1d53066e03d26...",
-    clase_nombre: "Pilates Reformer - Lu...",
-    fecha_clase: "2026-03-23",
-    sem: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Ana Sofia Martinez",
-    clase_id: "69c1d53066e03d26...",
-    clase_nombre: "Pilates Mat - Miercol...",
-    fecha_clase: "2026-03-25",
-    sem: "...",
-  },
-  {
-    alumno_id: "69c1d53066e03d26...",
-    alumno_nombre: "Ana Sofia Martinez",
-    clase_id: "69c1d53066e03d26...",
-    clase_nombre: "Pilates Tower - Viern...",
-    fecha_clase: "2026-03-27",
-    sem: "...",
-  },
-]
+import { Empty, EmptyDescription, EmptyTitle } from "@/components/ui/empty"
 
 export default function DatosReservaPage() {
   return (
@@ -88,19 +44,15 @@ export default function DatosReservaPage() {
               <TableHead>sem</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {reservas.map((reserva, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-mono text-muted-foreground">{reserva.alumno_id}</TableCell>
-                <TableCell className="font-medium">{reserva.alumno_nombre}</TableCell>
-                <TableCell className="font-mono text-muted-foreground">{reserva.clase_id}</TableCell>
-                <TableCell className="text-muted-foreground">{reserva.clase_nombre}</TableCell>
-                <TableCell className="text-muted-foreground">{reserva.fecha_clase}</TableCell>
-                <TableCell className="text-muted-foreground">{reserva.sem}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
         </Table>
+        <div className="border-t p-10">
+          <Empty>
+            <EmptyTitle>No hay reservas</EmptyTitle>
+            <EmptyDescription>
+              Aun no existen reservas registradas para mostrar en esta tabla.
+            </EmptyDescription>
+          </Empty>
+        </div>
       </div>
     </div>
   )
