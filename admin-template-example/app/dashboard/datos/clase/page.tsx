@@ -4,41 +4,15 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Plus, RefreshCw, MoreHorizontal } from "lucide-react"
 import { DataTableHeader } from "@/components/data-table-header"
+import { Empty, EmptyDescription, EmptyTitle } from "@/components/ui/empty"
 
-const clases = [
-  {
-    nombre: "Pilates Reformer - Lu...",
-    dia_semana: "Lunes",
-    hora: "07:00",
-    cupo_maximo: 10,
-    instructor: "Laura Sanchez",
-    tipo_c: "...",
-  },
-  {
-    nombre: "Pilates Mat - Miercol...",
-    dia_semana: "Miercoles",
-    hora: "09:00",
-    cupo_maximo: 12,
-    instructor: "Patricia Flores",
-    tipo_c: "...",
-  },
-  {
-    nombre: "Pilates Tower - Viern...",
-    dia_semana: "Viernes",
-    hora: "18:00",
-    cupo_maximo: 8,
-    instructor: "Laura Sanchez",
-    tipo_c: "...",
-  },
-]
+const clases = []
 
 export default function DatosClasePage() {
   return (
@@ -72,19 +46,15 @@ export default function DatosClasePage() {
               <TableHead>tipo_c</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {clases.map((clase, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">{clase.nombre}</TableCell>
-                <TableCell className="text-muted-foreground">{clase.dia_semana}</TableCell>
-                <TableCell className="text-muted-foreground">{clase.hora}</TableCell>
-                <TableCell className="text-muted-foreground">{clase.cupo_maximo}</TableCell>
-                <TableCell className="text-muted-foreground">{clase.instructor}</TableCell>
-                <TableCell className="text-muted-foreground">{clase.tipo_c}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
         </Table>
+        <div className="border-t p-10">
+          <Empty>
+            <EmptyTitle>No hay clases</EmptyTitle>
+            <EmptyDescription>
+              Aun no existen clases registradas para mostrar en esta tabla.
+            </EmptyDescription>
+          </Empty>
+        </div>
       </div>
     </div>
   )
