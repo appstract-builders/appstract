@@ -44,11 +44,7 @@ export default function AppConfigPage() {
           <div className="flex items-start justify-between">
             <div>
               <p className="font-medium text-sm">App Description</p>
-              <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
-                Un sistema intuitivo y eficiente para gestionar reservas, planes y pagos
-                de tu estudio de Pilates, permitiendote enfocarte en la experiencia de tus
-                alumnos.
-              </p>
+              <p className="text-sm text-muted-foreground mt-1 max-w-2xl">{""}</p>
             </div>
             <Button variant="outline" size="icon" className="h-9 w-9">
               <Pencil className="h-4 w-4" />

@@ -22,9 +22,27 @@ export default function AccountLoginPage() {
     setMessage(null);
     const params = new URLSearchParams(window.location.search);
     const siguiente = params.get("siguiente") ?? "/admin";
+    const emailValue = email.trim();
+    const passwordValue = password.trim();
+    const authDisabled = process.env.NODE_ENV !== "production";
+
+    if (authDisabled) {
+      setLoading(false);
+      if (!emailValue) {
+        setMessage("Escribe un correo.");
+        return;
+      }
+      if (passwordValue !== "12345678") {
+        setMessage("La contrasena debe ser 12345678.");
+        return;
+      }
+      window.location.href = siguiente;
+      return;
+    }
+
     const res = await authClient.signIn.email({
-      email,
-      password,
+      email: emailValue,
+      password: passwordValue,
       callbackURL: siguiente,
     });
     setLoading(false);
