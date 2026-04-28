@@ -21,17 +21,17 @@ export default function PlantillaPage() {
           <FieldGroup>
             <Field>
               <FieldLabel>Nombre de la Plantilla</FieldLabel>
-              <Input defaultValue="Sistema de Reservas de Pilates" />
+              <Input defaultValue="CRM Operativo" />
             </Field>
             <Field>
               <FieldLabel>Categoria</FieldLabel>
-              <Input defaultValue="Fitness & Wellness" />
+              <Input defaultValue="Gestion Comercial" />
             </Field>
             <Field>
               <FieldLabel>Descripcion</FieldLabel>
               <Textarea
                 rows={4}
-                defaultValue="Un sistema completo para gestionar reservas, alumnos, clases y pagos de un estudio de Pilates."
+                defaultValue="Un sistema completo para gestionar clientes, oportunidades, actividades y pagos de un negocio."
               />
             </Field>
           </FieldGroup>
