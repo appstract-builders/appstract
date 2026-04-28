@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
   Users,
-  Database,
   BarChart3,
   Globe,
   Plug,
@@ -18,9 +17,6 @@ import {
   Settings,
   ChevronDown,
   Search,
-  Calendar,
-  CreditCard,
-  BookOpen,
 } from "lucide-react"
 import {
   Sidebar,
@@ -55,25 +51,6 @@ const mainNavItems = [
     title: "Usuarios",
     url: "/dashboard/usuarios",
     icon: Users,
-  },
-]
-
-const dataNavItems = [
-  {
-    title: "Usuario",
-    url: "/dashboard/datos/usuario",
-  },
-  {
-    title: "Clase",
-    url: "/dashboard/datos/clase",
-  },
-  {
-    title: "Reserva",
-    url: "/dashboard/datos/reserva",
-  },
-  {
-    title: "Pago",
-    url: "/dashboard/datos/pago",
   },
 ]
 
@@ -138,13 +115,9 @@ const configNavItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
-  const [dataOpen, setDataOpen] = React.useState(true)
   const [configOpen, setConfigOpen] = React.useState(false)
 
   React.useEffect(() => {
-    if (pathname.includes("/datos/")) {
-      setDataOpen(true)
-    }
     if (pathname.includes("/configuracion/")) {
       setConfigOpen(true)
     }
@@ -184,38 +157,6 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-
-              {/* Data Section */}
-              <Collapsible open={dataOpen} onOpenChange={setDataOpen}>
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton className="w-full justify-start">
-                      <Database className="h-4 w-4" />
-                      <span>Datos</span>
-                      <ChevronDown
-                        className={cn(
-                          "ml-auto h-4 w-4 transition-transform",
-                          dataOpen && "rotate-180"
-                        )}
-                      />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {dataNavItems.map((item) => (
-                        <SidebarMenuSubItem key={item.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            isActive={pathname === item.url}
-                          >
-                            <Link href={item.url}>{item.title}</Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </SidebarMenuItem>
-              </Collapsible>
 
               {secondaryNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
