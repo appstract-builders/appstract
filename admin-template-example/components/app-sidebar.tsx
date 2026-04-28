@@ -5,7 +5,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
-  Users,
+  Contact,
+  BriefcaseBusiness,
+  Kanban,
+  CalendarCheck,
   BarChart3,
   Globe,
   Plug,
@@ -47,10 +50,28 @@ const mainNavItems = [
     url: "/dashboard",
     icon: LayoutDashboard,
   },
+]
+
+const crmNavItems = [
   {
-    title: "Usuarios",
-    url: "/dashboard/usuarios",
-    icon: Users,
+    title: "Contacts",
+    url: "/dashboard/contacts",
+    icon: Contact,
+  },
+  {
+    title: "Services",
+    url: "/dashboard/services",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "Pipeline",
+    url: "/dashboard/pipeline",
+    icon: Kanban,
+  },
+  {
+    title: "Bookings",
+    url: "/dashboard/bookings",
+    icon: CalendarCheck,
   },
 ]
 
@@ -141,6 +162,24 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {mainNavItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.url}
+                    className={cn(
+                      "w-full justify-start",
+                      pathname === item.url && "bg-sidebar-accent"
+                    )}
+                  >
+                    <Link href={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+
+              {crmNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
