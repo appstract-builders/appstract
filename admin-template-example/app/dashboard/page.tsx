@@ -2,7 +2,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PageHeader } from "@/components/page-header"
-import { Users, Calendar, CreditCard, DollarSign } from "lucide-react"
+import {
+  Users,
+  Calendar,
+  CreditCard,
+  DollarSign,
+  type LucideIcon,
+} from "lucide-react"
 import {
   Bar,
   BarChart,
@@ -13,53 +19,52 @@ import {
 } from "recharts"
 import { Badge } from "@/components/ui/badge"
 
-const chartData = [
-  { day: "Lun", reservas: 3, color: "#c4856c" },
-  { day: "Mar", reservas: 10, color: "#c4856c" },
-  { day: "Mie", reservas: 12, color: "#c4856c" },
-  { day: "Jue", reservas: 2, color: "#c4856c" },
-  { day: "Vie", reservas: 8, color: "#c4856c" },
-  { day: "Sab", reservas: 1, color: "#c4856c" },
-  { day: "Dom", reservas: 0, color: "#c4856c" },
-]
+type ChartDatum = {
+  day: string
+  reservas: number
+  color: string
+}
 
-const upcomingReservations: {
+type Reservation = {
   name: string
   class: string
   date: string
-}[] = []
+}
 
-const metrics = [
-  {
-    title: "ALUMNOS ACTIVOS",
-    value: "2",
-    subtitle: "3 totales",
-    icon: Users,
-    iconBg: "bg-orange-50",
-    iconColor: "text-[#c4856c]",
-  },
-  {
-    title: "CLASES ACTIVAS",
-    value: "3",
-    icon: Calendar,
-    iconBg: "bg-orange-50",
-    iconColor: "text-[#c4856c]",
-  },
-  {
-    title: "RESERVAS SEMANA",
-    value: "5",
-    icon: CreditCard,
-    iconBg: "bg-orange-50",
-    iconColor: "text-[#c4856c]",
-  },
-  {
-    title: "INGRESOS",
-    value: "$3,000 MXN",
-    icon: DollarSign,
-    iconBg: "bg-orange-50",
-    iconColor: "text-[#c4856c]",
-  },
-]
+type MetricCardProps = {
+  title: string
+  value: string
+  subtitle?: string
+  icon: LucideIcon
+}
+
+const chartData = Array<ChartDatum>()
+const upcomingReservations = Array<Reservation>()
+
+function MetricCard({ title, value, subtitle, icon: Icon }: MetricCardProps) {
+  return (
+    <Card className="border-none shadow-sm">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs font-medium text-muted-foreground tracking-wide">
+              {title}
+            </p>
+            <p className="text-2xl font-bold mt-1">{value}</p>
+            {subtitle && (
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {subtitle}
+              </p>
+            )}
+          </div>
+          <div className="h-10 w-10 rounded-full bg-orange-50 flex items-center justify-center">
+            <Icon className="h-5 w-5 text-[#c4856c]" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
 
 export default function DashboardPage() {
   return (
@@ -71,30 +76,15 @@ export default function DashboardPage() {
 
       {/* Metrics Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {metrics.map((metric) => (
-          <Card key={metric.title} className="border-none shadow-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground tracking-wide">
-                    {metric.title}
-                  </p>
-                  <p className="text-2xl font-bold mt-1">{metric.value}</p>
-                  {metric.subtitle && (
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {metric.subtitle}
-                    </p>
-                  )}
-                </div>
-                <div
-                  className={`h-10 w-10 rounded-full ${metric.iconBg} flex items-center justify-center`}
-                >
-                  <metric.icon className={`h-5 w-5 ${metric.iconColor}`} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+        <MetricCard
+          title="ALUMNOS ACTIVOS"
+          value="2"
+          subtitle="3 totales"
+          icon={Users}
+        />
+        <MetricCard title="CLASES ACTIVAS" value="3" icon={Calendar} />
+        <MetricCard title="RESERVAS SEMANA" value="5" icon={CreditCard} />
+        <MetricCard title="INGRESOS" value="$3,000 MXN" icon={DollarSign} />
       </div>
 
       {/* Charts and Upcoming */}
@@ -134,7 +124,7 @@ export default function DashboardPage() {
                 <Bar
                   dataKey="reservas"
                   fill="#c4856c"
-                  radius={[4, 4, 0, 0]}
+                  radius={4}
                 />
               </BarChart>
             </ResponsiveContainer>
