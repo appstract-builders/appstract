@@ -5,8 +5,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
-  Users,
-  Database,
+  Contact,
+  BriefcaseBusiness,
+  Kanban,
+  CalendarCheck,
   BarChart3,
   Globe,
   Plug,
@@ -18,9 +20,6 @@ import {
   Settings,
   ChevronDown,
   Search,
-  Calendar,
-  CreditCard,
-  BookOpen,
 } from "lucide-react"
 import {
   Sidebar,
@@ -51,29 +50,28 @@ const mainNavItems = [
     url: "/dashboard",
     icon: LayoutDashboard,
   },
-  {
-    title: "Usuarios",
-    url: "/dashboard/usuarios",
-    icon: Users,
-  },
 ]
 
-const dataNavItems = [
+const crmNavItems = [
   {
-    title: "Usuario",
-    url: "/dashboard/datos/usuario",
+    title: "Contacts",
+    url: "/dashboard/contacts",
+    icon: Contact,
   },
   {
-    title: "Clase",
-    url: "/dashboard/datos/clase",
+    title: "Services",
+    url: "/dashboard/services",
+    icon: BriefcaseBusiness,
   },
   {
-    title: "Reserva",
-    url: "/dashboard/datos/reserva",
+    title: "Pipeline",
+    url: "/dashboard/pipeline",
+    icon: Kanban,
   },
   {
-    title: "Pago",
-    url: "/dashboard/datos/pago",
+    title: "Bookings",
+    url: "/dashboard/bookings",
+    icon: CalendarCheck,
   },
 ]
 
@@ -138,13 +136,9 @@ const configNavItems = [
 
 export function AppSidebar() {
   const pathname = usePathname()
-  const [dataOpen, setDataOpen] = React.useState(true)
   const [configOpen, setConfigOpen] = React.useState(false)
 
   React.useEffect(() => {
-    if (pathname.includes("/datos/")) {
-      setDataOpen(true)
-    }
     if (pathname.includes("/configuracion/")) {
       setConfigOpen(true)
     }
@@ -185,37 +179,23 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
 
-              {/* Data Section */}
-              <Collapsible open={dataOpen} onOpenChange={setDataOpen}>
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton className="w-full justify-start">
-                      <Database className="h-4 w-4" />
-                      <span>Datos</span>
-                      <ChevronDown
-                        className={cn(
-                          "ml-auto h-4 w-4 transition-transform",
-                          dataOpen && "rotate-180"
-                        )}
-                      />
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {dataNavItems.map((item) => (
-                        <SidebarMenuSubItem key={item.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            isActive={pathname === item.url}
-                          >
-                            <Link href={item.url}>{item.title}</Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
+              {crmNavItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.url}
+                    className={cn(
+                      "w-full justify-start",
+                      pathname === item.url && "bg-sidebar-accent"
+                    )}
+                  >
+                    <Link href={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
-              </Collapsible>
+              ))}
 
               {secondaryNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>

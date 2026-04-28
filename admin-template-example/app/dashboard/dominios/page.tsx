@@ -27,7 +27,7 @@ export default function DominiosPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium">smooth-zen-pilates-flow.base44.app</p>
+                <p className="font-medium">tu-negocio.appstract.app</p>
                 <p className="text-sm text-muted-foreground">Nunca expira</p>
               </div>
               <Button variant="outline">Editar URL</Button>
