@@ -10,50 +10,21 @@ type HomeGalaxyBubbleProps = {
   scrollProgress?: MotionValue<number>;
 };
 
-type StarBitEntry = {
+type OrbitStarEntry = {
   pivot: THREE.Group;
-  mesh: THREE.Mesh<THREE.OctahedronGeometry, THREE.MeshPhongMaterial>;
-  glow: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
-  baseRotation: THREE.Vector3;
-  selfSpin: THREE.Vector3;
+  star: THREE.Sprite;
+  glow: THREE.Sprite;
+  baseRotation: THREE.Euler;
   orbitSpeed: number;
   orbitDrift: number;
   twinkleOffset: number;
-  floatOffset: number;
-  baseOpacity: number;
-  baseGlowOpacity: number;
   glowScale: number;
+  starOpacity: number;
+  glowOpacity: number;
 };
 
-const DEEP_STAR_COUNT = 120;
-const OUTER_STAR_COUNT = 220;
-const INNER_DUST_COUNT = 72;
-const HALO_GLINT_COUNT = 52;
-const STAR_BIT_COUNT = 30;
-
-const STAR_PALETTE = ["#9fadb8", "#aab8c3", "#b5c1ca", "#c0ced8", "#d8c8b8"];
-const DEEP_STAR_PALETTE = ["#85919b", "#93a1ab", "#a5b3bc"];
-const LIGHT_SPARKLE_PALETTE = [
-  "#f4f8fb",
-  "#eef5fa",
-  "#e8f1f8",
-  "#fbf4ed",
-  "#f2f7fa",
-];
-const STAR_BIT_PALETTE = [
-  "#fff1b8",
-  "#ffdcca",
-  "#e3f6ff",
-  "#eee5ff",
-  "#fbe7f4",
-  "#e7ffe9",
-];
-
-function getRandomColor(palette: string[]) {
-  return new THREE.Color(
-    palette[Math.min(palette.length - 1, Math.floor(Math.random() * palette.length))],
-  );
-}
+const ORBIT_STAR_COUNT = 34;
+const ORBIT_STAR_PALETTE = ["#d2c8be", "#d8e7ef", "#cfd6df", "#d8d5de", "#cadbd5"];
 
 function getViewportProgress(shortSide: number) {
   return THREE.MathUtils.smoothstep(shortSide, 360, 960);
@@ -67,83 +38,49 @@ function shouldUseCompactRendering(
   return compactViewportMatch || shortSide < 430 || (coarsePointerMatch && shortSide < 390);
 }
 
-function createStarfield(
-  count: number,
-  radiusRange: [number, number],
-  palette: string[],
-  stretch: [number, number, number],
-) {
-  const positions = new Float32Array(count * 3);
-  const colors = new Float32Array(count * 3);
-
-  for (let index = 0; index < count; index += 1) {
-    const stride = index * 3;
-    const radius = THREE.MathUtils.lerp(
-      radiusRange[0],
-      radiusRange[1],
-      Math.pow(Math.random(), 0.72),
-    );
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(THREE.MathUtils.randFloatSpread(2));
-    const drift = THREE.MathUtils.randFloatSpread(0.9);
-    const color = getRandomColor(palette);
-
-    positions[stride] = radius * Math.sin(phi) * Math.cos(theta) * stretch[0];
-    positions[stride + 1] = (radius * Math.cos(phi) * 0.82 + drift) * stretch[1];
-    positions[stride + 2] = radius * Math.sin(phi) * Math.sin(theta) * stretch[2];
-
-    colors[stride] = color.r;
-    colors[stride + 1] = color.g;
-    colors[stride + 2] = color.b;
-  }
-
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-  geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-  return geometry;
+function getRandomColor(palette: string[]) {
+  return new THREE.Color(
+    palette[Math.min(palette.length - 1, Math.floor(Math.random() * palette.length))],
+  );
 }
 
-function createOrbitGeometry(radius: number) {
-  const points: THREE.Vector3[] = [];
+function createStarTexture(size: number, innerRadius: number, outerRadius: number) {
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
 
-  for (let step = 0; step <= 240; step += 1) {
-    const angle = (step / 240) * Math.PI * 2;
-    points.push(
-      new THREE.Vector3(
-        Math.cos(angle) * radius,
-        0,
-        Math.sin(angle) * radius,
-      ),
-    );
+  const context = canvas.getContext("2d");
+  if (!context) {
+    return new THREE.CanvasTexture(canvas);
   }
 
-  return new THREE.BufferGeometry().setFromPoints(points);
-}
+  const center = size / 2;
+  const glow = context.createRadialGradient(center, center, 0, center, center, outerRadius);
+  glow.addColorStop(0, "rgba(232, 240, 246, 0.95)");
+  glow.addColorStop(0.42, "rgba(196, 210, 220, 0.28)");
+  glow.addColorStop(1, "rgba(196, 210, 220, 0)");
+  context.fillStyle = glow;
+  context.fillRect(0, 0, size, size);
 
-function createSolarFacetColors(vertexCount: number) {
-  const colors = new Float32Array(vertexCount * 3);
-  const crystalPalette = ["#edf7ff", "#dff9ff", "#f7fcff", "#efeaff", "#fff8e8", "#def7f5"];
-  const neutralColor = new THREE.Color("#33424d");
-
-  for (let index = 0; index < vertexCount; index += 3) {
-    const useAccentFacet = Math.random() > 0.9;
-    const facetColor = useAccentFacet
-      ? getRandomColor(crystalPalette)
-      : neutralColor.clone().lerp(new THREE.Color("#465863"), Math.random() * 0.24);
-    const facetBoost = useAccentFacet
-      ? THREE.MathUtils.randFloat(0.5, 0.74)
-      : THREE.MathUtils.randFloat(0.12, 0.22);
-
-    for (let faceVertex = 0; faceVertex < 3; faceVertex += 1) {
-      const stride = (index + faceVertex) * 3;
-      colors[stride] = facetColor.r * facetBoost;
-      colors[stride + 1] = facetColor.g * facetBoost;
-      colors[stride + 2] = facetColor.b * facetBoost;
+  context.beginPath();
+  for (let point = 0; point < 8; point += 1) {
+    const angle = -Math.PI / 2 + (point / 8) * Math.PI * 2;
+    const radius = point % 2 === 0 ? outerRadius * 0.52 : innerRadius;
+    const x = center + Math.cos(angle) * radius;
+    const y = center + Math.sin(angle) * radius;
+    if (point === 0) {
+      context.moveTo(x, y);
+    } else {
+      context.lineTo(x, y);
     }
   }
+  context.closePath();
+  context.fillStyle = "rgba(238, 244, 248, 0.92)";
+  context.fill();
 
-  return new THREE.BufferAttribute(colors, 3);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 }
 
 export default function HomeGalaxyBubble({
@@ -171,22 +108,6 @@ export default function HomeGalaxyBubble({
       coarsePointerQuery.matches,
     );
 
-    const deepStarCount = Math.round(
-      THREE.MathUtils.lerp(84, DEEP_STAR_COUNT, initialViewportProgress),
-    );
-    const outerStarCount = Math.round(
-      THREE.MathUtils.lerp(156, OUTER_STAR_COUNT, initialViewportProgress),
-    );
-    const innerDustCount = Math.round(
-      THREE.MathUtils.lerp(44, INNER_DUST_COUNT, initialViewportProgress),
-    );
-    const haloGlintCount = Math.round(
-      THREE.MathUtils.lerp(30, HALO_GLINT_COUNT, initialViewportProgress),
-    );
-    const starBitCount = Math.round(
-      THREE.MathUtils.lerp(16, STAR_BIT_COUNT, initialViewportProgress),
-    );
-
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
@@ -206,269 +127,139 @@ export default function HomeGalaxyBubble({
     );
 
     const bubbleGroup = new THREE.Group();
-    const galaxyGroup = new THREE.Group();
-    const sparkleGroup = new THREE.Group();
-    scene.add(galaxyGroup);
-    scene.add(sparkleGroup);
+    const orbitStarGroup = new THREE.Group();
     scene.add(bubbleGroup);
+    scene.add(orbitStarGroup);
 
-    scene.add(new THREE.AmbientLight("#909aa4", 0.56));
+    scene.add(new THREE.AmbientLight("#8e9aa3", 0.58));
 
-    const orangeLight = new THREE.PointLight("#ffd6a8", 2.9, 20, 1.18);
+    const orangeLight = new THREE.PointLight("#d6b994", 1.65, 20, 1.18);
     orangeLight.position.set(-3.7, 1.4, 5.2);
     scene.add(orangeLight);
 
-    const steelLight = new THREE.PointLight("#b8cad7", 4.4, 18, 1.24);
+    const steelLight = new THREE.PointLight("#bdcbd4", 4.9, 18, 1.2);
     steelLight.position.set(3.4, -1.6, 4.8);
     scene.add(steelLight);
 
-    const coolAccentLight = new THREE.PointLight("#c9e7fb", 1.5, 10, 1.3);
+    const coolAccentLight = new THREE.PointLight("#e1e8ee", 1.7, 10, 1.25);
     coolAccentLight.position.set(2.3, 2.7, 3.5);
     scene.add(coolAccentLight);
 
     const blobRadius = THREE.MathUtils.lerp(1.58, 1.82, initialViewportProgress);
-    const haloRadius = THREE.MathUtils.lerp(1.76, 1.98, initialViewportProgress);
-    const coreRadius = THREE.MathUtils.lerp(0.9, 1.02, initialViewportProgress);
-    const blobGeometry = new THREE.IcosahedronGeometry(blobRadius, useCompactRendering ? 3 : 4);
+    const haloScale = THREE.MathUtils.lerp(1.08, 1.06, initialViewportProgress);
+    const blobGeometry = new THREE.SphereGeometry(
+      blobRadius,
+      useCompactRendering ? 72 : 112,
+      useCompactRendering ? 36 : 56,
+    );
     const positionAttribute = blobGeometry.attributes.position as THREE.BufferAttribute;
     const basePositions = Float32Array.from(positionAttribute.array as ArrayLike<number>);
-    blobGeometry.setAttribute(
-      "color",
-      createSolarFacetColors(positionAttribute.count),
-    );
 
     const blobMaterial = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#80919f"),
-      emissive: new THREE.Color("#243943"),
-      emissiveIntensity: 0.08,
-      roughness: 0.18,
-      metalness: 0.08,
-      transmission: 0.24,
-      thickness: 1.22,
+      color: new THREE.Color("#64727b"),
+      emissive: new THREE.Color("#111a21"),
+      emissiveIntensity: 0.028,
+      roughness: 0.075,
+      metalness: 0.02,
+      transmission: 0.62,
+      thickness: 1.78,
       transparent: true,
-      opacity: 0.6,
-      ior: 1.08,
-      reflectivity: 0.4,
+      opacity: 0.38,
+      ior: 1.24,
+      reflectivity: 0.76,
+      clearcoat: 0.94,
+      clearcoatRoughness: 0.075,
       sheen: 1,
-      sheenColor: new THREE.Color("#dcebf3"),
-      sheenRoughness: 0.24,
+      sheenColor: new THREE.Color("#cbd5dc"),
+      sheenRoughness: 0.12,
       side: THREE.DoubleSide,
     });
     const blobMesh = new THREE.Mesh(blobGeometry, blobMaterial);
     bubbleGroup.add(blobMesh);
 
-    const facetAccentMaterial = new THREE.MeshBasicMaterial({
-      transparent: true,
-      opacity: 0.055,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-    });
-    const facetAccentMesh = new THREE.Mesh(blobGeometry, facetAccentMaterial);
-    facetAccentMesh.scale.setScalar(1.0015);
-    bubbleGroup.add(facetAccentMesh);
-
     const haloMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#a9c6d7"),
+      color: new THREE.Color("#aebdc6"),
       transparent: true,
-      opacity: 0.026,
+      opacity: 0.018,
       blending: THREE.AdditiveBlending,
       side: THREE.BackSide,
     });
-    const haloMesh = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(haloRadius, useCompactRendering ? 2 : 3),
-      haloMaterial,
-    );
+    const haloMesh = new THREE.Mesh(blobGeometry, haloMaterial);
+    haloMesh.scale.setScalar(haloScale);
     bubbleGroup.add(haloMesh);
 
-    const coreMaterial = new THREE.MeshBasicMaterial({
-      color: new THREE.Color("#c5d9e6"),
-      transparent: true,
-      opacity: 0.036,
-      blending: THREE.AdditiveBlending,
-    });
-    const coreMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(
-        coreRadius,
-        useCompactRendering ? 32 : 42,
-        useCompactRendering ? 32 : 42,
-      ),
-      coreMaterial,
-    );
-    bubbleGroup.add(coreMesh);
+    const starTexture = createStarTexture(96, 9, 42);
+    const glowTexture = createStarTexture(96, 4, 46);
+    const orbitStars: OrbitStarEntry[] = [];
+    const orbitStarCount = Math.round(THREE.MathUtils.lerp(22, ORBIT_STAR_COUNT, initialViewportProgress));
 
-    const deepStarsMaterial = new THREE.PointsMaterial({
-      size: 0.03,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.14,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const deepStars = new THREE.Points(
-      createStarfield(deepStarCount, [8.2, 14.8], DEEP_STAR_PALETTE, [1.65, 0.72, 1.34]),
-      deepStarsMaterial,
-    );
-    deepStars.position.z = -3.2;
-    galaxyGroup.add(deepStars);
-
-    const outerStarsMaterial = new THREE.PointsMaterial({
-      size: 0.038,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.16,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const outerStars = new THREE.Points(
-      createStarfield(outerStarCount, [4.8, 10.8], STAR_PALETTE, [1.42, 0.82, 1.18]),
-      outerStarsMaterial,
-    );
-    outerStars.position.z = -1.35;
-    galaxyGroup.add(outerStars);
-
-    const innerDustMaterial = new THREE.PointsMaterial({
-      size: 0.055,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.08,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const innerDust = new THREE.Points(
-      createStarfield(innerDustCount, [2.6, 5.4], STAR_PALETTE, [1.08, 0.84, 0.98]),
-      innerDustMaterial,
-    );
-    innerDust.position.z = 1.1;
-    galaxyGroup.add(innerDust);
-
-    const haloGlintsMaterial = new THREE.PointsMaterial({
-      size: useCompactRendering ? 0.045 : 0.06,
-      sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.11,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const haloGlints = new THREE.Points(
-      createStarfield(haloGlintCount, [2.15, 3.75], LIGHT_SPARKLE_PALETTE, [1.08, 0.92, 1.04]),
-      haloGlintsMaterial,
-    );
-    haloGlints.position.z = 0.48;
-    sparkleGroup.add(haloGlints);
-
-    const orbitAMaterial = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#c1d0d9"),
-      transparent: true,
-      opacity: 0.05,
-      blending: THREE.AdditiveBlending,
-    });
-    const orbitA = new THREE.LineLoop(createOrbitGeometry(3.12), orbitAMaterial);
-    orbitA.rotation.x = Math.PI * 0.34;
-    orbitA.rotation.y = -0.46;
-    orbitA.position.z = 0.8;
-    galaxyGroup.add(orbitA);
-
-    const orbitBMaterial = new THREE.LineBasicMaterial({
-      color: new THREE.Color("#f4deca"),
-      transparent: true,
-      opacity: 0.024,
-      blending: THREE.AdditiveBlending,
-    });
-    const orbitB = new THREE.LineLoop(createOrbitGeometry(3.72), orbitBMaterial);
-    orbitB.rotation.x = Math.PI * 0.63;
-    orbitB.rotation.z = 0.84;
-    orbitB.position.z = -0.6;
-    galaxyGroup.add(orbitB);
-
-    const starBitGeometry = new THREE.OctahedronGeometry(
-      THREE.MathUtils.lerp(0.08, 0.102, initialViewportProgress),
-      0,
-    );
-    const glowGeometry = new THREE.SphereGeometry(0.078, 10, 10);
-    const starBits: StarBitEntry[] = [];
-
-    for (let index = 0; index < starBitCount; index += 1) {
-      const baseColor = getRandomColor(STAR_BIT_PALETTE);
-      const glowColor = baseColor.clone().lerp(new THREE.Color("#ffffff"), 0.35);
+    for (let index = 0; index < orbitStarCount; index += 1) {
+      const color = getRandomColor(ORBIT_STAR_PALETTE);
+      const glowColor = color.clone().lerp(new THREE.Color("#dce5ea"), 0.28);
       const pivot = new THREE.Group();
       const radius = THREE.MathUtils.randFloat(
-        THREE.MathUtils.lerp(2.1, 2.28, initialViewportProgress),
-        THREE.MathUtils.lerp(3.15, 3.6, initialViewportProgress),
+        THREE.MathUtils.lerp(2.08, 2.26, initialViewportProgress),
+        THREE.MathUtils.lerp(3.12, 3.58, initialViewportProgress),
       );
-      const scaleFactor = THREE.MathUtils.randFloat(
-        THREE.MathUtils.lerp(0.66, 0.76, initialViewportProgress),
-        THREE.MathUtils.lerp(0.94, 1.08, initialViewportProgress),
+      const scale = THREE.MathUtils.randFloat(
+        THREE.MathUtils.lerp(0.42, 0.54, initialViewportProgress),
+        THREE.MathUtils.lerp(0.68, 0.84, initialViewportProgress),
       );
-      const material = new THREE.MeshPhongMaterial({
-        color: baseColor,
-        emissive: baseColor.clone().multiplyScalar(0.1),
-        emissiveIntensity: 0.52,
-        specular: new THREE.Color("#fffdf7"),
-        shininess: 78,
+      const starMaterial = new THREE.SpriteMaterial({
+        color,
+        map: starTexture,
         transparent: true,
-        opacity: THREE.MathUtils.randFloat(0.72, 0.84),
+        opacity: THREE.MathUtils.randFloat(0.46, 0.68),
+        blending: THREE.AdditiveBlending,
         depthWrite: false,
       });
-      const mesh = new THREE.Mesh(starBitGeometry, material);
-      mesh.position.set(
+      const star = new THREE.Sprite(starMaterial);
+      star.position.set(
         radius,
         THREE.MathUtils.randFloatSpread(0.42),
         THREE.MathUtils.randFloatSpread(0.26),
       );
-      mesh.scale.set(0.56 * scaleFactor, 0.76 * scaleFactor, 0.56 * scaleFactor);
+      star.scale.set(0.11 * scale, 0.11 * scale, 1);
 
-      const glowMaterial = new THREE.MeshBasicMaterial({
+      const glowMaterial = new THREE.SpriteMaterial({
         color: glowColor,
+        map: glowTexture,
         transparent: true,
-        opacity: THREE.MathUtils.randFloat(0.014, 0.03),
+        opacity: THREE.MathUtils.randFloat(0.03, 0.055),
         blending: THREE.AdditiveBlending,
         depthWrite: false,
       });
-      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-      glow.position.copy(mesh.position);
-      glow.scale.setScalar(0.9 * scaleFactor);
+      const glow = new THREE.Sprite(glowMaterial);
+      glow.position.copy(star.position);
+      glow.scale.set(0.2 * scale, 0.2 * scale, 1);
 
       pivot.rotation.set(
         Math.random() * Math.PI * 2,
         Math.random() * Math.PI * 2,
         Math.random() * Math.PI * 2,
       );
-      pivot.add(mesh);
+      pivot.add(star);
       pivot.add(glow);
-      sparkleGroup.add(pivot);
+      orbitStarGroup.add(pivot);
 
-      starBits.push({
+      orbitStars.push({
         pivot,
-        mesh,
+        star,
         glow,
-        baseRotation: new THREE.Vector3(
-          pivot.rotation.x,
-          pivot.rotation.y,
-          pivot.rotation.z,
-        ),
-        selfSpin: new THREE.Vector3(
-          THREE.MathUtils.randFloat(0.24, 0.42),
-          THREE.MathUtils.randFloat(0.18, 0.34),
-          THREE.MathUtils.randFloat(0.12, 0.24),
-        ),
+        baseRotation: pivot.rotation.clone(),
         orbitSpeed: THREE.MathUtils.randFloat(0.08, 0.16),
         orbitDrift: THREE.MathUtils.randFloat(0.12, 0.22),
         twinkleOffset: Math.random() * Math.PI * 2,
-        floatOffset: Math.random() * Math.PI * 2,
-        baseOpacity: material.opacity,
-        baseGlowOpacity: glowMaterial.opacity,
         glowScale: glow.scale.x,
+        starOpacity: starMaterial.opacity,
+        glowOpacity: glowMaterial.opacity,
       });
     }
 
     const pointerTarget = new THREE.Vector2(0, 0);
     const pointerCurrent = new THREE.Vector2(0, 0);
+    let pointerHoverTarget = 0;
+    let pointerHoverCurrent = 0;
     let scrollTarget = 0;
     let scrollCurrent = 0;
     let bubbleBaseScale = THREE.MathUtils.lerp(0.82, 1.01, initialViewportProgress);
@@ -480,11 +271,8 @@ export default function HomeGalaxyBubble({
     let bubbleScrollRoll = THREE.MathUtils.lerp(0.14, 0.22, initialViewportProgress);
     let cameraBaseZ = THREE.MathUtils.lerp(10.9, 8.45, initialViewportProgress);
     let cameraScrollZ = THREE.MathUtils.lerp(0.34, 0.58, initialViewportProgress);
-    let pointerBubbleDrift = THREE.MathUtils.lerp(0.05, 0.08, initialViewportProgress);
-    let pointerCameraDrift = THREE.MathUtils.lerp(0.08, 0.12, initialViewportProgress);
     let cameraScrollY = THREE.MathUtils.lerp(0.08, 0.12, initialViewportProgress);
     let lookAtZ = THREE.MathUtils.lerp(0.05, 0.14, initialViewportProgress);
-    let lookAtYFactor = THREE.MathUtils.lerp(0.04, 0.06, initialViewportProgress);
     let lookAtScroll = THREE.MathUtils.lerp(0.16, 0.22, initialViewportProgress);
 
     const updateSize = () => {
@@ -518,34 +306,44 @@ export default function HomeGalaxyBubble({
       bubbleScrollRoll = THREE.MathUtils.lerp(0.14, 0.22, viewportProgress);
       cameraBaseZ = THREE.MathUtils.lerp(10.9, 8.45, viewportProgress);
       cameraScrollZ = THREE.MathUtils.lerp(0.34, 0.58, viewportProgress);
-      pointerBubbleDrift = THREE.MathUtils.lerp(0.05, 0.08, viewportProgress);
-      pointerCameraDrift = THREE.MathUtils.lerp(0.08, 0.12, viewportProgress);
       cameraScrollY = THREE.MathUtils.lerp(0.08, 0.12, viewportProgress);
       lookAtZ = THREE.MathUtils.lerp(0.05, 0.14, viewportProgress);
-      lookAtYFactor = THREE.MathUtils.lerp(0.04, 0.06, viewportProgress);
       lookAtScroll = THREE.MathUtils.lerp(0.16, 0.22, viewportProgress);
-
-      deepStarsMaterial.size = THREE.MathUtils.lerp(0.025, 0.03, viewportProgress);
-      outerStarsMaterial.size = THREE.MathUtils.lerp(0.032, 0.038, viewportProgress);
-      innerDustMaterial.size = THREE.MathUtils.lerp(0.044, 0.055, viewportProgress);
-      haloGlintsMaterial.size = THREE.MathUtils.lerp(0.045, 0.06, viewportProgress);
     };
 
     const updatePointer = (event: PointerEvent) => {
       const rect = host.getBoundingClientRect();
-      const nextX = THREE.MathUtils.clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
-      const nextY = THREE.MathUtils.clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
-      pointerTarget.set(nextX, nextY);
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const hoverRadius = Math.min(rect.width, rect.height) * 0.48;
+      const offsetX = event.clientX - centerX;
+      const offsetY = event.clientY - centerY;
+      const distance = Math.hypot(offsetX, offsetY);
+
+      if (distance > hoverRadius) {
+        pointerHoverTarget = 0;
+        pointerTarget.set(0, 0);
+        return;
+      }
+
+      const falloff = 1 - THREE.MathUtils.smoothstep(distance / hoverRadius, 0.9, 1);
+      pointerHoverTarget = falloff;
+      pointerTarget.set(
+        THREE.MathUtils.clamp(offsetX / hoverRadius, -1, 1) * falloff,
+        THREE.MathUtils.clamp(offsetY / hoverRadius, -1, 1) * falloff,
+      );
     };
 
     const resetPointer = () => {
+      pointerHoverTarget = 0;
       pointerTarget.set(0, 0);
     };
 
     const resizeObserver = new ResizeObserver(updateSize);
     resizeObserver.observe(host);
 
-    host.addEventListener("pointermove", updatePointer, { passive: true });
+    window.addEventListener("pointermove", updatePointer, { passive: true });
+    window.addEventListener("blur", resetPointer);
     host.addEventListener("pointerleave", resetPointer, { passive: true });
     host.addEventListener("pointercancel", resetPointer, { passive: true });
     window.addEventListener("resize", updateSize);
@@ -556,23 +354,29 @@ export default function HomeGalaxyBubble({
 
     const timer = new THREE.Timer();
     timer.connect(document);
-    timer.setTimescale(0.64);
+    timer.setTimescale(0.52);
 
     const animate = (timestamp?: number) => {
       timer.update(timestamp);
       const elapsed = timer.getElapsed();
+      const delta = Math.min(timer.getDelta(), 1 / 30);
       const motionFactor = shouldReduceMotion ? 0.35 : 1;
+      const scrollBlend = 1 - Math.exp(-(shouldReduceMotion ? 5.2 : 3.8) * delta);
+      const pointerBlend = 1 - Math.exp(-(shouldReduceMotion ? 5.8 : 4.2) * delta);
+      const cameraBlend = 1 - Math.exp(-3.4 * delta);
+      const bubbleBlend = 1 - Math.exp(-3.8 * delta);
+      const hoverBlend = 1 - Math.exp(-5.4 * delta);
       scrollTarget = THREE.MathUtils.clamp(scrollProgress?.get() ?? 0, 0, 1);
-      scrollCurrent = THREE.MathUtils.lerp(scrollCurrent, scrollTarget, shouldReduceMotion ? 0.12 : 0.065);
-      pointerCurrent.lerp(pointerTarget, shouldReduceMotion ? 0.1 : 0.06);
+      scrollCurrent = THREE.MathUtils.lerp(scrollCurrent, scrollTarget, scrollBlend);
+      pointerCurrent.lerp(pointerTarget, pointerBlend);
+      pointerHoverCurrent = THREE.MathUtils.lerp(pointerHoverCurrent, pointerHoverTarget, hoverBlend);
+      const playfulX = pointerCurrent.x * pointerHoverCurrent;
+      const playfulY = pointerCurrent.y * pointerHoverCurrent;
+      const hoverWobble = pointerHoverCurrent * Math.sin(elapsed * 1.18 * motionFactor);
 
-      const fluidIntensity = shouldReduceMotion ? 0.016 : 0.062 + scrollCurrent * 0.04;
-      const rippleIntensity = shouldReduceMotion ? 0.004 : 0.01 + scrollCurrent * 0.012;
-      const pulse = 1 + Math.sin(elapsed * 0.64) * 0.01;
-      const clearProgress = shouldReduceMotion
-        ? THREE.MathUtils.clamp((scrollCurrent - 0.14) / 0.58, 0, 1)
-        : THREE.MathUtils.smoothstep(scrollCurrent, 0.12, 0.72);
-      const particleScatter = clearProgress * clearProgress;
+      const fluidIntensity = shouldReduceMotion ? 0.012 : 0.038 + scrollCurrent * 0.024;
+      const rippleIntensity = shouldReduceMotion ? 0.003 : 0.006 + scrollCurrent * 0.006;
+      const pulse = 1 + Math.sin(elapsed * 0.42) * 0.006;
 
       for (let index = 0; index < basePositions.length; index += 3) {
         const x = basePositions[index];
@@ -583,19 +387,19 @@ export default function HomeGalaxyBubble({
         const ny = y / length;
         const nz = z / length;
 
-        const waveA = Math.sin(nx * 3.8 + elapsed * 0.34 + scrollCurrent * 1.6);
-        const waveB = Math.cos(ny * 4.1 - elapsed * 0.26 - scrollCurrent * 1.4);
-        const waveC = Math.sin((nx + nz * 0.8) * 2.7 + elapsed * 0.19 + scrollCurrent * 1.8);
-        const waveD = Math.cos((ny - nz + nx * 0.45) * 2.9 + elapsed * 0.15) * 0.02;
-        const lift = Math.cos((ny - nz) * 2.9 + elapsed * 0.34) * rippleIntensity;
+        const waveA = Math.sin(nx * 3.3 + elapsed * 0.2 + scrollCurrent * 1.15);
+        const waveB = Math.cos(ny * 3.4 - elapsed * 0.16 - scrollCurrent * 1);
+        const waveC = Math.sin((nx + nz * 0.8) * 2.35 + elapsed * 0.12 + scrollCurrent * 1.2);
+        const waveD = Math.cos((ny - nz + nx * 0.45) * 2.55 + elapsed * 0.1) * 0.012;
+        const lift = Math.cos((ny - nz) * 2.45 + elapsed * 0.2) * rippleIntensity;
         const radiusScale =
           1 +
           waveA * (fluidIntensity * 1.08) +
-          waveB * 0.022 +
-          waveC * 0.018 +
+          waveB * 0.014 +
+          waveC * 0.011 +
           waveD +
           lift;
-        const swirl = Math.sin(elapsed * 0.32 + length * 1.6) * rippleIntensity * 0.8;
+        const swirl = Math.sin(elapsed * 0.18 + length * 1.45) * rippleIntensity * 0.55;
 
         positionAttribute.setXYZ(
           index / 3,
@@ -610,147 +414,97 @@ export default function HomeGalaxyBubble({
 
       bubbleGroup.rotation.y = THREE.MathUtils.lerp(
         bubbleGroup.rotation.y,
-        elapsed * 0.05 * motionFactor + scrollCurrent * bubbleScrollTurn + pointerCurrent.x * 0.08,
-        0.045,
+        elapsed * 0.032 * motionFactor + scrollCurrent * bubbleScrollTurn * 0.82 + playfulX * 0.5 + hoverWobble * 0.08,
+        bubbleBlend,
       );
       bubbleGroup.rotation.x = THREE.MathUtils.lerp(
         bubbleGroup.rotation.x,
-        -0.05 + scrollCurrent * 0.08 - pointerCurrent.y * 0.05,
-        0.04,
+        -0.035 + scrollCurrent * 0.058 - playfulY * 0.36 + hoverWobble * 0.055,
+        bubbleBlend,
       );
       bubbleGroup.rotation.z = THREE.MathUtils.lerp(
         bubbleGroup.rotation.z,
-        Math.sin(elapsed * 0.22 * motionFactor) * 0.03 + scrollCurrent * bubbleScrollRoll,
-        0.035,
+        Math.sin(elapsed * 0.14 * motionFactor) * 0.018 + scrollCurrent * bubbleScrollRoll * 0.72 - playfulX * playfulY * 0.24 + hoverWobble * 0.05,
+        bubbleBlend,
       );
-      bubbleGroup.position.y = Math.sin(elapsed * 0.28 * motionFactor) * bubbleFloatAmplitude - scrollCurrent * bubbleScrollLift;
+      bubbleGroup.position.y = Math.sin(elapsed * 0.18 * motionFactor) * bubbleFloatAmplitude * 0.68 - scrollCurrent * bubbleScrollLift * 0.86;
       bubbleGroup.position.x = THREE.MathUtils.lerp(
         bubbleGroup.position.x,
-        pointerCurrent.x * pointerBubbleDrift,
-        0.05,
+        0,
+        bubbleBlend,
       );
       bubbleGroup.position.z = THREE.MathUtils.lerp(
         bubbleGroup.position.z,
-        bubbleBaseZ + scrollCurrent * bubbleScrollZ,
-        0.05,
+        bubbleBaseZ + scrollCurrent * bubbleScrollZ * 0.88,
+        bubbleBlend,
       );
-      bubbleGroup.scale.setScalar(bubbleBaseScale);
-      facetAccentMaterial.opacity =
-        0.048 +
-        Math.sin(elapsed * 0.28 * motionFactor + scrollCurrent * 1.4) * 0.008;
+      bubbleGroup.scale.setScalar(bubbleBaseScale * (1 + pointerHoverCurrent * 0.026));
 
-      haloMesh.rotation.y = -elapsed * 0.06 * motionFactor - scrollCurrent * 0.18;
-      haloMesh.rotation.x = elapsed * 0.035 * motionFactor;
-      haloMesh.scale.setScalar(1.002 + Math.sin(elapsed * 0.52 * motionFactor) * 0.007);
-
-      coreMesh.scale.setScalar(1 + Math.sin(elapsed * 0.82 * motionFactor) * 0.016);
-      coreMesh.position.y = Math.sin(elapsed * 0.56 * motionFactor) * 0.04;
+      haloMesh.rotation.y = -elapsed * 0.038 * motionFactor - scrollCurrent * 0.12;
+      haloMesh.rotation.x = elapsed * 0.022 * motionFactor;
+      haloMesh.scale.setScalar(haloScale + Math.sin(elapsed * 0.34 * motionFactor) * 0.003);
 
       camera.position.x = THREE.MathUtils.lerp(
         camera.position.x,
-        pointerCurrent.x * pointerCameraDrift,
-        0.04,
+        0,
+        cameraBlend,
       );
       camera.position.y = THREE.MathUtils.lerp(
         camera.position.y,
-        -scrollCurrent * cameraScrollY - pointerCurrent.y * pointerBubbleDrift,
-        0.04,
+        -scrollCurrent * cameraScrollY * 0.86,
+        cameraBlend,
       );
       camera.position.z = THREE.MathUtils.lerp(
         camera.position.z,
-        cameraBaseZ - scrollCurrent * cameraScrollZ,
-        0.04,
+        cameraBaseZ - scrollCurrent * cameraScrollZ * 0.9,
+        cameraBlend,
       );
       camera.lookAt(
-        pointerCurrent.x * pointerBubbleDrift,
-        -pointerCurrent.y * lookAtYFactor,
-        lookAtZ + scrollCurrent * lookAtScroll,
+        0,
+        0,
+        lookAtZ + scrollCurrent * lookAtScroll * 0.86,
       );
 
-      galaxyGroup.rotation.y = THREE.MathUtils.lerp(
-        galaxyGroup.rotation.y,
-        scrollCurrent * 0.14 + pointerCurrent.x * 0.05,
-        0.03,
+      orbitStarGroup.position.copy(bubbleGroup.position);
+      orbitStarGroup.scale.setScalar(bubbleBaseScale);
+      orbitStarGroup.rotation.y = THREE.MathUtils.lerp(
+        orbitStarGroup.rotation.y,
+        elapsed * 0.012 * motionFactor + scrollCurrent * 0.12 + playfulX * 0.12,
+        cameraBlend,
       );
-      galaxyGroup.rotation.x = THREE.MathUtils.lerp(
-        galaxyGroup.rotation.x,
-        -scrollCurrent * 0.04 - pointerCurrent.y * 0.03,
-        0.03,
+      orbitStarGroup.rotation.x = THREE.MathUtils.lerp(
+        orbitStarGroup.rotation.x,
+        -scrollCurrent * 0.028 - playfulY * 0.08,
+        cameraBlend,
       );
-      galaxyGroup.position.y = THREE.MathUtils.lerp(galaxyGroup.position.y, -scrollCurrent * 0.28, 0.04);
-      galaxyGroup.position.z = THREE.MathUtils.lerp(galaxyGroup.position.z, -scrollCurrent * 0.9, 0.04);
-      galaxyGroup.scale.setScalar(1 + particleScatter * 0.1);
-
-      deepStars.rotation.y = elapsed * 0.005 * motionFactor + scrollCurrent * 0.028;
-      deepStars.rotation.x = -elapsed * 0.003 * motionFactor;
-      outerStars.rotation.y = elapsed * 0.01 * motionFactor + scrollCurrent * 0.06;
-      outerStars.rotation.x = -elapsed * 0.005 * motionFactor - scrollCurrent * 0.02;
-      innerDust.rotation.z = elapsed * 0.024 * motionFactor + scrollCurrent * 0.14;
-      innerDust.rotation.x = -elapsed * 0.016 * motionFactor;
-
-      outerStars.position.y = THREE.MathUtils.lerp(outerStars.position.y, -particleScatter * 0.28, 0.04);
-      outerStars.position.z = THREE.MathUtils.lerp(outerStars.position.z, -1.35 - particleScatter * 1.8, 0.04);
-      innerDust.position.y = THREE.MathUtils.lerp(innerDust.position.y, particleScatter * 0.22, 0.04);
-      innerDust.position.z = THREE.MathUtils.lerp(innerDust.position.z, 1.1 + particleScatter * 1.4, 0.04);
-      deepStarsMaterial.opacity = 0.14 - clearProgress * 0.03;
-      outerStarsMaterial.opacity = 0.16 - clearProgress * 0.1;
-      innerDustMaterial.opacity = 0.08 - clearProgress * 0.04;
-
-      orbitA.rotation.z = elapsed * 0.03 * motionFactor + scrollCurrent * 0.14;
-      orbitB.rotation.y = -elapsed * 0.026 * motionFactor - scrollCurrent * 0.12;
-
-      sparkleGroup.position.copy(bubbleGroup.position);
-      sparkleGroup.scale.setScalar(bubbleBaseScale);
-      sparkleGroup.rotation.y = THREE.MathUtils.lerp(
-        sparkleGroup.rotation.y,
-        elapsed * 0.02 * motionFactor + scrollCurrent * 0.18 + pointerCurrent.x * 0.03,
-        0.03,
-      );
-      sparkleGroup.rotation.x = THREE.MathUtils.lerp(
-        sparkleGroup.rotation.x,
-        -scrollCurrent * 0.04 - pointerCurrent.y * 0.02,
-        0.03,
-      );
-      sparkleGroup.rotation.z = THREE.MathUtils.lerp(
-        sparkleGroup.rotation.z,
-        Math.sin(elapsed * 0.18 * motionFactor) * 0.04,
-        0.02,
+      orbitStarGroup.rotation.z = THREE.MathUtils.lerp(
+        orbitStarGroup.rotation.z,
+        Math.sin(elapsed * 0.11 * motionFactor) * 0.024,
+        cameraBlend,
       );
 
-      haloGlints.rotation.y = elapsed * 0.045 * motionFactor + scrollCurrent * 0.14;
-      haloGlints.rotation.x = -elapsed * 0.016 * motionFactor;
-      haloGlints.rotation.z = elapsed * 0.012 * motionFactor;
-      haloGlintsMaterial.opacity = 0.1 + Math.sin(elapsed * 0.4 * motionFactor + 0.4) * 0.012;
-
-      for (const starBit of starBits) {
+      for (const orbitStar of orbitStars) {
         const shimmer = shouldReduceMotion
           ? 0.45
-          : 0.5 + Math.sin(elapsed * 1.1 + starBit.twinkleOffset) * 0.5;
+          : 0.5 + Math.sin(elapsed * 0.62 + orbitStar.twinkleOffset) * 0.5;
+        const rotation = elapsed * orbitStar.orbitSpeed * motionFactor + scrollCurrent * orbitStar.orbitDrift;
 
-        starBit.pivot.rotation.x =
-          starBit.baseRotation.x +
-          Math.sin(elapsed * 0.26 * motionFactor + starBit.floatOffset) * 0.12;
-        starBit.pivot.rotation.y =
-          starBit.baseRotation.y +
-          elapsed * starBit.orbitSpeed * motionFactor +
-          scrollCurrent * starBit.orbitDrift;
-        starBit.pivot.rotation.z =
-          starBit.baseRotation.z +
-          scrollCurrent * starBit.orbitDrift * 0.45;
-
-        starBit.mesh.rotation.x =
-          elapsed * starBit.selfSpin.x * motionFactor +
-          scrollCurrent * 0.14;
-        starBit.mesh.rotation.y =
-          elapsed * starBit.selfSpin.y * motionFactor +
-          scrollCurrent * 0.1;
-        starBit.mesh.rotation.z =
-          elapsed * starBit.selfSpin.z * motionFactor +
-          Math.sin(elapsed * 0.7 * motionFactor + starBit.floatOffset) * 0.08;
-
-        starBit.mesh.material.opacity = starBit.baseOpacity + shimmer * 0.05;
-        starBit.glow.material.opacity = starBit.baseGlowOpacity + shimmer * 0.012;
-        starBit.glow.scale.setScalar(starBit.glowScale * (1 + shimmer * 0.07));
+        orbitStar.pivot.rotation.x =
+          orbitStar.baseRotation.x +
+          Math.sin(elapsed * 0.15 * motionFactor + orbitStar.twinkleOffset) * 0.07;
+        orbitStar.pivot.rotation.y = orbitStar.baseRotation.y + rotation;
+        orbitStar.pivot.rotation.z =
+          orbitStar.baseRotation.z +
+          scrollCurrent * orbitStar.orbitDrift * 0.45;
+        orbitStar.star.material.rotation = rotation + orbitStar.twinkleOffset;
+        orbitStar.glow.material.rotation = -orbitStar.star.material.rotation * 0.35;
+        orbitStar.star.material.opacity = orbitStar.starOpacity + shimmer * 0.026;
+        orbitStar.glow.material.opacity = orbitStar.glowOpacity + shimmer * 0.014;
+        orbitStar.glow.scale.set(
+          orbitStar.glowScale * (1 + shimmer * 0.08),
+          orbitStar.glowScale * (1 + shimmer * 0.08),
+          1,
+        );
       }
 
       renderer.render(scene, camera);
@@ -761,7 +515,8 @@ export default function HomeGalaxyBubble({
     return () => {
       renderer.setAnimationLoop(null);
       resizeObserver.disconnect();
-      host.removeEventListener("pointermove", updatePointer);
+      window.removeEventListener("pointermove", updatePointer);
+      window.removeEventListener("blur", resetPointer);
       host.removeEventListener("pointerleave", resetPointer);
       host.removeEventListener("pointercancel", resetPointer);
       window.removeEventListener("resize", updateSize);
@@ -770,29 +525,13 @@ export default function HomeGalaxyBubble({
 
       blobGeometry.dispose();
       blobMaterial.dispose();
-      facetAccentMaterial.dispose();
-      haloMesh.geometry.dispose();
       haloMaterial.dispose();
-      coreMesh.geometry.dispose();
-      coreMaterial.dispose();
-      deepStars.geometry.dispose();
-      deepStarsMaterial.dispose();
-      outerStars.geometry.dispose();
-      outerStarsMaterial.dispose();
-      innerDust.geometry.dispose();
-      innerDustMaterial.dispose();
-      haloGlints.geometry.dispose();
-      haloGlintsMaterial.dispose();
-      orbitA.geometry.dispose();
-      orbitAMaterial.dispose();
-      orbitB.geometry.dispose();
-      orbitBMaterial.dispose();
-      starBitGeometry.dispose();
-      glowGeometry.dispose();
+      starTexture.dispose();
+      glowTexture.dispose();
 
-      for (const starBit of starBits) {
-        starBit.mesh.material.dispose();
-        starBit.glow.material.dispose();
+      for (const orbitStar of orbitStars) {
+        orbitStar.star.material.dispose();
+        orbitStar.glow.material.dispose();
       }
 
       timer.dispose();
