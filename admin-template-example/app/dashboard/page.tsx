@@ -23,33 +23,11 @@ const chartData = [
   { day: "Dom", reservas: 0, color: "#c4856c" },
 ]
 
-const upcomingReservations = [
-  {
-    name: "Maria Garcia Lopez",
-    class: "Pilates Reformer - Lunes 7:00 AM",
-    date: "23 mar",
-  },
-  {
-    name: "Ana Sofia Martinez",
-    class: "Pilates Reformer - Lunes 7:00 AM",
-    date: "23 mar",
-  },
-  {
-    name: "Maria Garcia Lopez",
-    class: "Pilates Mat - Miercoles 9:00 AM",
-    date: "25 mar",
-  },
-  {
-    name: "Ana Sofia Martinez",
-    class: "Pilates Mat - Miercoles 9:00 AM",
-    date: "25 mar",
-  },
-  {
-    name: "Ana Sofia Martinez",
-    class: "Pilates Tower - Viernes 6:00 PM",
-    date: "27 mar",
-  },
-]
+const upcomingReservations: {
+  name: string
+  class: string
+  date: string
+}[] = []
 
 const metrics = [
   {
@@ -171,22 +149,28 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {upcomingReservations.map((reservation, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between py-2"
-              >
-                <div>
-                  <p className="font-medium text-sm">{reservation.name}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {reservation.class}
-                  </p>
+            {upcomingReservations.length > 0 ? (
+              upcomingReservations.map((reservation, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between py-2"
+                >
+                  <div>
+                    <p className="font-medium text-sm">{reservation.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {reservation.class}
+                    </p>
+                  </div>
+                  <Badge variant="outline" className="text-xs font-normal">
+                    {reservation.date}
+                  </Badge>
                 </div>
-                <Badge variant="outline" className="text-xs font-normal">
-                  {reservation.date}
-                </Badge>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="py-8 text-center text-sm text-muted-foreground">
+                Sin proximas reservas
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
