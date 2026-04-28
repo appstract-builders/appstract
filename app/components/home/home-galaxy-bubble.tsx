@@ -146,7 +146,7 @@ export default function HomeGalaxyBubble({
     scene.add(coolAccentLight);
 
     const blobRadius = THREE.MathUtils.lerp(1.58, 1.82, initialViewportProgress);
-    const haloScale = THREE.MathUtils.lerp(1.08, 1.06, initialViewportProgress);
+    const haloScale = THREE.MathUtils.lerp(1.018, 1.015, initialViewportProgress);
     const blobGeometry = new THREE.SphereGeometry(
       blobRadius,
       useCompactRendering ? 72 : 112,
@@ -155,33 +155,125 @@ export default function HomeGalaxyBubble({
     const positionAttribute = blobGeometry.attributes.position as THREE.BufferAttribute;
     const basePositions = Float32Array.from(positionAttribute.array as ArrayLike<number>);
 
-    const blobMaterial = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#64727b"),
-      emissive: new THREE.Color("#111a21"),
-      emissiveIntensity: 0.028,
-      roughness: 0.075,
-      metalness: 0.02,
-      transmission: 0.62,
-      thickness: 1.78,
+    const blobMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        uAlpha: { value: 0.54 },
+        uBaseColor: { value: new THREE.Color("#5f6f79") },
+        uCyanColor: { value: new THREE.Color("#9bcbd7") },
+        uLavenderColor: { value: new THREE.Color("#a7adc8") },
+        uRimColor: { value: new THREE.Color("#d5e1e6") },
+        uTime: { value: 0 },
+        uWarmColor: { value: new THREE.Color("#d0b89e") },
+      },
+      vertexShader: `
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          vWorldNormal = normalize(mat3(modelMatrix) * normal);
+          vWorldPosition = worldPosition.xyz;
+          gl_Position = projectionMatrix * viewMatrix * worldPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform float uAlpha;
+        uniform vec3 uBaseColor;
+        uniform vec3 uCyanColor;
+        uniform vec3 uLavenderColor;
+        uniform vec3 uRimColor;
+        uniform float uTime;
+        uniform vec3 uWarmColor;
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec3 normal = normalize(vWorldNormal);
+          vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
+          float facing = abs(dot(normal, viewDirection));
+          float edgeFade = smoothstep(0.025, 0.5, facing);
+          float rim = pow(1.0 - facing, 2.45) * smoothstep(0.05, 0.24, facing);
+          float edgeGlow = pow(1.0 - facing, 3.2) * smoothstep(0.035, 0.2, facing);
+          vec3 coolLight = normalize(vec3(0.48, -0.28, 0.84));
+          vec3 warmLight = normalize(vec3(-0.52, 0.22, 0.82));
+          vec3 highLight = normalize(vec3(0.16, 0.42, 0.9));
+          float cool = max(dot(normal, coolLight), 0.0);
+          float warm = max(dot(normal, warmLight), 0.0);
+          float gloss = pow(max(dot(reflect(-highLight, normal), viewDirection), 0.0), 36.0);
+          float softGloss = pow(max(dot(reflect(-warmLight, normal), viewDirection), 0.0), 18.0);
+          float shimmer = max(sin(uTime * 0.34 + normal.x * 2.1 + normal.y * 1.35), 0.0) * 0.018;
+          vec3 color = uBaseColor * (0.5 + cool * 0.34 + warm * 0.22);
+          color += uRimColor * (rim * 0.16 + edgeGlow * 0.14 + gloss * 0.5 + shimmer);
+          color += uCyanColor * cool * 0.05;
+          color += uLavenderColor * max(normal.y * 0.5 + 0.5, 0.0) * 0.02;
+          color += uWarmColor * (warm * 0.055 + softGloss * 0.16);
+          float alpha = uAlpha * (0.08 + edgeFade * 0.92) + edgeGlow * 0.026;
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
+      depthWrite: false,
+      side: THREE.FrontSide,
       transparent: true,
-      opacity: 0.38,
-      ior: 1.24,
-      reflectivity: 0.76,
-      clearcoat: 0.94,
-      clearcoatRoughness: 0.075,
-      sheen: 1,
-      sheenColor: new THREE.Color("#cbd5dc"),
-      sheenRoughness: 0.12,
-      side: THREE.DoubleSide,
     });
+
+    const atmosphereMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        uAlpha: { value: 0.16 },
+        uBaseColor: { value: new THREE.Color("#53616b") },
+        uGlowColor: { value: new THREE.Color("#b8cad1") },
+        uTime: { value: 0 },
+      },
+      vertexShader: `
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          vWorldNormal = normalize(mat3(modelMatrix) * normal);
+          vWorldPosition = worldPosition.xyz;
+          gl_Position = projectionMatrix * viewMatrix * worldPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform float uAlpha;
+        uniform vec3 uBaseColor;
+        uniform vec3 uGlowColor;
+        uniform float uTime;
+        varying vec3 vWorldNormal;
+        varying vec3 vWorldPosition;
+
+        void main() {
+          vec3 normal = normalize(vWorldNormal);
+          vec3 viewDirection = normalize(cameraPosition - vWorldPosition);
+          float facing = abs(dot(normal, viewDirection));
+          float softBody = smoothstep(0.0, 0.64, facing);
+          float rim = pow(1.0 - facing, 2.6) * smoothstep(0.12, 0.42, facing);
+          vec3 color = uBaseColor * (0.46 + softBody * 0.38);
+          color += uGlowColor * rim * 0.07;
+          float alpha = uAlpha * (0.16 + softBody * 0.84);
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.FrontSide,
+      transparent: true,
+    });
+    const atmosphereMesh = new THREE.Mesh(blobGeometry, atmosphereMaterial);
+    atmosphereMesh.scale.setScalar(1.028);
+    atmosphereMesh.renderOrder = 0;
+    bubbleGroup.add(atmosphereMesh);
+
     const blobMesh = new THREE.Mesh(blobGeometry, blobMaterial);
+    blobMesh.renderOrder = 1;
     bubbleGroup.add(blobMesh);
 
     const haloMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#aebdc6"),
       transparent: true,
-      opacity: 0.018,
+      opacity: 0.006,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
       side: THREE.BackSide,
     });
     const haloMesh = new THREE.Mesh(blobGeometry, haloMaterial);
@@ -354,13 +446,15 @@ export default function HomeGalaxyBubble({
 
     const timer = new THREE.Timer();
     timer.connect(document);
-    timer.setTimescale(0.52);
+    timer.setTimescale(0.58);
 
     const animate = (timestamp?: number) => {
       timer.update(timestamp);
       const elapsed = timer.getElapsed();
       const delta = Math.min(timer.getDelta(), 1 / 30);
       const motionFactor = shouldReduceMotion ? 0.35 : 1;
+      blobMaterial.uniforms.uTime.value = elapsed;
+      atmosphereMaterial.uniforms.uTime.value = elapsed;
       const scrollBlend = 1 - Math.exp(-(shouldReduceMotion ? 5.2 : 3.8) * delta);
       const pointerBlend = 1 - Math.exp(-(shouldReduceMotion ? 5.8 : 4.2) * delta);
       const cameraBlend = 1 - Math.exp(-3.4 * delta);
@@ -373,10 +467,11 @@ export default function HomeGalaxyBubble({
       const playfulX = pointerCurrent.x * pointerHoverCurrent;
       const playfulY = pointerCurrent.y * pointerHoverCurrent;
       const hoverWobble = pointerHoverCurrent * Math.sin(elapsed * 1.18 * motionFactor);
+      const hoverStretch = pointerHoverCurrent * (shouldReduceMotion ? 0.018 : 0.05);
 
-      const fluidIntensity = shouldReduceMotion ? 0.012 : 0.038 + scrollCurrent * 0.024;
-      const rippleIntensity = shouldReduceMotion ? 0.003 : 0.006 + scrollCurrent * 0.006;
-      const pulse = 1 + Math.sin(elapsed * 0.42) * 0.006;
+      const fluidIntensity = shouldReduceMotion ? 0.012 : 0.052 + scrollCurrent * 0.03;
+      const rippleIntensity = shouldReduceMotion ? 0.003 : 0.008 + scrollCurrent * 0.008;
+      const pulse = 1 + Math.sin(elapsed * 0.46) * 0.009 + pointerHoverCurrent * Math.sin(elapsed * 1.45) * 0.006;
 
       for (let index = 0; index < basePositions.length; index += 3) {
         const x = basePositions[index];
@@ -387,25 +482,34 @@ export default function HomeGalaxyBubble({
         const ny = y / length;
         const nz = z / length;
 
-        const waveA = Math.sin(nx * 3.3 + elapsed * 0.2 + scrollCurrent * 1.15);
-        const waveB = Math.cos(ny * 3.4 - elapsed * 0.16 - scrollCurrent * 1);
-        const waveC = Math.sin((nx + nz * 0.8) * 2.35 + elapsed * 0.12 + scrollCurrent * 1.2);
-        const waveD = Math.cos((ny - nz + nx * 0.45) * 2.55 + elapsed * 0.1) * 0.012;
-        const lift = Math.cos((ny - nz) * 2.45 + elapsed * 0.2) * rippleIntensity;
+        const pointerPush = nx * pointerCurrent.x - ny * pointerCurrent.y;
+        const hoverFalloff = Math.max(0, pointerPush * 0.5 + 0.5) * pointerHoverCurrent;
+        const waveA = Math.sin(nx * 2.65 + elapsed * 0.24 + scrollCurrent * 1.15);
+        const waveB = Math.cos(ny * 2.9 - elapsed * 0.19 - scrollCurrent * 1);
+        const waveC = Math.sin((nx + nz * 0.8) * 2.05 + elapsed * 0.15 + scrollCurrent * 1.2);
+        const waveD = Math.cos((ny - nz + nx * 0.45) * 2.25 + elapsed * 0.13) * 0.014;
+        const lift = Math.cos((ny - nz) * 2.15 + elapsed * 0.24) * rippleIntensity;
+        const hoverWave =
+          Math.sin(pointerPush * 3.2 - elapsed * 1.9 * motionFactor) *
+          hoverStretch *
+          hoverFalloff;
         const radiusScale =
           1 +
           waveA * (fluidIntensity * 1.08) +
           waveB * 0.014 +
           waveC * 0.011 +
           waveD +
-          lift;
-        const swirl = Math.sin(elapsed * 0.18 + length * 1.45) * rippleIntensity * 0.55;
+          lift +
+          hoverWave;
+        const swirl =
+          Math.sin(elapsed * 0.22 + length * 1.35 + pointerPush * 0.7) *
+          (rippleIntensity * 0.68 + hoverStretch * 0.18);
 
         positionAttribute.setXYZ(
           index / 3,
-          x * radiusScale * pulse + ny * swirl,
-          y * radiusScale * (1 + scrollCurrent * 0.035) - nz * swirl * 0.7,
-          z * radiusScale * pulse + nx * swirl,
+          x * radiusScale * pulse + ny * swirl + pointerCurrent.x * hoverFalloff * 0.024,
+          y * radiusScale * (1 + scrollCurrent * 0.035) - nz * swirl * 0.7 - pointerCurrent.y * hoverFalloff * 0.024,
+          z * radiusScale * pulse + nx * swirl + hoverFalloff * hoverStretch * 0.18,
         );
       }
 
@@ -414,17 +518,17 @@ export default function HomeGalaxyBubble({
 
       bubbleGroup.rotation.y = THREE.MathUtils.lerp(
         bubbleGroup.rotation.y,
-        elapsed * 0.032 * motionFactor + scrollCurrent * bubbleScrollTurn * 0.82 + playfulX * 0.5 + hoverWobble * 0.08,
+        elapsed * 0.038 * motionFactor + scrollCurrent * bubbleScrollTurn * 0.82 + playfulX * 0.68 + hoverWobble * 0.12,
         bubbleBlend,
       );
       bubbleGroup.rotation.x = THREE.MathUtils.lerp(
         bubbleGroup.rotation.x,
-        -0.035 + scrollCurrent * 0.058 - playfulY * 0.36 + hoverWobble * 0.055,
+        -0.035 + scrollCurrent * 0.058 - playfulY * 0.5 + hoverWobble * 0.08,
         bubbleBlend,
       );
       bubbleGroup.rotation.z = THREE.MathUtils.lerp(
         bubbleGroup.rotation.z,
-        Math.sin(elapsed * 0.14 * motionFactor) * 0.018 + scrollCurrent * bubbleScrollRoll * 0.72 - playfulX * playfulY * 0.24 + hoverWobble * 0.05,
+        Math.sin(elapsed * 0.16 * motionFactor) * 0.024 + scrollCurrent * bubbleScrollRoll * 0.72 - playfulX * playfulY * 0.32 + hoverWobble * 0.07,
         bubbleBlend,
       );
       bubbleGroup.position.y = Math.sin(elapsed * 0.18 * motionFactor) * bubbleFloatAmplitude * 0.68 - scrollCurrent * bubbleScrollLift * 0.86;
@@ -438,11 +542,12 @@ export default function HomeGalaxyBubble({
         bubbleBaseZ + scrollCurrent * bubbleScrollZ * 0.88,
         bubbleBlend,
       );
-      bubbleGroup.scale.setScalar(bubbleBaseScale * (1 + pointerHoverCurrent * 0.026));
+      bubbleGroup.scale.setScalar(bubbleBaseScale * (1 + pointerHoverCurrent * 0.038));
 
       haloMesh.rotation.y = -elapsed * 0.038 * motionFactor - scrollCurrent * 0.12;
       haloMesh.rotation.x = elapsed * 0.022 * motionFactor;
-      haloMesh.scale.setScalar(haloScale + Math.sin(elapsed * 0.34 * motionFactor) * 0.003);
+      haloMesh.scale.setScalar(haloScale + Math.sin(elapsed * 0.34 * motionFactor) * 0.0015);
+      atmosphereMesh.scale.setScalar(1.028 + Math.sin(elapsed * 0.24 * motionFactor) * 0.002);
 
       camera.position.x = THREE.MathUtils.lerp(
         camera.position.x,
@@ -525,6 +630,7 @@ export default function HomeGalaxyBubble({
 
       blobGeometry.dispose();
       blobMaterial.dispose();
+      atmosphereMaterial.dispose();
       haloMaterial.dispose();
       starTexture.dispose();
       glowTexture.dispose();
@@ -544,7 +650,7 @@ export default function HomeGalaxyBubble({
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="h-full w-full opacity-90 [filter:drop-shadow(0_0_28px_rgba(90,132,158,0.12))]"
+        className="h-full w-full opacity-90 [filter:drop-shadow(0_0_14px_rgba(90,132,158,0.06))]"
       />
     </div>
   );
