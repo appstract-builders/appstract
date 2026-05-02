@@ -26,7 +26,7 @@ const navSections: { title: string; items: { href: string; label: string }[] }[]
     title: "Proyectos",
     items: [
       { href: "/admin/proyectos/lake-sport-club", label: "Lake Sport Club" },
-      { href: "/admin/proyectos/pilates-reformer", label: "Pilates Reformer" },
+      { href: "/admin/proyectos/pilates-studio", label: "Pilates Studio" },
       { href: "/admin/proyectos/pulsety", label: "Pulsety" },
       { href: "/admin/proyectos/refautomex", label: "Refautomex" },
     ],
@@ -78,7 +78,7 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
       >
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.34em] text-primary/80">appstract</p>
+            <p className="text-[0.65rem] uppercase tracking-[0.34em] text-primary/80">Appending</p>
             <p className="mt-2 text-sm uppercase tracking-[0.22em] text-foreground/80">Panel interno</p>
           </div>
           <button

@@ -14,7 +14,7 @@ export default function AccountPage() {
                 Cuenta y panel interno
               </p>
               <h1 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
-                Accede al back office en el mismo estilo visual de appstract.
+                Accede al back office en el mismo estilo visual de Appending.
               </h1>
               <p className="mt-6 max-w-xl text-sm leading-7 tracking-[0.04em] text-white/68 sm:text-base">
                 Aqui entra el flujo de autenticacion local con Better Auth, Drizzle y SQLite. Cuando

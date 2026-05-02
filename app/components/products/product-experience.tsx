@@ -51,13 +51,13 @@ export default function ProductExperience() {
     <section className="w-full max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pb-24">
       <div className="mb-8 max-w-3xl">
         <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#ffc404]">
-          Conoce appstract en acción
+          Conoce Appending en acción
         </p>
         <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
           Sitios web que nos respaldan
         </h2>
         <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
-          Mira los diseños de sitios que nuestros clientes han lanzado con appstract, cada uno con su propia identidad y propósito:
+          Mira los diseños de sitios que nuestros clientes han lanzado con Appending, cada uno con su propia identidad y propósito:
         </p>
       </div>
 

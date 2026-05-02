@@ -24,7 +24,7 @@ const reservas = [
   {
     id: 1,
     alumno: "Maria Garcia Lopez",
-    clase: "Pilates Reformer - Lunes 7:00 AM",
+    clase: "Pilates Studio - Lunes 7:00 AM",
     fecha: "23 mar 2026",
     semana: "2026-W13",
     estado: "Confirmada",
@@ -40,7 +40,7 @@ const reservas = [
   {
     id: 3,
     alumno: "Ana Sofia Martinez",
-    clase: "Pilates Reformer - Lunes 7:00 AM",
+    clase: "Pilates Studio - Lunes 7:00 AM",
     fecha: "23 mar 2026",
     semana: "2026-W13",
     estado: "Confirmada",

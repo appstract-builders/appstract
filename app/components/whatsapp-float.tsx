@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 const WHATSAPP_PHONE = "5512879683";
-const WHATSAPP_MESSAGE = "Buenas tardes, appstract, quisiera conocer mas sobre sus productos.";
+const WHATSAPP_MESSAGE = "Buenas tardes, Appending, quisiera conocer mas sobre sus productos.";
 const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const HOME_LOADER_DURATION_MS = 4400;
 

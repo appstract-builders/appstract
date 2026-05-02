@@ -37,7 +37,7 @@ export default function HomeAbout() {
         <div className="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div>
             <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]">
-              appstract
+              Appending
             </p>
             <h2 className="mt-4 max-w-[12ch] text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
               Somos tu Destino Digital.

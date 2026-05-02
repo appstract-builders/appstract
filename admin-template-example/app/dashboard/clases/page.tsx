@@ -9,10 +9,10 @@ import { Plus, Clock, Users } from "lucide-react"
 const clases = [
   {
     id: 1,
-    nombre: "Pilates Reformer - Lunes 7:00 AM",
+    nombre: "Pilates Studio - Lunes 7:00 AM",
     instructor: "Laura Sanchez",
     diaSemana: "Lunes",
-    tipo: "Pilates Reformer",
+    tipo: "Pilates Studio",
     hora: "07:00",
     disponibles: 8,
     total: 10,

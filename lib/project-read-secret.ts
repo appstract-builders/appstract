@@ -1,7 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 
 export function getProjectReadSecret() {
-  return process.env.APPSTRACT_PROJECT_READ_SECRET ?? "";
+  return process.env.PROJECT_READ_SECRET ?? "";
 }
 
 export function isValidProjectReadToken(token: string | null) {

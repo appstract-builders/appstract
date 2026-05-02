@@ -44,8 +44,8 @@ export default function Brand({
     <div className={`flex items-center ${styles.wrapper} ${className}`.trim()}>
       <div className={`relative shrink-0 ${styles.plane} ${planeClassName}`.trim()}>
         <motion.img
-          src="/appstract.png"
-          alt="appstract"
+          src="/brand-plane.png"
+          alt="Appending"
           className="h-full w-full object-contain backface-hidden transform-[translateZ(0)]"
           loading="eager"
           decoding="async"
@@ -58,15 +58,15 @@ export default function Brand({
       >
         {textContent ?? (
           <>
-            <span className="inline-block text-[#FF8904]">a</span>
+            <span className="inline-block text-[#FF8904]">A</span>
             <span className="inline-block text-[#FF8904]">p</span>
             <span className="inline-block text-[#FF8904]">p</span>
-            <span className="inline-block text-[#9f9e9c]">s</span>
-            <span className="inline-block text-[#9f9e9c]">t</span>
-            <span className="inline-block text-[#9f9e9c]">r</span>
-            <span className="inline-block text-[#9f9e9c]">a</span>
-            <span className="inline-block text-[#9f9e9c]">c</span>
-            <span className="inline-block text-[#9f9e9c]">t</span>
+            <span className="inline-block text-[#9f9e9c]">e</span>
+            <span className="inline-block text-[#9f9e9c]">n</span>
+            <span className="inline-block text-[#9f9e9c]">d</span>
+            <span className="inline-block text-[#9f9e9c]">i</span>
+            <span className="inline-block text-[#9f9e9c]">n</span>
+            <span className="inline-block text-[#9f9e9c]">g</span>
           </>
         )}
       </div>
