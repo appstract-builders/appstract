@@ -28,7 +28,7 @@ const tiers = [
     price: "$28,000 MXN",
     accent:
       "border-[#589bf9]/18 bg-stone-50",
-    extras: ["1 Extra *"],
+    extras: ["1 Servicio *"],
   },
   {
     id: "premium",
@@ -37,7 +37,7 @@ const tiers = [
     accent:
       "border-[#589bf9]/18 bg-stone-50",
     extras: [
-      "3 Extras *",
+      "3 Servicios *",
       "3 Meses de IMIN gratuitos",
       "3 Consultas personalizadas gratuitas",
     ],
