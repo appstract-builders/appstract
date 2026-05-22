@@ -30,7 +30,7 @@ export default function AboutValues() {
         <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#efc99e]">
           Nos define
         </p>
-        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
+        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-5xl">
           Mision, Vision y Valores
         </h2>
       </div>
@@ -47,15 +47,15 @@ export default function AboutValues() {
               delay: index * 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,12,24,0.96),rgba(5,8,17,0.98))] px-5 py-6 shadow-[0_20px_80px_rgba(2,8,23,0.22)]"
+            className="rounded-[2rem] border border-slate-200 bg-white px-5 py-6 shadow-[0_20px_80px_rgba(15,23,42,0.08)]"
           >
-            <p className="text-[0.68rem] uppercase tracking-[0.38em] text-[#FF8904]/72">
+            <p className="text-[0.68rem] uppercase tracking-[0.38em] text-[#071E9C]">
               {card.label}
             </p>
-            <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-white">
+            <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-[#111827]">
               {card.title}
             </h3>
-            <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
+            <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
               {card.description}
             </p>
           </motion.article>

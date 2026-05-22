@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 const WHATSAPP_PHONE = "5512879683";
-const WHATSAPP_MESSAGE = "Buenas tardes, Appending, quisiera conocer mas sobre sus productos.";
+const WHATSAPP_MESSAGE = "Buenas tardes, Appstract, quisiera conocer mas sobre sus productos.";
 const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const HOME_LOADER_DURATION_MS = 4400;
 
@@ -58,17 +58,17 @@ export default function WhatsAppFloat() {
   return (
     <div className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {showLabel ? (
-        <div className="flex justify-center items-center max-w-[16rem] gap-1 rounded-[1.25rem] border border-[#FF8904]/18 bg-[#27251d] p-2 text-right shadow-[0_16px_40px_rgba(0,0,0,0.36)] backdrop-blur-xl animate-bounce">
-          <p className="text-xs uppercase tracking-[0.18em] text-[#e8daa5] pl-2 pt-0.5">
+        <div className="flex justify-center items-center max-w-[16rem] gap-1 rounded-[1.25rem] border border-[#589bf9]/18 bg-blue-300/4 p-2 text-right shadow-[0_16px_40px_rgba(15,23,42,0.12)] backdrop-blur-xl animate-bounce">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#0C6CC6] pl-2 pt-0.5">
           Contáctanos.
           </p>
           <button
             type="button"
             aria-label="Cerrar letrero de WhatsApp"
             onClick={() => setShowLabel(false)}
-            className="mt-0.5 shrink-0 text-[0.65rem] uppercase tracking-[0.24em] text-white/42 transition hover:text-white/72 rounded-full p-0.5 border border-red-300 cursor-pointer"
+            className="mt-0.5 shrink-0 text-[0.65rem] uppercase tracking-[0.24em] text-slate-600 transition hover:text-slate-700 rounded-full p-0.5 border border-red-200 cursor-pointer"
           >
-            <IoClose className="text-red-300" size={12} />
+            <IoClose className="text-red-200" size={12} />
           </button>
         </div>
       ) : null}
@@ -78,7 +78,7 @@ export default function WhatsAppFloat() {
         target="_blank"
         rel="noreferrer"
         aria-label="Contactar por WhatsApp"
-        className="flex h-16 w-16 items-center justify-center rounded-full border border-[#0bdc12]/20 bg-green-950/80 text-[#0bdc12] shadow-green-700 backdrop-blur-xl transition hover:border-green-700/40 hover:bg-[#0b0b12] md:h-20 md:w-20"
+        className="flex h-16 w-16 items-center justify-center rounded-full border border-emerald-500/24 bg-green-500/6 text-emerald-600 shadow-[0_16px_40px_rgba(16,185,129,0.16)] backdrop-blur-xl transition hover:border-emerald-500/40 hover:bg-emerald-50 md:h-20 md:w-20"
       >
         <svg
           aria-hidden="true"

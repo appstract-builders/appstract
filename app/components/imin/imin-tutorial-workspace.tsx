@@ -163,7 +163,7 @@ function EditableText({
     return (
       <div
         className={cn(
-          "relative rounded-[0.4rem] ring-2 ring-[#FF8904]/55 ring-offset-2 ring-offset-transparent",
+          "relative rounded-[0.4rem] ring-2 ring-[#589bf9]/55 ring-offset-2 ring-offset-transparent",
           multiline ? "block" : "inline-grid align-baseline",
         )}
       >
@@ -189,7 +189,7 @@ function EditableText({
           )}
         />
         {isEmpty ? (
-          <p className="absolute left-0 top-full mt-2 text-[0.62rem] uppercase tracking-[0.2em] text-[#ff8904]">
+          <p className="absolute left-0 top-full mt-2 text-[0.62rem] uppercase tracking-[0.2em] text-[#589bf9]">
             recuadro vacio nombralo antes de continuar.
           </p>
         ) : null}
@@ -204,8 +204,8 @@ function EditableText({
       className={cn(
         "rounded-[0.7rem] text-left whitespace-pre-wrap transition outline-none",
         selected
-          ? "ring-2 ring-[#FF8904]/55 ring-offset-2 ring-offset-transparent"
-          : "hover:bg-[#ff8904]/8",
+          ? "ring-2 ring-[#589bf9]/55 ring-offset-2 ring-offset-transparent"
+          : "hover:bg-[#589bf9]/8",
         isEmpty && "italic opacity-55",
         className,
       )}
@@ -238,13 +238,13 @@ function EditableImage({
       onClick={() => onSelect(id)}
       className={cn(
         "absolute inset-0 z-10 flex items-end justify-between rounded-[inherit] bg-[linear-gradient(180deg,rgba(8,10,17,0)_0%,rgba(8,10,17,0.42)_100%)] p-4 text-left transition",
-        selected ? "ring-2 ring-[#FF8904]/70 ring-inset" : "hover:bg-[linear-gradient(180deg,rgba(8,10,17,0.08)_0%,rgba(8,10,17,0.46)_100%)]",
+        selected ? "ring-2 ring-[#589bf9]/70 ring-inset" : "hover:bg-[linear-gradient(180deg,rgba(8,10,17,0.08)_0%,rgba(8,10,17,0.46)_100%)]",
       )}
     >
-      <span className="rounded-full border border-white/14 bg-black/40 px-3 py-1 text-[0.58rem] uppercase tracking-[0.24em] text-white">
+      <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[0.58rem] uppercase tracking-[0.24em] text-[#111827]">
         {label}
       </span>
-      <span className="rounded-full border border-white/14 bg-black/40 px-3 py-1 text-[0.58rem] uppercase tracking-[0.2em] text-white">
+      <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[0.58rem] uppercase tracking-[0.2em] text-[#111827]">
         Cambiar imagen
       </span>
     </button>
@@ -305,7 +305,7 @@ function BodyElementCard({ element }: { element: TutorialElement }) {
       <div className="rounded-[1.5rem] border border-[var(--site-line)] bg-[var(--site-card)] px-5 py-5 text-[var(--site-text)]">
         <p className="text-[0.62rem] uppercase tracking-[0.3em] text-[var(--site-accent)]">{element.title}</p>
         <div className="mt-4 grid gap-4 md:grid-cols-[1.1fr_0.9fr]">
-          <div className="relative aspect-video overflow-hidden rounded-[1.2rem] border border-black/6 bg-black">
+          <div className="relative aspect-video overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white">
             <Image
               src={galleryImages[2]}
               alt={element.title}
@@ -314,7 +314,7 @@ function BodyElementCard({ element }: { element: TutorialElement }) {
               className="object-cover opacity-84"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="rounded-full border border-white/16 bg-black/35 px-4 py-2 text-[0.62rem] uppercase tracking-[0.28em] text-white">
+              <div className="rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-[0.62rem] uppercase tracking-[0.28em] text-[#111827]">
                 Video preview
               </div>
             </div>
@@ -438,24 +438,24 @@ export default function IminTutorialWorkspace({
         className="hidden"
         onChange={handleImageFileChange}
       />
-      <div className="rounded-4xl border border-white/10 bg-white/2 p-3 sm:p-4">
+      <div className="rounded-4xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-[0.62rem] uppercase tracking-[0.34em] text-[#f2c665]">Pagina editable</p>
+            <p className="text-[0.62rem] uppercase tracking-[0.34em] text-[#0C6CC6] font-bold">Pagina editable</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="outline" className="border-white/12 text-white/62">
+            <Badge variant="outline" className="border-slate-200 text-slate-600">
               <Monitor className="mr-2 h-3.5 w-3.5" />
               Home preview
             </Badge>
-            <Badge variant="outline" className="border-white/12 text-white/62">
+            <Badge variant="outline" className="border-slate-200 text-slate-600">
               {publishReady ? "Listo" : "Borrador"}
             </Badge>
           </div>
         </div>
 
         <div
-          className="mx-auto max-w-[84rem] rounded-[2rem] border border-white/10 bg-[var(--site-preview-bg)] p-4 shadow-[0_30px_120px_rgba(0,0,0,0.3)]"
+          className="mx-auto max-w-[84rem] rounded-[2rem] border border-slate-200 bg-[var(--site-preview-bg)] p-4 shadow-[0_30px_120px_rgba(0,0,0,0.3)]"
           style={siteStyle}
         >
           <div className="space-y-4">
@@ -515,7 +515,7 @@ export default function IminTutorialWorkspace({
                     <div
                       className={cn(
                         "inline-flex h-9 items-center justify-center rounded-full px-4 text-[0.62rem] uppercase tracking-[0.22em] transition",
-                        selectedTextId === "nav-cta-1" && "ring-2 ring-[#FF8904]/55 ring-offset-2 ring-offset-transparent",
+                        selectedTextId === "nav-cta-1" && "ring-2 ring-[#589bf9]/55 ring-offset-2 ring-offset-transparent",
                       )}
                       style={{ backgroundColor: palette.colors.accent, color: palette.colors.heroTitle }}
                     >
@@ -567,7 +567,7 @@ export default function IminTutorialWorkspace({
                       editable={imageEditMode}
                       onSelect={handleRequestImageChange}
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,13,20,0.12),rgba(12,13,20,0.58))]" />
+                    <div className="absolute inset-0 bg-white" />
                     <div className="absolute inset-0 flex items-center justify-center px-6">
                       <div className="max-w-2xl rounded-[1.8rem] border border-[var(--site-hero-card-line)] bg-[var(--site-hero-card-bg)] px-6 py-8 text-center backdrop-blur-sm sm:px-10 sm:py-10">
                         <EditableText
@@ -647,7 +647,7 @@ export default function IminTutorialWorkspace({
                         key={id}
                         className={cn(
                           "relative overflow-hidden rounded-[1.4rem] border border-[var(--site-line)] bg-[var(--site-card)]",
-                          selectedImageId === id && imageEditMode && "ring-2 ring-[#FF8904]/70 ring-inset",
+                          selectedImageId === id && imageEditMode && "ring-2 ring-[#589bf9]/70 ring-inset",
                         )}
                       >
                         <div className="relative aspect-[4/3]">
@@ -767,8 +767,8 @@ export default function IminTutorialWorkspace({
                             onClick={(event) => handleIconButtonClick(event, iconId)}
                             className={cn(
                               "rounded-full border border-[var(--site-icon-border)] p-3 transition",
-                              iconEditMode && "hover:bg-white/6",
-                              selectedIconId === iconId && iconEditMode && "ring-2 ring-[#FF8904]/70 ring-offset-2 ring-offset-transparent",
+                              iconEditMode && "hover:bg-slate-100",
+                              selectedIconId === iconId && iconEditMode && "ring-2 ring-[#589bf9]/70 ring-offset-2 ring-offset-transparent",
                             )}
                             disabled={!iconEditMode}
                           >
@@ -777,13 +777,13 @@ export default function IminTutorialWorkspace({
                           {iconEditMode && selectedIconId === iconId ? (
                             <div
                               className={cn(
-                                "absolute left-1/2 z-30 w-44 -translate-x-1/2 rounded-[1.2rem] border border-white/10 bg-[#0b1020] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.35)]",
+                                "absolute left-1/2 z-30 w-44 -translate-x-1/2 rounded-[1.2rem] border border-slate-200 bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.35)]",
                                 iconMenuPlacement === "bottom" ? "top-full mt-3" : "bottom-full mb-3",
                               )}
                             >
                               <div
                                 className={cn(
-                                  "pointer-events-none absolute left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border border-white/10 bg-[#0b1020]",
+                                  "pointer-events-none absolute left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border border-slate-200 bg-white",
                                   iconMenuPlacement === "bottom"
                                     ? "-top-1.5 border-r-0 border-b-0"
                                     : "-bottom-1.5 border-l-0 border-t-0",
@@ -801,8 +801,8 @@ export default function IminTutorialWorkspace({
                                       className={cn(
                                         "flex h-10 w-10 items-center justify-center rounded-full border transition",
                                         activeIconOption === option.id
-                                          ? "border-[#FF8904]/45 bg-[#FF8904]/10 text-white"
-                                          : "border-white/10 bg-white/[0.03] text-white/78 hover:bg-white/[0.06]",
+                                          ? "border-[#589bf9]/45 bg-[#589bf9]/10 text-[#111827]"
+                                          : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100",
                                       )}
                                       aria-label={option.label}
                                       title={option.label}

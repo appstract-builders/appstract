@@ -4,15 +4,15 @@ import { motion, type Variants } from "framer-motion";
 import Brand from "./brand";
 
 const tailLetters = [
-  { letter: "a", className: "text-[#FF8904]" },
-  { letter: "p", className: "text-[#FF8904]" },
-  { letter: "p", className: "text-[#FF8904]" },
-  { letter: "s", className: "text-[#9f9e9c]" },
-  { letter: "t", className: "text-[#9f9e9c]" },
-  { letter: "r", className: "text-[#9f9e9c]" },
-  { letter: "a", className: "text-[#9f9e9c]" },
-  { letter: "c", className: "text-[#9f9e9c]" },
-  { letter: "t", className: "text-[#9f9e9c]" },
+  { letter: "a", className: "text-[#589bf9]" },
+  { letter: "p", className: "text-[#589bf9]" },
+  { letter: "p", className: "text-[#589bf9]" },
+  { letter: "s", className: "text-[#414141]" },
+  { letter: "t", className: "text-[#414141]" },
+  { letter: "r", className: "text-[#414141]" },
+  { letter: "a", className: "text-[#414141]" },
+  { letter: "c", className: "text-[#414141]" },
+  { letter: "t", className: "text-[#414141]" },
 ];
 
 const containerVariants: Variants = {
@@ -29,7 +29,7 @@ const letterVariants: Variants = {
   hidden: {
     opacity: 0,
     x: -10,
-    filter: "blur(8px)",
+    filter: "blur(10px)",
   },
   visible: {
     opacity: 1,
@@ -45,7 +45,7 @@ const letterVariants: Variants = {
 export default function Loader() {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#020611]"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-slate-100"
       initial={{ opacity: 1 }}
       exit={{
         opacity: 0,
@@ -103,13 +103,13 @@ export default function Loader() {
           </motion.div>
         </div>
 
-        <div className="h-px max-w-72 overflow-hidden rounded-full bg-white/10 sm:w-62">
+        <div className="h-0.5 overflow-hidden rounded-full bg-slate-100 w-64 md:w-114 bottom-0 right-0 absolute">
           <motion.div
-            className="h-full w-1/2 bg-linear-to-r from-transparent via-slate-300 to-orange-300"
+            className="h-full w-1/3 bg-linear-to-r from-transparent via-[#589bf9] to-[#525252]"
             initial={{ x: "-100%" }}
             animate={{ x: "200%" }}
             transition={{
-              duration: 1.15,
+              duration: 1,
               repeat: Infinity,
               ease: "easeInOut",
             }}

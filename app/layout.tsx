@@ -20,10 +20,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Appending",
+  title: "Appstract",
   description: "Desarrollamos páginas web para ti",
   keywords: [
-    "Appending",
+    "Appstract",
     "Dev",
     "Tech",
     "Desarrollo",
@@ -42,7 +42,7 @@ export default function RootLayout({
       lang="es"
       className={`${comfortaa.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className={`${comfortaa.className} min-h-full flex flex-col bg-[#020611] text-[#ededed] font-sans`}>
+      <body className={`${comfortaa.className} min-h-full flex flex-col bg-white text-[#111827] font-sans`}>
         <RouteScrollReset />
         <Navbar />
         <WhatsAppFloat />

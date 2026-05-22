@@ -135,7 +135,7 @@ export default function IminTutorial() {
   };
 
   return (
-    <section className="relative left-1/2 min-h-[100svh] w-screen -translate-x-1/2 border-y border-white/8 bg-[linear-gradient(180deg,#040915_0%,#07101f_100%)] text-white">
+    <section className="relative left-1/2 min-h-[100svh] w-screen -translate-x-1/2 border-y border-slate-200 bg-white text-[#111827]">
       <div className="flex min-h-[100svh] flex-col">
         <IminTutorialRibbon
           activeTab={activeTab}

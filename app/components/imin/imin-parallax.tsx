@@ -10,10 +10,10 @@ const imageCards = [
     description:
       "Cambia imagenes que se ajustan al momento que estas viviendo.",
     imageSrc: "/IMIN.png",
-    imageAlt: "Vista base del sitio Appending",
+    imageAlt: "Vista base del sitio Appstract",
     altImageSrc: "/brand-plane.png",
-    altImageAlt: "Vista editable del branding Appending",
-    accent: "from-[#FF8904]/28 via-transparent to-cyan-300/10",
+    altImageAlt: "Vista editable del branding Appstract",
+    accent: "from-[#589bf9]/28 via-transparent to-cyan-300/10",
   },
   {
     label: "Ajusta Textos e Iconos",
@@ -23,7 +23,7 @@ const imageCards = [
     descriptionSuffix: " para adaptar el sitio web.",
     imageSrc: "/IMIN.png",
     imageAlt: "Vista editable de IMIN para personalizar un sitio",
-    accent: "from-cyan-300/22 via-transparent to-[#FF8904]/18",
+    accent: "from-cyan-300/22 via-transparent to-[#589bf9]/18",
   },
 ] as const;
 
@@ -119,11 +119,11 @@ function TypingDescription({
   }, [animated.length, isDeleting, visibleCount]);
 
   return (
-    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78 h-[5.5em]">
+    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-slate-700 h-[5.5em]">
       {prefix}
-      <span className="text-[#fbc557]">{animated.slice(0, visibleCount)}</span>
+      <span className="text-[#0E7EE6]">{animated.slice(0, visibleCount)}</span>
       <motion.span
-        className="ml-px inline-block h-[1em] w-px bg-[#ffe4af] align-[-0.12em]"
+        className="ml-px inline-block h-[1em] w-px bg-[#BCDCFB] align-[-0.12em]"
         animate={{ opacity: [1, 0, 1] }}
         transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -139,45 +139,45 @@ function ParallaxCard({ card, y, rotate, className = "" }: ParallaxCardProps) {
   return (
     <motion.article
       style={{ y, rotate }}
-      className={`relative overflow-hidden rounded-4xl border border-white/12 bg-[linear-gradient(180deg,rgba(8,12,24,0.94),rgba(4,7,16,0.96))] p-4 shadow-[0_24px_90px_rgba(2,8,23,0.34)] backdrop-blur-xl ${className}`.trim()}
+      className={`relative overflow-hidden rounded-4xl border border-slate-200 bg-white p-4 shadow-[0_24px_90px_rgba(15,23,42,0.1)] backdrop-blur-xl ${className}`.trim()}
     >
       <div className={`pointer-events-none absolute inset-0 bg-linear-to-br ${card.accent}`} />
 
       <div className="relative z-10">
         <div className="mb-4 flex items-center justify-between gap-4">
           <div>
-            <p className="text-[0.62rem] uppercase tracking-[0.36em] text-[#fdd66c] pl-1">
+            <p className="text-[0.62rem] uppercase tracking-[0.36em] text-[#0C6CC6] font-extrabold pl-1">
               {card.label}
             </p>
-            <h3 className="mt-3 text-xl font-light tracking-[0.08em] text-white sm:text-2xl">
+            <h3 className="mt-3 text-xl font-light tracking-[0.08em] text-[#111827] sm:text-2xl">
               {card.title}
             </h3>
           </div>
         </div>
 
-        <div className="rounded-[1.6rem] border border-white/8 bg-[#040916]/92 p-3">
+        <div className="rounded-[1.6rem] border border-slate-200 bg-white/92 p-3">
           <div className="mb-3 flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff7f96]/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#ffd76a]/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-[#76ffb0]/80" />
           </div>
 
-          <div className="grid gap-3 rounded-[1.3rem] border border-white/6 bg-[linear-gradient(180deg,rgba(11,17,34,0.96),rgba(7,11,24,0.98))] p-4">
+          <div className="grid gap-3 rounded-[1.3rem] border border-slate-200 bg-white p-4">
             <div className="flex items-center justify-between gap-3">
               <div className="space-y-2">
-                <div className="h-2.5 w-24 rounded-full bg-white/12" />
-                <div className="h-2.5 w-16 rounded-full bg-white/8" />
+                <div className="h-2.5 w-24 rounded-full bg-slate-300" />
+                <div className="h-2.5 w-16 rounded-full bg-slate-100" />
               </div>
-              <div className="rounded-full border border-[#FF8904]/18 bg-[#FF8904]/10 px-3 py-1 text-[0.56rem] uppercase tracking-[0.26em] text-[#fff9bf]">
+              <div className="rounded-full border border-[#589bf9]/18 bg-[#589bf9]/10 px-3 py-1 text-[0.56rem] uppercase tracking-[0.26em] text-[#0C6CC6]">
                 ! Adquierelo !
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-[1.1fr_0.9fr]">
-              <div className="relative min-h-60 overflow-hidden rounded-[1.25rem] border border-white/8 bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.2),transparent_36%),linear-gradient(180deg,rgba(10,14,28,0.98),rgba(5,8,18,1))]">
-                <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-white/6 to-transparent" />
-                <div className="absolute left-4 top-4 h-14 w-32 rounded-2xl border border-white/8 bg-white/5" />
-                <div className="absolute bottom-4 left-4 right-4 h-20 rounded-2xl border border-white/8 bg-white/4" />
+              <div className="relative min-h-60 overflow-hidden rounded-[1.25rem] border border-slate-200 bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.14),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,1))]">
+                <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-black/6 to-transparent" />
+                <div className="absolute left-4 top-4 h-14 w-32 rounded-2xl border border-slate-200 bg-slate-100" />
+                <div className="absolute bottom-4 left-4 right-4 h-20 rounded-2xl border border-slate-200 bg-slate-50" />
                 <div className="absolute inset-0 flex items-center justify-center p-6">
                   {hasAltImage ? (
                     <SwappingPhoto
@@ -202,8 +202,8 @@ function ParallaxCard({ card, y, rotate, className = "" }: ParallaxCardProps) {
               </div>
 
               <div className="grid gap-3">
-                <div className="rounded-[1.2rem] border border-white/8 bg-white/[0.035] p-3">
-                  <div className="text-[0.56rem] uppercase tracking-[0.28em] text-white/44">
+                <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 p-3">
+                  <div className="text-[0.56rem] uppercase tracking-[0.28em] text-slate-600">
                     Cambio
                   </div>
                   {hasTyping ? (
@@ -213,25 +213,25 @@ function ParallaxCard({ card, y, rotate, className = "" }: ParallaxCardProps) {
                       suffix={card.descriptionSuffix}
                     />
                   ) : (
-                    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-white/78 h-18">
+                    <p className="mt-3 text-sm leading-6 tracking-[0.03em] text-slate-700 h-18">
                       {card.description}
                     </p>
                   )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-[1.2rem] border border-white/8 bg-white/3 p-3">
-                    <div className="text-[0.56rem] uppercase tracking-[0.28em] text-white/44">
+                  <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 p-3">
+                    <div className="text-[0.56rem] uppercase tracking-[0.28em] text-slate-600">
                       Texto
                     </div>
-                    <div className="mt-3 h-2.5 w-full rounded-full bg-white/12" />
-                    <div className="mt-2 h-2.5 w-3/4 rounded-full bg-white/8" />
+                    <div className="mt-3 h-2.5 w-full rounded-full bg-slate-300" />
+                    <div className="mt-2 h-2.5 w-3/4 rounded-full bg-slate-100" />
                   </div>
-                  <div className="rounded-[1.2rem] border border-white/8 bg-white/3 p-3">
-                    <div className="text-[0.56rem] uppercase tracking-[0.28em] text-white/44">
+                  <div className="rounded-[1.2rem] border border-slate-200 bg-slate-50 p-3">
+                    <div className="text-[0.56rem] uppercase tracking-[0.28em] text-slate-600">
                       Imagen
                     </div>
-                    <div className="mt-3 h-12 rounded-[0.9rem] bg-linear-to-br from-[#FF8904]/24 to-cyan-300/12" />
+                    <div className="mt-3 h-12 rounded-[0.9rem] bg-linear-to-br from-[#589bf9]/24 to-cyan-300/12" />
                   </div>
                 </div>
               </div>
@@ -258,13 +258,13 @@ export default function IminParallax() {
   return (
     <section ref={sectionRef} className="relative w-full max-w-6xl px-4 py-16 sm:px-6 mb-12">
       <div className="max-w-3xl">
-        <p className="text-[0.68rem] uppercase tracking-[0.42em] text-[#dfd0a3]">
+        <p className="text-[0.68rem] uppercase tracking-[0.42em] text-[#0E7EE6] font-bold">
           UN CAMBIO REAL Y VISUAL
         </p>
-        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
+        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-5xl">
           Adquiere la mensualidad de IMIN
         </h2>
-        <p className="mt-6 max-w-2xl text-sm leading-7 tracking-[0.04em] text-white/72 sm:text-base">
+        <p className="mt-6 max-w-2xl text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
           Con IMIN puedes intervenir el aspecto del sitio sin rehacerlo:
           actualizar textos, mover tono visual y renovar la presentacion para
           que cada cliente conserve una web actualizada durante su mensualidad.

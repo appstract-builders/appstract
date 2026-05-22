@@ -10,12 +10,12 @@ const footerLinks = [
 
 export default function SiteFooter() {
   return (
-    <footer className="w-full border-t border-white/8 bg-black">
+    <footer className="w-full border-t border-slate-200 bg-white">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-4">
             <Brand size="sm" />
-            <p className="max-w-md text-sm leading-7 tracking-[0.04em] text-white/58">
+            <p className="max-w-md text-sm leading-7 tracking-[0.04em] text-slate-600">
               - Build your digital presence anywhere.
             </p>
           </div>
@@ -25,7 +25,7 @@ export default function SiteFooter() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#f9eab1] transition-opacity hover:opacity-75"
+                className="text-[0.72rem] uppercase tracking-[0.34em] text-[#0C6CC6] transition-opacity hover:opacity-75"
               >
                 {link.label}
               </a>
@@ -33,7 +33,7 @@ export default function SiteFooter() {
           </nav>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/6 pt-5 text-[0.68rem] uppercase tracking-[0.28em] text-white/34 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-slate-200 pt-5 text-[0.68rem] uppercase tracking-[0.28em] text-slate-600 sm:flex-row sm:items-center sm:justify-between">
           <p>Precencia Digital.</p>
           <p>Consulta nuestro aviso de privacidad para obtener más información sobre cómo recopilamos y utilizamos tu información personal.</p>
         </div>

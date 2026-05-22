@@ -45,7 +45,7 @@ export default function Brand({
       <div className={`relative shrink-0 ${styles.plane} ${planeClassName}`.trim()}>
         <motion.img
           src="/brand-plane.png"
-          alt="Appending"
+          alt="Appstract"
           className="h-full w-full object-contain backface-hidden transform-[translateZ(0)]"
           loading="eager"
           decoding="async"
@@ -58,15 +58,15 @@ export default function Brand({
       >
         {textContent ?? (
           <>
-            <span className="inline-block text-[#FF8904]">A</span>
-            <span className="inline-block text-[#FF8904]">p</span>
-            <span className="inline-block text-[#FF8904]">p</span>
-            <span className="inline-block text-[#9f9e9c]">e</span>
-            <span className="inline-block text-[#9f9e9c]">n</span>
-            <span className="inline-block text-[#9f9e9c]">d</span>
-            <span className="inline-block text-[#9f9e9c]">i</span>
-            <span className="inline-block text-[#9f9e9c]">n</span>
-            <span className="inline-block text-[#9f9e9c]">g</span>
+            <span className="inline-block text-[#589bf9]">A</span>
+            <span className="inline-block text-[#589bf9]">p</span>
+            <span className="inline-block text-[#589bf9]">p</span>
+            <span className="inline-block text-[#414141]">s</span>
+            <span className="inline-block text-[#414141]">t</span>
+            <span className="inline-block text-[#414141]">r</span>
+            <span className="inline-block text-[#414141]">a</span>
+            <span className="inline-block text-[#414141]">c</span>
+            <span className="inline-block text-[#414141]">t</span>
           </>
         )}
       </div>

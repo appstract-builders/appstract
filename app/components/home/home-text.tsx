@@ -5,10 +5,10 @@ import IminMark from "../imin/imin-mark";
 
 const textRows = [
   "PERSONALIZA  TEXTO  IMAGEN  IDENTIDAD",
-  "TIPOGRAFIA  CONTENIDO  TEXTO  Appending",
+  "TIPOGRAFIA  CONTENIDO  TEXTO  APPSTRACT",
   "EDITOR  COLORES  TEXTO  PERSONALIZA",
   "TEXTO  MENSAJES  IDENTIDAD  TEXTO  UI",
-  "Appending  IDENTIDAD  COLORES  TEXTO",
+  "APPSTRACT  IDENTIDAD  COLORES  TEXTO",
   "MENSAJES  CONTENIDO  DISENO  WEB IDENTIDAD",
   "PRODUCTO  PERSONALIZA  TEXTO  UI IMIN",
   "EDITOR  MENSAJES  TEXTO  MARCA IDENTIDAD",
@@ -74,7 +74,7 @@ export default function HomeText({
 }: HomeTextProps) {
   return (
     <section
-      className={`relative flex min-h-[144vh] w-full max-w-none items-center justify-center overflow-hidden rounded-[2.25rem] bg-[#050a18]/35 px-4 py-12 backdrop-blur-sm sm:px-10 ${className}`.trim()}
+      className={`relative flex min-h-[144vh] w-full max-w-none items-center justify-center overflow-hidden rounded-[2.25rem] bg-slate-50/80 px-4 py-12 backdrop-blur-sm sm:px-10 ${className}`.trim()}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(103,232,249,0.08),transparent_34%),radial-gradient(circle_at_center,rgba(168,85,247,0.08),transparent_58%)]" />
 
@@ -93,7 +93,7 @@ export default function HomeText({
         <TextStrip
           text={textRows[2]}
           duration={32}
-          opacityClass="text-slate-100/10"
+          opacityClass="text-slate-500/10"
         />
         <TextStrip
           text={textRows[3]}
@@ -111,7 +111,7 @@ export default function HomeText({
           text={textRows[5]}
           duration={40}
           reverse
-          opacityClass="text-slate-300/8 sm:hidden"
+          opacityClass="text-slate-700/8 sm:hidden"
           className="sm:hidden"
         />
         <TextStrip
@@ -124,7 +124,7 @@ export default function HomeText({
           text={textRows[7]}
           duration={42}
           reverse
-          opacityClass="text-white/6 sm:hidden"
+          opacityClass="text-slate-400/20 sm:hidden"
           className="sm:hidden"
         />
       </div>
@@ -138,11 +138,11 @@ export default function HomeText({
             duration: 0.6,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="relative z-10 mx-4 w-[calc(100%-2rem)] max-w-4xl rounded-[1.75rem] border border-white/12 bg-[#081121]/78 px-4 py-5 shadow-[0_18px_80px_rgba(2,8,23,0.42)] backdrop-blur-xl sm:mx-0 sm:w-full sm:px-6 sm:py-6 cursor-pointer"
+          className="relative z-10 mx-4 w-[calc(100%-2rem)] max-w-4xl rounded-[1.75rem] border border-slate-200 bg-white/88 px-4 py-5 shadow-[0_18px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:mx-0 sm:w-full sm:px-6 sm:py-6 cursor-pointer"
         >
           <div className="grid gap-4 text-center sm:grid-cols-[auto_1fr] sm:items-center sm:gap-5 sm:text-left">
             <IminMark className="mx-auto h-14 w-14 shrink-0 sm:mx-0 sm:h-20 sm:w-20" />
-            <p className="mx-auto max-w-[34ch] text-sm leading-6 tracking-[0.03em] text-white/88 sm:mx-0 sm:max-w-2xl sm:text-base sm:leading-7 sm:tracking-[0.04em]">
+            <p className="mx-auto max-w-[34ch] text-sm leading-6 tracking-[0.03em] text-slate-900 sm:mx-0 sm:max-w-2xl sm:text-base sm:leading-7 sm:tracking-[0.04em]">
               Administra tu contenido, personaliza tu identidad y da vida a tus
               mensajes con IMIN, la herramienta para diseñar tu página web sin
               programar y gestionar tamaños, imágenes y textos.

@@ -61,25 +61,25 @@ export default function IminTutorialRibbon({
   const paletteTab = activeTab === "paleta";
 
   return (
-    <header className="border-b border-white/8 bg-[#060c18]/94 backdrop-blur-xl">
+    <header className="border-b border-slate-200 bg-white/94 backdrop-blur-xl">
       <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
         <div>
-          <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#f2c665]">
+          <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#0C6CC6] font-bold">
             IMIN Demo
           </p>
-          <h2 className="mt-2 text-2xl font-light tracking-[0.08em] text-white sm:text-3xl">
+          <h2 className="mt-2 text-2xl font-light tracking-[0.08em] text-[#111827] sm:text-3xl">
             IMIN - Edita tus contenidos
           </h2>
         </div>
 
-        <Badge variant="outline" className="border-white/12 text-white/62">
+        <Badge variant="outline" className="border-slate-200 text-slate-600">
           Opciones
         </Badge>
       </div>
 
-      <div className="border-t border-white/8 px-4 py-3 sm:px-6">
+      <div className="border-t border-slate-200 px-4 py-3 sm:px-6">
         <div className="overflow-x-auto">
-          <div className="flex min-w-max items-center gap-2 rounded-[1.2rem] border border-white/10 bg-white/[0.03] p-1">
+          <div className="flex min-w-max items-center gap-2 rounded-[1.2rem] border border-slate-200 bg-slate-50 p-1">
             {tutorialTabs.map((tab) => (
               <Button
                 key={tab.id}
@@ -87,7 +87,7 @@ export default function IminTutorialRibbon({
                 size="sm"
                 className={cn(
                   "h-10 rounded-[0.95rem] px-4 text-[0.62rem]",
-                  tab.id !== activeTab && "text-white/64 hover:bg-white/[0.05]",
+                  tab.id !== activeTab && "text-slate-600 hover:bg-slate-100",
                 )}
                 onClick={() => onTabChange(tab.id)}
               >
@@ -98,7 +98,7 @@ export default function IminTutorialRibbon({
         </div>
       </div>
 
-      <div className="border-t border-white/8 px-4 py-3 sm:px-6">
+      <div className="border-t border-slate-200 px-4 py-3 sm:px-6">
         <div className="overflow-x-auto">
           <div className="flex min-w-max items-stretch gap-3">
             {currentTab.tools.map((tool) => {
@@ -110,21 +110,21 @@ export default function IminTutorialRibbon({
                   type="button"
                   onClick={() => onToolChange(tool.id)}
                   className={cn(
-                    "min-w-[15rem] rounded-[1.15rem] border px-4 py-3 text-left transition",
+                    "min-w-60 rounded-[1.15rem] border px-4 py-3 text-left transition",
                     activeTool === tool.id
-                      ? "border-[#FF8904]/38 bg-[#FF8904]/8"
-                      : "border-white/10 bg-white/[0.03] hover:bg-white/[0.05]",
+                      ? "border-[#589bf9]/8 bg-[#589bf9]/8"
+                      : "border-slate-200 bg-slate-50 hover:bg-slate-100",
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="rounded-full border border-white/10 bg-white/[0.04] p-2 text-white/72">
+                    <div className="rounded-full border border-slate-200 bg-slate-50 p-2 text-slate-700">
                       <Icon className="h-4 w-4" />
                     </div>
                     <div>
-                      <p className="text-[0.62rem] uppercase tracking-[0.3em] text-[#f2c665]">
+                      <p className="text-[0.62rem] uppercase tracking-[0.3em] text-[#0C6CC6] font-bold">
                         {currentTab.label}
                       </p>
-                      <p className="mt-2 text-sm tracking-[0.04em] text-white">{tool.label}</p>
+                      <p className="mt-2 text-sm tracking-[0.04em] text-[#111827]">{tool.label}</p>
                     </div>
                   </div>
                   {paletteTab ? (
@@ -132,13 +132,13 @@ export default function IminTutorialRibbon({
                       {palettePresets[tool.id as PalettePreset].swatches.map((swatch: string) => (
                         <span
                           key={swatch}
-                          className="h-6 w-6 rounded-full border border-white/12"
+                          className="h-6 w-6 rounded-full border border-slate-200"
                           style={{ backgroundColor: swatch }}
                         />
                       ))}
                     </div>
                   ) : null}
-                  <p className="mt-3 text-xs leading-5 text-white/56">{tool.description}</p>
+                  <p className="mt-3 text-xs leading-5 text-slate-600">{tool.description}</p>
                 </button>
               );
             })}

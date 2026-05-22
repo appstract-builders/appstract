@@ -33,41 +33,41 @@ export default function HomeAbout() {
       }}
       className="w-full max-w-6xl px-4 py-16 sm:px-6"
     >
-      <div className="overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(9,11,25,0.92),rgba(5,8,19,0.94))] shadow-[0_24px_90px_rgba(2,8,23,0.28)]">
+      <div className="overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-[0_24px_90px_rgba(15,23,42,0.08)]">
         <div className="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div>
-            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]">
-              Appending
+            <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#0C6CC6] font-extrabold">
+              A TU MANERA
             </p>
-            <h2 className="mt-4 max-w-[12ch] text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
+            <h2 className="mt-4 max-w-[12ch] text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-5xl">
               Somos tu Destino Digital.
             </h2>
-            <p className="mt-6 max-w-2xl text-sm leading-7 tracking-[0.04em] text-white/72 sm:text-base">
+            <p className="mt-6 max-w-2xl text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
               Enfoque en el pequeño detalle, impacto en el resultado. Sitios web a tu medida, sin complicaciones ni plantillas predefinidas. Diseñamos y construimos tu presencia digital con identidad propia, cuidando cada aspecto para que refleje la esencia de tu marca.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-[1.6rem] border border-[#FF8904]/16 bg-[#FF8904]/6 px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#e69e0d]">
+              <div className="rounded-[1.6rem] border border-[#589bf9]/16 bg-[#589bf9]/6 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#0E7EE6]">
                   Enfoque
                 </p>
-                <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
+                <p className="mt-3 text-lg font-light tracking-[0.08em] text-[#111827]">
                   Crecer tu marca y acompañarte en el vuelo.
                 </p>
               </div>
-              <div className="rounded-[1.6rem] border border-amber-300/14 bg-amber-300/5 px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-amber-100/70">
+              <div className="rounded-[1.6rem] border border-slate-200/14 bg-[#589bf9]/6 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#0E7EE6]">
                   Creación
                 </p>
-                <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
+                <p className="mt-3 text-lg font-light tracking-[0.08em] text-[#111827]">
                   Productos digitales que tienen intención.
                 </p>
               </div>
-              <div className="rounded-[1.6rem] border border-slate-700 bg-slate-800/30 px-4 py-4">
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-slate-600">
+              <div className="rounded-[1.6rem] border border-slate-200/14 bg-[#589bf9]/6 px-4 py-4">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#0E7EE6]">
                   Presencia
                 </p>
-                <p className="mt-3 text-lg font-light tracking-[0.08em] text-white">
+                <p className="mt-3 text-lg font-light tracking-[0.08em] text-[#111827]">
                   Obten crecimiento y resultados reales.
                 </p>
               </div>
@@ -86,15 +86,15 @@ export default function HomeAbout() {
                   delay: index * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="rounded-[1.75rem] border border-white/10 bg-white/[0.035] px-5 py-5 backdrop-blur-sm"
+                className="rounded-[1.75rem] border border-slate-200 bg-white px-5 py-5 backdrop-blur-sm"
               >
-                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-[#cfbef2]">
+                <p className="text-[0.62rem] uppercase tracking-[0.38em] text-blue-600">
                   {index + 1}
                 </p>
-                <h3 className="mt-3 text-xl font-light tracking-[0.08em] text-white">
+                <h3 className="mt-3 text-xl font-light tracking-[0.08em] text-[#111827]">
                   {point.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 tracking-[0.04em] text-white/68">
+                <p className="mt-3 text-sm leading-7 tracking-[0.04em] text-slate-700">
                   {point.description}
                 </p>
               </motion.article>

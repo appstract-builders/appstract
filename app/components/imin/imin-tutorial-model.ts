@@ -93,7 +93,7 @@ export const palettePresets: Record<
   neutral: {
     label: "Neutral",
     description: "Base editorial clara con acento calido para interfaces limpias.",
-    swatches: ["#ebe7dc", "#171717", "#ff8904"],
+    swatches: ["#ebe7dc", "#171717", "#589bf9"],
     colors: {
       previewBg: "#ebe7dc",
       line: "rgba(80, 71, 54, 0.14)",
@@ -109,7 +109,7 @@ export const palettePresets: Record<
       heroEyebrow: "#f9d36d",
       heroTitle: "#ffffff",
       heroBody: "rgba(255, 255, 255, 0.78)",
-      accent: "#ff8904",
+      accent: "#589bf9",
       accentSoft: "rgba(255, 137, 4, 0.12)",
       accentInk: "#a14d00",
       footerBg: "#0a1020",

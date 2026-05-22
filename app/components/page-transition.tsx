@@ -15,7 +15,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        className="min-h-full bg-[#020611]"
+        className="min-h-full bg-white"
         initial={{ opacity: 0.985 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0.985 }}

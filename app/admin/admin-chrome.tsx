@@ -69,16 +69,16 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
   }
 
   return (
-    <div className="flex min-h-screen w-full bg-[#020611] text-foreground">
+    <div className="flex min-h-screen w-full bg-white text-foreground">
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-72 border-r border-border bg-[linear-gradient(180deg,rgba(8,12,24,0.98),rgba(4,7,16,0.98))] px-4 py-6 transition-transform lg:static lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-72 border-r border-border bg-white px-4 py-6 transition-transform lg:static lg:translate-x-0",
           menuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-[0.65rem] uppercase tracking-[0.34em] text-primary/80">Appending</p>
+            <p className="text-[0.65rem] uppercase tracking-[0.34em] text-primary/80">Appstract</p>
             <p className="mt-2 text-sm uppercase tracking-[0.22em] text-foreground/80">Panel interno</p>
           </div>
           <button
@@ -110,8 +110,8 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
                       className={cn(
                         "rounded-2xl border px-3 py-2 text-sm uppercase tracking-[0.18em] transition",
                         active
-                          ? "border-primary/35 bg-primary/12 text-[#ffebb8]"
-                          : "border-white/8 bg-white/[0.03] text-white/72 hover:bg-white/[0.06]",
+                          ? "border-primary/35 bg-primary/12 text-[#0C6CC6]"
+                          : "border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100",
                       )}
                     >
                       {item.label}
@@ -123,9 +123,9 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
           ))}
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-[#020611]/95 p-4">
+        <div className="absolute bottom-0 left-0 right-0 border-t border-border bg-white/95 p-4">
           <p className="text-xs tracking-[0.06em] text-muted-foreground">{name ?? email}</p>
-          <p className="text-[0.72rem] tracking-[0.04em] text-white/55">{email}</p>
+          <p className="text-[0.72rem] tracking-[0.04em] text-slate-600">{email}</p>
           <Button type="button" variant="outline" className="mt-3 w-full text-xs" onClick={onSignOut}>
             Cerrar sesion
           </Button>
@@ -136,13 +136,13 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
         <button
           type="button"
           aria-label="Cerrar menu"
-          className="fixed inset-0 z-30 bg-black/60 lg:hidden"
+          className="fixed inset-0 z-30 bg-slate-500 lg:hidden"
           onClick={() => setMenuOpen(false)}
         />
       ) : null}
 
       <div className="flex min-h-screen flex-1 flex-col lg:pl-0">
-        <header className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-[#020611]/90 px-4 py-4 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-white/90 px-4 py-4 backdrop-blur sm:px-6">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -155,7 +155,7 @@ export function AdminChrome({ email, name, children }: AdminChromeProps) {
           </div>
           <Link
             href="/"
-            className="text-[0.65rem] uppercase tracking-[0.26em] text-white/45 transition hover:text-white/72"
+            className="text-[0.65rem] uppercase tracking-[0.26em] text-slate-600 transition hover:text-slate-700"
           >
             Ir al sitio
           </Link>

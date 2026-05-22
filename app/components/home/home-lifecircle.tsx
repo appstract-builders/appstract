@@ -42,19 +42,19 @@ export default function HomeLifecircle() {
       className="w-full max-w-6xl px-4 pb-20 pt-10 sm:px-6"
     >
       <div className="max-w-3xl">
-        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#FF8904]/72">
+        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#071E9C]">
           Ciclo de vida
         </p>
-        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
+        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-5xl">
           Crecemos contigo
         </h2>
-        <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
+        <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
           Nuestro flujo de trabajo te acompaña en cada etapa, desde el diseño inicial hasta el mantenimiento continuo. Nos aseguramos de que tu sitio web evolucione contigo, adaptándose a tus necesidades y objetivos a medida que creces.
         </p>
       </div>
 
       <div className="relative mt-10">
-        <div className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-[#FF8904]/70 via-cyan-300/28 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
+        <div className="absolute left-5 top-0 h-full w-px bg-linear-to-b from-[#0E7EE6]/70 via-stone-300 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
 
         <div className="grid gap-6">
           {processSteps.map((step, index) => {
@@ -86,20 +86,20 @@ export default function HomeLifecircle() {
                 <div className="hidden sm:block" />
 
                 <div
-                  className={`relative ml-14 rounded-[1.9rem] border border-white/10 bg-white/[0.035] px-5 py-5 backdrop-blur-sm sm:ml-0 sm:max-w-120 ${
+                  className={`relative ml-14 rounded-[1.9rem] border border-slate-200 bg-slate-50/20 px-5 py-5 backdrop-blur-sm sm:ml-0 sm:max-w-120 ${
                     isRight ? "sm:mr-auto" : "sm:ml-auto"
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 min-h-8 min-w-8 shrink-0 aspect-square items-center justify-center rounded-full border border-[#FF8904]/22 bg-[#1f1d19]/10 text-[0.62rem] uppercase tracking-[0.16em] text-[#ffe9ca] shadow-slate-300 sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10 sm:min-h-10 sm:min-w-10 pt-1">
+                    <div className="flex h-8 w-8 min-h-8 min-w-8 shrink-0 aspect-square items-center justify-center rounded-full border border-[#589bf9]/22 bg-blue-50/10 text-[0.62rem] uppercase tracking-[0.16em] text-[#0C6CC6] shadow-slate-300 sm:left-auto sm:right-[-2.85rem] sm:h-10 sm:w-10 sm:min-h-10 sm:min-w-10 pt-1">
                       {step.step}
                     </div>
-                    <h6 className="text-2xl font-light tracking-[0.08em] text-white">
+                    <h6 className="text-2xl font-light tracking-[0.08em] text-[#111827]">
                       {step.title}
                     </h6>
                   </div>
 
-                  <p className="mt-4 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
+                  <p className="mt-4 text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
                     {step.description}
                   </p>
                 </div>

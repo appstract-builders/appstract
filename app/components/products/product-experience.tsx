@@ -19,7 +19,7 @@ const prototypeSites = [
     type: "Club Deportivo Integral",
     description:
       "Con clases de salón, gimnasio y alberca que brinda a sus clientes la mejor experiencia.",
-    accent: "from-[#FF8904]/24 via-transparent to-cyan-300/12",
+    accent: "from-[#589bf9]/24 via-transparent to-cyan-300/12",
     logoSrc: LAKE_SPORT_LOGO,
     logoAlt: "Lake Sport Club logo",
     href: LAKE_SPORT_URL,
@@ -29,7 +29,7 @@ const prototypeSites = [
     type: "Refaccionaria de Autopartes",
     description:
       "E-commerce con un catalogo de productos automotrices, dando una excelencia en autopartes al consumidor.",
-    accent: "from-cyan-300/18 via-transparent to-[#FF8904]/16",
+    accent: "from-cyan-300/18 via-transparent to-[#589bf9]/16",
     logoSrc: REFAUTOMEX_LOGO,
     logoAlt: "Lake Sport Club logo",
     href: REFAUTOMEX_URL,
@@ -39,7 +39,7 @@ const prototypeSites = [
     type: "Equipo Médico Profesional",
     description:
       "E-commerce dedicado a la venta de equipo médico profesional, ofrecen innovación, calidad y servicio.",
-    accent: "from-fuchsia-300/16 via-transparent to-[#FF8904]/18",
+    accent: "from-fuchsia-300/16 via-transparent to-[#589bf9]/18",
     logoSrc: PULSETY_LOGO,
     logoAlt: "Lake Sport Club logo",
     href: PULSETY_URL,
@@ -50,14 +50,14 @@ export default function ProductExperience() {
   return (
     <section className="w-full max-w-6xl px-4 pb-20 pt-6 sm:px-6 sm:pb-24">
       <div className="mb-8 max-w-3xl">
-        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#ffc404]">
-          Conoce Appending en acción
+        <p className="text-[0.7rem] uppercase tracking-[0.45em] text-[#0C6CC6] font-bold">
+          Conoce Appstract en acción
         </p>
-        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-5xl">
+        <h2 className="mt-4 text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-5xl">
           Sitios web que nos respaldan
         </h2>
-        <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-white/70 sm:text-base">
-          Mira los diseños de sitios que nuestros clientes han lanzado con Appending, cada uno con su propia identidad y propósito:
+        <p className="mt-5 text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
+          Mira los diseños de sitios que nuestros clientes han lanzado con Appstract, cada uno con su propia identidad y propósito:
         </p>
       </div>
 
@@ -73,25 +73,25 @@ export default function ProductExperience() {
               delay: index * 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="overflow-hidden rounded-4xl border border-white/10 bg-[linear-gradient(180deg,rgba(8,12,24,0.96),rgba(4,7,16,0.98))] shadow-[0_20px_80px_rgba(2,8,23,0.24)]"
+            className="overflow-hidden rounded-4xl border border-slate-200 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.08)]"
           >
             <div className={`h-52 bg-linear-to-br ${site.accent} p-4`}>
-              <div className="h-full rounded-3xl border border-white/8 bg-[linear-gradient(180deg,rgba(10,14,28,0.98),rgba(5,8,18,1))] p-4">
+              <div className="h-full rounded-3xl border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,1))] p-4">
                 <div className="mb-3 flex items-center gap-2">
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ff7f96]/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#ffd76a]/80" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#76ffb0]/80" />
                 </div>
                 <div className="space-y-3">
-                  <div className="h-3 w-24 rounded-full bg-white/14" />
-                  <div className="h-8 rounded-[0.8rem] bg-white/6" />
+                  <div className="h-3 w-24 rounded-full bg-slate-300" />
+                  <div className="h-8 rounded-[0.8rem] bg-slate-100" />
                   <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
-                    <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.24),transparent_34%),linear-gradient(180deg,rgba(11,17,34,0.96),rgba(7,11,24,0.98))]">
-                      <div className="absolute inset-0 bg-white/90" />
-                      <div className="absolute inset-x-3 top-3 h-4 rounded-full bg-white/8" />
-                      <div className="absolute left-3 top-10 h-8 w-[58%] rounded-[0.9rem] border border-white/8 bg-white/5" />
-                      <div className="absolute bottom-3 left-3 h-7 w-12 rounded-[0.9rem] bg-white/6" />
-                      <div className="absolute bottom-3 right-3 h-7 w-16 rounded-[0.9rem] bg-white/5" />
+                    <div className="relative overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(128,82,221,0.14),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.96),rgba(248,250,252,0.98))]">
+                      <div className="absolute inset-0 bg-white/72" />
+                      <div className="absolute inset-x-3 top-3 h-4 rounded-full bg-slate-100" />
+                      <div className="absolute left-3 top-10 h-8 w-[58%] rounded-[0.9rem] border border-slate-200 bg-slate-100" />
+                      <div className="absolute bottom-3 left-3 h-7 w-12 rounded-[0.9rem] bg-slate-100" />
+                      <div className="absolute bottom-3 right-3 h-7 w-16 rounded-[0.9rem] bg-slate-100" />
                       <a
                         href={site.href}
                         target="_blank"
@@ -121,8 +121,8 @@ export default function ProductExperience() {
                       </a>
                     </div>
                     <div className="grid gap-3">
-                      <div className="h-10 rounded-[0.9rem] bg-white/5" />
-                      <div className="h-10 rounded-[0.9rem] bg-white/5" />
+                      <div className="h-10 rounded-[0.9rem] bg-slate-100" />
+                      <div className="h-10 rounded-[0.9rem] bg-slate-100" />
                     </div>
                   </div>
                 </div>
@@ -133,10 +133,10 @@ export default function ProductExperience() {
               <p className="text-[0.62rem] uppercase tracking-[0.36em] text-[#eaa24a]">
                 {site.type}
               </p>
-              <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-white">
+              <h3 className="mt-4 text-2xl font-light tracking-[0.08em] text-[#111827]">
                 {site.name}
               </h3>
-              <p className="mt-4 text-sm leading-7 tracking-[0.04em] text-white/70">
+              <p className="mt-4 text-sm leading-7 tracking-[0.04em] text-slate-700">
                 {site.description}
               </p>
             </div>

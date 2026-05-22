@@ -69,10 +69,10 @@ export default async function AdminCatchAllPage({ params }: AdminCatchAllPagePro
 
   return (
     <section className="mx-auto w-full max-w-5xl space-y-4">
-      <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(8,12,24,0.96),rgba(4,7,16,0.98))] px-5 py-8 shadow-[0_24px_90px_rgba(2,8,23,0.28)] sm:px-8 sm:py-10">
-        <p className="text-[0.7rem] uppercase tracking-[0.42em] text-[#FF8904]/72">{entry.title}</p>
-        <h1 className="mt-4 text-3xl font-light tracking-[0.08em] text-white sm:text-4xl">{entry.title}</h1>
-        <p className="mt-4 max-w-3xl text-sm leading-7 tracking-[0.04em] text-white/68 sm:text-base">
+      <div className="rounded-[2rem] border border-slate-200 bg-white px-5 py-8 shadow-[0_24px_90px_rgba(15,23,42,0.08)] sm:px-8 sm:py-10">
+        <p className="text-[0.7rem] uppercase tracking-[0.42em] text-[#071E9C]">{entry.title}</p>
+        <h1 className="mt-4 text-3xl font-light tracking-[0.08em] text-[#111827] sm:text-4xl">{entry.title}</h1>
+        <p className="mt-4 max-w-3xl text-sm leading-7 tracking-[0.04em] text-slate-700 sm:text-base">
           {entry.subtitle}
         </p>
       </div>
